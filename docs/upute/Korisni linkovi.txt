@@ -1,0 +1,2 @@
+GitHub issues tutorial: https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/quickstart
+Basic Git naredbe cheetsheet: https://docs.google.com/document/d/139eaSmyQQrsj4r3LpqniviFFow0VVQjdTuLOBzF3qx4/edit?usp=sharing
