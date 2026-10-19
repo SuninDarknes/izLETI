@@ -90,6 +90,33 @@ Jedna osoba moze imati vise uloga, jednu ulogu moze imati vise ljudi :) Previse 
 - Drazen Grguric
 - Cubek Luka
 
+## Routes
+
+#### GET
+**/** pocetna
+**/events** popis (i pretrazivanje) dogadaja
+**/events/:id** pregled jednog dogadaja
+**/events/:id/reserve** obrazac za rezervaciju
+**/reservations** popis rezervacija
+**/reservations/:id** pregled rezervacije (i karta za pracenje izleta ako je izlet u tijeku?)
+
+**/activites** aktivnosti
+**/activites/:id**
+**/activites/:id/edit**
+**/activites/add**
+**/trips** izleti
+**/trips/:id**
+**/trips/:id/edit**
+**/trips/add**
+**/events** dogadaji
+**/events/:id**
+**/events/:id/edit**
+**/events/add**
+
+**/admin** stranica za dodjeljivanje uloga
+**/dashboard** stranica za statistike
+
+
 ## TODO prvi tjedan (ubuduce kroz GitHub issues ali jos nemamo to :)
 - procitati upute **(svi)**
 - dodati profesora i asistenta i sve nas u GitHub **(Gotal)**
