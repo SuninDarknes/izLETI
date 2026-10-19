@@ -3,8 +3,8 @@ import { Request, Response, Router } from "express";
 const router: Router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-    // res.render("");
-    return res.sendStatus(200);
+    res.render("event");
+    //return res.sendStatus(200);
 });
 
 

@@ -1,18 +1,46 @@
-import express, { Request, Response } from "express";
+
+
+
+
+
+import express, {Request, Response} from "express";
+import path from "node:path";
+import session from "express-session";
 import { checkDb } from "./connect.js";
+import homeRouter from "./routes/home.routes";
+import activitiesRouter from "./routes/activites.routes";
+import eventsRouter from "./routes/events.routes";
+import reservationsRouter from "./routes/reservations.routes";
+import tripsRouter from "./routes/trips.routes";
 
 const app = express();
-const port = Number(process.env.PORT ?? 3000);
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello World");
-});
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(
+    session({
+        secret: "izLET",
+        resave: false,
+        saveUninitialized: true,
+    }),
+);
+
+app.use("/", homeRouter);
+app.use("/activites", activitiesRouter);
+app.use("/events", eventsRouter);
+app.use("/reservations", reservationsRouter);
+app.use("/trips", tripsRouter);
 
 app.get("/health", async (req: Request, res: Response) => {
     const ok = await checkDb();
     res.status(ok ? 200 : 503).json({ status: ok ? "ok" : "error" });
 });
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+const PORT = 8080;
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}!`);
 });
