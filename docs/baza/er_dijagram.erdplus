@@ -396,8 +396,8 @@
           "label": "TripAddon",
           "sourceEntityDetails": {
             "id": "a5a22725-b66e-4da9-aa1b-456ef0f4bcc4",
-            "minCardinality": "Mandatory",
-            "maxCardinality": "One"
+            "minCardinality": "Optional",
+            "maxCardinality": "Many"
           },
           "targetEntityDetails": {
             "id": "f8d0eb7e-aa62-4741-bc80-ea2d412d5a13",
@@ -812,8 +812,8 @@
         "target": "a5a22725-b66e-4da9-aa1b-456ef0f4bcc4",
         "data": {
           "id": "8b93b28c-8f05-451f-ae91-0f91dcb522e2->a5a22725-b66e-4da9-aa1b-456ef0f4bcc4",
-          "minCardinality": "Mandatory",
-          "maxCardinality": "One"
+          "minCardinality": "Optional",
+          "maxCardinality": "Many"
         }
       },
       {
@@ -961,18 +961,18 @@
       }
     ],
     "viewport": {
-      "x": -180.89888199176153,
-      "y": 80.74572493474687,
-      "zoom": 0.8800853139828687
+      "x": 53.33755016466398,
+      "y": 256.0132077250994,
+      "zoom": 1
     }
   },
-  "name": "izLETI",
+  "name": "er_dijagram",
   "folder": {
     "name": "Diagrams",
     "folderType": 1,
     "depth": 0,
-    "id": 473098
+    "id": 474575
   },
-  "id": 684490,
-  "updatedAtTimestamp": 1792489982
+  "id": 685612,
+  "updatedAtTimestamp": 1792515748
 }

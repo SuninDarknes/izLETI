@@ -1,0 +1,187 @@
+CREATE TABLE USERS
+(
+  id INT NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  googleId VARCHAR(255) NOT NULL,
+  phone VARCHAR(20),
+  createdAt TIMESTAMPTZ NOT NULL,
+  fullName VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (email),
+  UNIQUE (googleId)
+);
+
+CREATE TABLE ROLES
+(
+  id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
+
+CREATE TABLE TRIPS
+(
+  id INT NOT NULL,
+  name VARCHAR(150) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  durationMinutes INT NOT NULL,
+  meetingPoint VARCHAR(150) NOT NULL,
+  maxParticipants INT NOT NULL,
+  basePrice NUMERIC(10,2) NOT NULL,
+  createdAt TIMESTAMPTZ NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE EVENTSTATES
+(
+  id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
+
+CREATE TABLE EVENTS
+(
+  id INT NOT NULL,
+  startDatetime TIMESTAMPTZ NOT NULL,
+  capacityOverride INT,
+  tripId INT NOT NULL,
+  stateId INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (tripId) REFERENCES TRIPS(id),
+  FOREIGN KEY (stateId) REFERENCES EVENTSTATES(id)
+);
+
+CREATE TABLE ACTIVITYCATEGORY
+(
+  id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
+
+CREATE TABLE ACTIVITIES
+(
+  id INT NOT NULL,
+  name VARCHAR(150) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  locationName VARCHAR(150) NOT NULL,
+  startLatitude NUMERIC(9,6) NOT NULL,
+  startLongitude NUMERIC(9,6) NOT NULL,
+  endLatitude NUMERIC(9,6),
+  endLongitude NUMERIC(9,6),
+  durationMinutes INT NOT NULL,
+  categoryId INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (categoryId) REFERENCES ACTIVITYCATEGORY(id)
+);
+
+CREATE TABLE ADDONS
+(
+  id INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  defaultPrice NUMERIC(10,2) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE RESERVATIONSTATES
+(
+  id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
+
+CREATE TABLE RESERVATIONS
+(
+  id INT NOT NULL,
+  numPeople INT NOT NULL,
+  createdAt TIMESTAMPTZ NOT NULL,
+  userId INT NOT NULL,
+  eventId INT NOT NULL,
+  stateId INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (userId) REFERENCES USERS(id),
+  FOREIGN KEY (eventId) REFERENCES EVENTS(id),
+  FOREIGN KEY (stateId) REFERENCES RESERVATIONSTATES(id),
+  UNIQUE (userId, eventId)
+);
+
+CREATE TABLE TRIPTAGS
+(
+  id INT NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (name)
+);
+
+CREATE TABLE EVENTADDONS
+(
+  id INT NOT NULL,
+  price NUMERIC(10,2) NOT NULL,
+  capacity INT,
+  eventId INT NOT NULL,
+  addonId INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (eventId) REFERENCES EVENTS(id),
+  FOREIGN KEY (addonId) REFERENCES ADDONS(id),
+  UNIQUE (eventId, addonId)
+);
+
+CREATE TABLE USERROLE
+(
+  userId INT NOT NULL,
+  roleId INT NOT NULL,
+  PRIMARY KEY (userId, roleId),
+  FOREIGN KEY (userId) REFERENCES USERS(id),
+  FOREIGN KEY (roleId) REFERENCES ROLES(id)
+);
+
+CREATE TABLE TRIPACTIVITY
+(
+  sequenceOrder INT NOT NULL,
+  tripId INT NOT NULL,
+  activityId INT NOT NULL,
+  PRIMARY KEY (tripId, activityId),
+  FOREIGN KEY (tripId) REFERENCES TRIPS(id),
+  FOREIGN KEY (activityId) REFERENCES ACTIVITIES(id),
+  UNIQUE (tripId, sequenceOrder)
+);
+
+CREATE TABLE TRIPTAG
+(
+  tripId INT NOT NULL,
+  tagId INT NOT NULL,
+  PRIMARY KEY (tripId, tagId),
+  FOREIGN KEY (tripId) REFERENCES TRIPS(id),
+  FOREIGN KEY (tagId) REFERENCES TRIPTAGS(id)
+);
+
+CREATE TABLE TRIPADDON
+(
+  tripId INT NOT NULL,
+  addonId INT NOT NULL,
+  PRIMARY KEY (tripId, addonId),
+  FOREIGN KEY (tripId) REFERENCES TRIPS(id),
+  FOREIGN KEY (addonId) REFERENCES ADDONS(id)
+);
+
+CREATE TABLE HASGUIDE
+(
+  eventId INT NOT NULL,
+  userId INT NOT NULL,
+  PRIMARY KEY (eventId, userId),
+  FOREIGN KEY (eventId) REFERENCES EVENTS(id),
+  FOREIGN KEY (userId) REFERENCES USERS(id)
+);
+
+CREATE TABLE RESERVATIONADDON
+(
+  quantity INT NOT NULL,
+  eventAddonId INT NOT NULL,
+  reservationId INT NOT NULL,
+  PRIMARY KEY (eventAddonId, reservationId),
+  FOREIGN KEY (eventAddonId) REFERENCES EVENTADDONS(id),
+  FOREIGN KEY (reservationId) REFERENCES RESERVATIONS(id)
+);
