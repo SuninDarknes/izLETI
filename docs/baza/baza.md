@@ -5,6 +5,9 @@
 #### User
 Korisnici ukljucujuci i organizatore, administratore, vlasnike, vodice...
 
+#### GuideRating
+Za eventualnu mogućnost ocijenjivanja vodića.
+
 #### Roles
 Uloge koje administrator pridodjeljuje korisnicima: user, organiser, admin, owner, guide...
 
@@ -33,7 +36,7 @@ Događaji su "instance" izleta. Npr. ako se isti izlet "Razgledavanja gornjeg gr
 Stanje događaja: hidden, planned, cancelled, done...
 
 #### Addons
-Dodatci, npr. prijevoz, iznajmljivanje planinarske opreme, ručak... Dijeljeni katalog — isti dodatak (npr. "Prijevoz busom") može se ponuditi na više različitih izleta preko TripAddon veze, slično kao Activities.
+Dodatci, npr. prijevoz, iznajmljivanje planinarske opreme, ručak... Dijeljeni katalog — isti dodatak (npr. "Prijevoz busom") može se ponuditi na više različitih događaja.
 
 #### EventAddons
-Dodatci koji su dostupni za pojedini dogadaj. Prilikom kreiranja izleta dodaju se svi moguci dodatci, no nisu svi dostupni za svaki dogadaj (npr. mozda za isti izlet u ponedjeljak postoji opcija prijevoza autobusom, dok u srijedu sa vlakom)
+Dodatci koji su dostupni na određenom događaju.
