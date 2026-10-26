@@ -5,14 +5,23 @@
 #### User
 Korisnici ukljucujuci i organizatore, administratore, vlasnike, vodice...
 
-#### GuideRating
-Za eventualnu mogućnost ocijenjivanja vodića.
+#### Languages
+Jezici koje vodič može govoriti.
+
+#### GuideLanguage
+Spojna M:N tablica - koji korisnik (vodič) govori koji jezik.
 
 #### Roles
 Uloge koje administrator pridodjeljuje korisnicima: user, organiser, admin, owner, guide...
 
 #### Reservations
-Rezervacije događaja
+Rezervacije događaja. Svaka rezervacija ima odabranog vodiča (guideId — korisnik bira jednog od vodiča dostupnih na tom eventu preko HasGuide). Sadrži i optional FK-ove guideRatingId i tripRatingId prema GuideRating/TripRating tablicama, popunjene nakon što je izlet realiziran i korisnik ostavi ocjenu.
+
+#### GuideRating
+Ocjena vodiča (rating, comment, createdAt). Svaka rezervacija može imati najviše jednu takvu ocjenu, preko Reservations.guideRatingId.
+
+#### TripRating
+Ocjena izleta (rating, comment, createdAt). Svaka rezervacija može imati najviše jednu takvu ocjenu, preko Reservations.tripRatingId.
 
 #### ReservationStates
 Stanje rezervacije: pending, odbijena, prihvacena, izlet gotov
