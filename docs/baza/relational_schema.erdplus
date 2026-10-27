@@ -10,7 +10,7 @@
           "y": 164.20974158135277
         },
         "data": {
-          "label": "USERS",
+          "label": "Users",
           "isConnectable": false,
           "columns": [
             {
@@ -65,6 +65,13 @@
               "isUnique": false,
               "isOptional": false,
               "size": "100"
+            },
+            {
+              "id": "48fa7a72-e0d6-4815-ac06-64dfba7b5304",
+              "name": "active",
+              "type": "Custom",
+              "position": 0,
+              "size": "BOOLEAN"
             }
           ],
           "numberOfGroups": 0,
@@ -72,7 +79,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 176
+          "height": 199
         },
         "selected": false,
         "dragging": false
@@ -81,11 +88,11 @@
         "id": "69eadf50-43ab-49ca-9f25-93d9844ccb08",
         "type": "Table",
         "position": {
-          "x": 310.3181781175478,
-          "y": -76.22989059624257
+          "x": 269.4756575150213,
+          "y": -82.61153444038735
         },
         "data": {
-          "label": "ROLES",
+          "label": "Roles",
           "isConnectable": false,
           "columns": [
             {
@@ -94,7 +101,8 @@
               "type": "INT",
               "isPrimaryKey": true,
               "isOptional": false,
-              "isUnique": false
+              "isUnique": false,
+              "position": 0
             },
             {
               "id": "c80e64c9-8391-47c7-a60f-ed553185b108",
@@ -102,7 +110,15 @@
               "type": "VARCHAR(n)",
               "isPrimaryKey": false,
               "size": "50",
-              "isUnique": true
+              "isUnique": true,
+              "position": 1
+            },
+            {
+              "id": "cb58eeb3-80fb-4f1e-ab8b-a221372d6d17",
+              "name": "active",
+              "type": "Custom",
+              "position": 2,
+              "size": "BOOLEAN"
             }
           ],
           "numberOfGroups": 0,
@@ -110,7 +126,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 76
+          "height": 100
         },
         "selected": false,
         "dragging": false
@@ -123,7 +139,7 @@
           "y": -169.3810103044168
         },
         "data": {
-          "label": "TRIPS",
+          "label": "Trips",
           "isConnectable": false,
           "columns": [
             {
@@ -193,7 +209,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 226
+          "height": 224
         },
         "selected": false,
         "dragging": false
@@ -202,11 +218,11 @@
         "id": "da6c9df8-29c6-4a19-8d74-bbaaad0dd02b",
         "type": "Table",
         "position": {
-          "x": 985.1629687469606,
-          "y": 127.44972124977994
+          "x": 1029.6369790410458,
+          "y": 211.95034080854154
         },
         "data": {
-          "label": "EVENTS",
+          "label": "Events",
           "isConnectable": false,
           "columns": [
             {
@@ -273,7 +289,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 152
+          "height": 150
         },
         "selected": false,
         "dragging": false
@@ -286,7 +302,7 @@
           "y": -387.37181807155184
         },
         "data": {
-          "label": "ACTIVITIES",
+          "label": "Activities",
           "isConnectable": false,
           "columns": [
             {
@@ -393,7 +409,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 277
+          "height": 274
         },
         "selected": false,
         "dragging": false
@@ -406,7 +422,7 @@
           "y": 261.79629538699123
         },
         "data": {
-          "label": "ADDONS",
+          "label": "Addons",
           "isConnectable": false,
           "columns": [
             {
@@ -446,7 +462,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 126
+          "height": 125
         },
         "selected": false,
         "dragging": false
@@ -455,11 +471,11 @@
         "id": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
         "type": "Table",
         "position": {
-          "x": 618.5577159001315,
-          "y": 284.91703473372985
+          "x": 612.6278478609202,
+          "y": 397.5845274787453
         },
         "data": {
-          "label": "RESERVATIONS",
+          "label": "Reservations",
           "isConnectable": false,
           "columns": [
             {
@@ -486,9 +502,7 @@
                 ]
               },
               "isOptional": false,
-              "groupNumbers": [
-                1
-              ]
+              "groupNumbers": []
             },
             {
               "id": "7df5fdd9-6ae7-4794-b0de-5f1be943f5df",
@@ -507,9 +521,7 @@
                 ]
               },
               "isOptional": false,
-              "groupNumbers": [
-                1
-              ]
+              "groupNumbers": []
             },
             {
               "id": "10dec251-c716-457a-a5ca-8b4d99b44d5d",
@@ -523,24 +535,6 @@
                   {
                     "id": "fk_ca373843-5887-411a-8570-46e4f509d974",
                     "name": "stateId",
-                    "type": "INT"
-                  }
-                ]
-              },
-              "isOptional": false
-            },
-            {
-              "id": "5a50c4a4-9286-486a-8631-6ba0713c1f16",
-              "name": "guideId",
-              "type": "INT",
-              "isForeignKey": true,
-              "foreignKeyProps": {
-                "foreignKeyGroupId": "3564c3f8-0ed1-4079-afb4-192f7475ecea",
-                "sourceTableId": "92e16ea7-5732-48bf-a226-ae6c7dedf41c",
-                "columns": [
-                  {
-                    "id": "fk_53262c04-e0a4-4c31-a666-8a2eaf19f363",
-                    "name": "guideId",
                     "type": "INT"
                   }
                 ]
@@ -563,50 +557,30 @@
               "size": "TIMESTAMPTZ"
             },
             {
-              "id": "07271969-f5f3-4099-b8aa-d750714c0f8b",
-              "name": "guideRatingId",
-              "type": "INT",
+              "id": "fk_c46e086f-5afe-4e78-9da9-d30fa813dfca",
+              "name": "fk_EVENTGUIDES",
+              "type": "None",
               "isForeignKey": true,
               "foreignKeyProps": {
-                "foreignKeyGroupId": "10356900-ca28-4eae-9619-6b6e934880e8",
-                "sourceTableId": "bba275dc-0de9-46be-98d6-eab8fc2639fd",
+                "foreignKeyGroupId": "99b0e687-c707-4040-875e-7dcf8ece215e",
+                "sourceTableId": "f7e5206e-bfc4-4738-a912-f1cf78dd96d9",
                 "columns": [
                   {
-                    "id": "fk_6b24bda6-b6c5-4dbf-b142-0a409d34555e",
-                    "name": "guideRatingId",
+                    "id": "fk_100a19c1-ea14-41aa-96c4-82c6dea16cee",
+                    "name": "eventGuideId",
                     "type": "INT"
                   }
                 ]
               },
-              "isOptional": true,
-              "isUnique": true
-            },
-            {
-              "id": "615368b7-3d65-4b06-979b-24aa50a658dd",
-              "name": "tripRatingId",
-              "type": "INT",
-              "isForeignKey": true,
-              "foreignKeyProps": {
-                "foreignKeyGroupId": "4a507de8-ed2f-4576-b6af-4ef6320eb4cc",
-                "sourceTableId": "4b75560f-2254-44e5-89f0-0dd9f07afc7c",
-                "columns": [
-                  {
-                    "id": "fk_dc1c2a5a-6e61-4b92-bff7-8eac9a0e6e32",
-                    "name": "tripRatingId",
-                    "type": "INT"
-                  }
-                ]
-              },
-              "isOptional": true,
-              "isUnique": true
+              "isOptional": true
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 253,
-          "height": 252
+          "width": 240,
+          "height": 200
         },
         "selected": false,
         "dragging": false
@@ -615,11 +589,11 @@
         "id": "d65e4fbb-452d-4947-9df0-d0259384212e",
         "type": "Table",
         "position": {
-          "x": 940.9137391046055,
-          "y": 718.6751332261363
+          "x": 916.0759354708738,
+          "y": 712.7057658639393
         },
         "data": {
-          "label": "RESERVATIONSTATES",
+          "label": "ReservationStates",
           "isConnectable": false,
           "columns": [
             {
@@ -645,7 +619,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 76
+          "height": 75
         },
         "selected": false,
         "dragging": false
@@ -654,11 +628,11 @@
         "id": "9b3c8a3a-bbd7-4d48-b2d1-5f0f632c8ea2",
         "type": "Table",
         "position": {
-          "x": 1588.5770006004052,
-          "y": -107.13572370626501
+          "x": 1394.0024840358128,
+          "y": -65.81016266599761
         },
         "data": {
-          "label": "TRIPTAGS",
+          "label": "TripTags",
           "isConnectable": false,
           "columns": [
             {
@@ -684,7 +658,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 76
+          "height": 75
         },
         "selected": false,
         "dragging": false
@@ -693,11 +667,11 @@
         "id": "1d8764bc-a70d-43d9-bdea-c260da13b87d",
         "type": "Table",
         "position": {
-          "x": 990.6320879981811,
-          "y": 338.9389022838782
+          "x": 1028.0710323118717,
+          "y": 372.7551156661887
         },
         "data": {
-          "label": "EVENTSTATES",
+          "label": "EventStates",
           "isConnectable": false,
           "columns": [
             {
@@ -723,7 +697,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 76
+          "height": 75
         },
         "selected": false,
         "dragging": false
@@ -736,7 +710,7 @@
           "y": -289.4588349339069
         },
         "data": {
-          "label": "ACTIVITYCATEGORY",
+          "label": "ActivityCategories",
           "isConnectable": false,
           "columns": [
             {
@@ -762,7 +736,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 76
+          "height": 75
         },
         "selected": false,
         "dragging": false
@@ -771,11 +745,11 @@
         "id": "ae9230a6-41cf-4041-ae4f-d3c0eecd1b16",
         "type": "Table",
         "position": {
-          "x": 1376.9824389665735,
-          "y": 337.22346776568975
+          "x": 1417.6233224469124,
+          "y": 344.5922801185918
         },
         "data": {
-          "label": "EVENTADDONS",
+          "label": "EventAddons",
           "isConnectable": false,
           "columns": [
             {
@@ -847,8 +821,8 @@
           "isSelected": false
         },
         "measured": {
-          "width": 253,
-          "height": 152
+          "width": 252,
+          "height": 150
         },
         "selected": false,
         "dragging": false
@@ -857,29 +831,18 @@
         "id": "ec70026e-300b-4d13-909e-399c1a1fd79f",
         "type": "Table",
         "position": {
-          "x": 312.05823613563757,
-          "y": 35.25104941483467
+          "x": 259.7287566136505,
+          "y": 32.69839187717676
         },
         "data": {
-          "label": "USERROLE",
+          "label": "UserRole",
           "isConnectable": false,
           "columns": [
             {
-              "id": "a580ddcd-4537-453c-a8e2-a092e6917bd0",
-              "name": "userId",
+              "id": "0b6d22a8-cfe8-4b02-afba-45c1b03459d5",
+              "name": "id",
               "type": "INT",
-              "isForeignKey": true,
-              "foreignKeyProps": {
-                "foreignKeyGroupId": "459119c4-4be8-4134-a290-533ec7e528e3",
-                "sourceTableId": "92e16ea7-5732-48bf-a226-ae6c7dedf41c",
-                "columns": [
-                  {
-                    "id": "fk_53262c04-e0a4-4c31-a666-8a2eaf19f363",
-                    "name": "userId",
-                    "type": "INT"
-                  }
-                ]
-              },
+              "position": 0,
               "isPrimaryKey": true,
               "isOptional": false
             },
@@ -899,16 +862,43 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
-              "isOptional": false
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "groupNumbers": [
+                1
+              ],
+              "position": 1
+            },
+            {
+              "id": "a580ddcd-4537-453c-a8e2-a092e6917bd0",
+              "name": "userId",
+              "type": "INT",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "459119c4-4be8-4134-a290-533ec7e528e3",
+                "sourceTableId": "92e16ea7-5732-48bf-a226-ae6c7dedf41c",
+                "columns": [
+                  {
+                    "id": "fk_53262c04-e0a4-4c31-a666-8a2eaf19f363",
+                    "name": "userId",
+                    "type": "INT"
+                  }
+                ]
+              },
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "groupNumbers": [
+                1
+              ],
+              "position": 2
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 240,
-          "height": 78
+          "width": 252,
+          "height": 101
         },
         "selected": false,
         "dragging": false
@@ -917,11 +907,11 @@
         "id": "eec430b3-ed90-4354-90f9-42ac0067a3d9",
         "type": "Table",
         "position": {
-          "x": 1035.3438170780232,
-          "y": -408.63037234377845
+          "x": 1040.8343217064705,
+          "y": -421.5144201415032
         },
         "data": {
-          "label": "TRIPACTIVITY",
+          "label": "TripActivity",
           "isConnectable": false,
           "columns": [
             {
@@ -940,10 +930,11 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
+              "isPrimaryKey": false,
               "isOptional": false,
               "groupNumbers": [
-                1
+                1,
+                2
               ]
             },
             {
@@ -962,8 +953,11 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
-              "isOptional": false
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "groupNumbers": [
+                2
+              ]
             },
             {
               "id": "49c00a15-6679-4d53-8f2b-ea13ffac45bf",
@@ -974,14 +968,22 @@
               "groupNumbers": [
                 1
               ]
+            },
+            {
+              "id": "2a511def-3bca-4b87-8207-5035444dd26a",
+              "name": "id",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 253,
-          "height": 102
+          "width": 302,
+          "height": 126
         },
         "selected": false,
         "dragging": false
@@ -990,11 +992,11 @@
         "id": "a0da45ab-3936-4af4-b85b-48af05221a8d",
         "type": "Table",
         "position": {
-          "x": 1590.723840971391,
-          "y": -219.4268541992089
+          "x": 1394.4274260301208,
+          "y": -193.59837854904177
         },
         "data": {
-          "label": "TRIPTAG",
+          "label": "TripTag",
           "isConnectable": false,
           "columns": [
             {
@@ -1013,8 +1015,12 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
-              "isOptional": false
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "isUnique": false,
+              "groupNumbers": [
+                1
+              ]
             },
             {
               "id": "85b0b98f-8532-428a-bcf8-7b39fc931e61",
@@ -1032,16 +1038,29 @@
                   }
                 ]
               },
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "isUnique": false,
+              "groupNumbers": [
+                1
+              ]
+            },
+            {
+              "id": "4820d9f6-4169-4990-81ed-16a57aba438a",
+              "name": "id",
+              "type": "INT",
+              "position": 0,
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "isUnique": false
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 240,
-          "height": 78
+          "width": 252,
+          "height": 101
         },
         "selected": false,
         "dragging": false
@@ -1054,7 +1073,7 @@
           "y": 124.4688787992876
         },
         "data": {
-          "label": "HASGUIDE",
+          "label": "EventGuides",
           "isConnectable": false,
           "columns": [
             {
@@ -1073,8 +1092,12 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
-              "isOptional": false
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "groupNumbers": [
+                1,
+                2
+              ]
             },
             {
               "id": "131b1c62-92af-403c-9428-2f41f415be12",
@@ -1087,21 +1110,35 @@
                 "columns": [
                   {
                     "id": "fk_53262c04-e0a4-4c31-a666-8a2eaf19f363",
-                    "name": "userId",
+                    "name": "guideId",
                     "type": "INT"
                   }
                 ]
               },
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "groupNumbers": [
+                1
+              ]
+            },
+            {
+              "id": "100a19c1-ea14-41aa-96c4-82c6dea16cee",
+              "name": "id",
+              "type": "INT",
+              "position": 0,
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "groupNumbers": [
+                2
+              ]
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 240,
-          "height": 78
+          "width": 302,
+          "height": 101
         },
         "selected": false,
         "dragging": false
@@ -1110,11 +1147,11 @@
         "id": "d404d42f-44f7-4ca5-a6ec-803f0360990d",
         "type": "Table",
         "position": {
-          "x": 994.8972015002685,
-          "y": 559.8474420892102
+          "x": 1027.5114757159306,
+          "y": 477.97277169490906
         },
         "data": {
-          "label": "RESERVATIONADDON",
+          "label": "ReservationAddon",
           "isConnectable": false,
           "columns": [
             {
@@ -1133,8 +1170,12 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
-              "isOptional": false
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "isUnique": false,
+              "groupNumbers": [
+                1
+              ]
             },
             {
               "id": "9801fa67-8e67-44ae-8641-6f89f328a134",
@@ -1152,14 +1193,28 @@
                   }
                 ]
               },
-              "isPrimaryKey": true,
-              "isOptional": false
+              "isPrimaryKey": false,
+              "isOptional": false,
+              "isUnique": false,
+              "groupNumbers": [
+                1
+              ]
             },
             {
               "id": "27b96312-3516-48c3-ae07-3dd4a1660400",
               "name": "quantity",
               "type": "INT",
               "isPrimaryKey": false,
+              "isOptional": false,
+              "isUnique": false
+            },
+            {
+              "id": "2e51b892-0d27-4187-81ac-2773aced5d02",
+              "name": "id",
+              "type": "INT",
+              "position": 0,
+              "isUnique": false,
+              "isPrimaryKey": true,
               "isOptional": false
             }
           ],
@@ -1167,8 +1222,8 @@
           "isSelected": false
         },
         "measured": {
-          "width": 240,
-          "height": 102
+          "width": 252,
+          "height": 126
         },
         "selected": false,
         "dragging": false
@@ -1181,7 +1236,7 @@
           "y": -86.11365033858405
         },
         "data": {
-          "label": "LANGUAGES",
+          "label": "Languages",
           "isConnectable": false,
           "columns": [
             {
@@ -1206,7 +1261,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 76
+          "height": 75
         },
         "selected": false,
         "dragging": false
@@ -1219,7 +1274,7 @@
           "y": 19.537603098016483
         },
         "data": {
-          "label": "GUIDELANGUAGE",
+          "label": "GuideLanguage",
           "isConnectable": false,
           "columns": [
             {
@@ -1239,7 +1294,10 @@
                 ]
               },
               "isOptional": false,
-              "isPrimaryKey": true
+              "isPrimaryKey": false,
+              "groupNumbers": [
+                1
+              ]
             },
             {
               "id": "0d4c762f-4d4d-44f1-a49d-e9731366945d",
@@ -1258,15 +1316,26 @@
                 ]
               },
               "isOptional": false,
-              "isPrimaryKey": true
+              "isPrimaryKey": false,
+              "groupNumbers": [
+                1
+              ]
+            },
+            {
+              "id": "25d674ac-861a-4e95-97bb-822a14c533a1",
+              "name": "id",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 240,
-          "height": 78
+          "width": 252,
+          "height": 101
         },
         "selected": false,
         "dragging": false
@@ -1275,11 +1344,11 @@
         "id": "bba275dc-0de9-46be-98d6-eab8fc2639fd",
         "type": "Table",
         "position": {
-          "x": 249.93203543042563,
-          "y": 534.1114143283262
+          "x": 91.93203543042563,
+          "y": 424.1114143283262
         },
         "data": {
-          "label": "GUIDERATING",
+          "label": "GuideRatings",
           "isConnectable": false,
           "columns": [
             {
@@ -1287,14 +1356,16 @@
               "name": "id",
               "type": "INT",
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "isUnique": false
             },
             {
               "id": "f88b1d4c-df0f-4b41-ad58-2599e79955d0",
               "name": "rating",
               "type": "INT",
               "isPrimaryKey": false,
-              "isOptional": false
+              "isOptional": false,
+              "isUnique": false
             },
             {
               "id": "b25b54a4-614a-49c4-b824-251d25ee51cc",
@@ -1302,7 +1373,8 @@
               "type": "VARCHAR(n)",
               "isPrimaryKey": false,
               "isOptional": true,
-              "size": "500"
+              "size": "500",
+              "isUnique": false
             },
             {
               "id": "a8ed8d45-0de0-4745-bf13-109d61e54f64",
@@ -1310,7 +1382,26 @@
               "type": "Custom",
               "isPrimaryKey": false,
               "isOptional": false,
-              "size": "TIMESTAMPTZ"
+              "size": "TIMESTAMPTZ",
+              "isUnique": false
+            },
+            {
+              "id": "fk_75b83d7e-bc7f-4952-9ebc-aa4de363f128",
+              "name": "fk_RESERVATIONS",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "ae4b83d5-5efb-473e-a26f-0f9c9271fa53",
+                "sourceTableId": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+                "columns": [
+                  {
+                    "id": "fk_0a8a7f45-e6e7-47b5-8863-42ee81843263",
+                    "name": "reservationId",
+                    "type": "INT"
+                  }
+                ]
+              },
+              "isUnique": true
             }
           ],
           "numberOfGroups": 0,
@@ -1318,7 +1409,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 126
+          "height": 150
         },
         "selected": false,
         "dragging": false
@@ -1327,11 +1418,11 @@
         "id": "4b75560f-2254-44e5-89f0-0dd9f07afc7c",
         "type": "Table",
         "position": {
-          "x": 616.3342633104822,
-          "y": 637.2467895462864
+          "x": 83.10652762656719,
+          "y": 613.2467895462864
         },
         "data": {
-          "label": "TRIPRATING",
+          "label": "TripRatings",
           "isConnectable": false,
           "columns": [
             {
@@ -1339,14 +1430,16 @@
               "name": "id",
               "type": "INT",
               "isPrimaryKey": true,
-              "isOptional": false
+              "isOptional": false,
+              "isUnique": false
             },
             {
               "id": "5eff76b5-253d-4b2a-917a-661db8bb972a",
               "name": "rating",
               "type": "INT",
               "isPrimaryKey": false,
-              "isOptional": false
+              "isOptional": false,
+              "isUnique": false
             },
             {
               "id": "4e7cae46-36da-4252-836d-4af65d18fd5c",
@@ -1354,7 +1447,8 @@
               "type": "VARCHAR(n)",
               "isPrimaryKey": false,
               "isOptional": true,
-              "size": "500"
+              "size": "500",
+              "isUnique": false
             },
             {
               "id": "c770f396-bc0c-446c-9fcf-45316dde8e00",
@@ -1362,7 +1456,26 @@
               "type": "Custom",
               "isPrimaryKey": false,
               "isOptional": false,
-              "size": "TIMESTAMPTZ"
+              "size": "TIMESTAMPTZ",
+              "isUnique": false
+            },
+            {
+              "id": "fk_5593e87b-b316-4e56-9569-0faf184b9dc4",
+              "name": "fk_RESERVATIONS",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "ba8189c7-6783-4103-b8bd-cb6c1b10f92d",
+                "sourceTableId": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+                "columns": [
+                  {
+                    "id": "fk_0a8a7f45-e6e7-47b5-8863-42ee81843263",
+                    "name": "reservationId",
+                    "type": "INT"
+                  }
+                ]
+              },
+              "isUnique": true
             }
           ],
           "numberOfGroups": 0,
@@ -1370,7 +1483,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 126
+          "height": 150
         },
         "selected": false,
         "dragging": false
@@ -1743,70 +1856,88 @@
         }
       },
       {
-        "id": "92e16ea7-5732-48bf-a226-ae6c7dedf41c->8fcd6248-b71a-4f25-a75c-58669beab1d3_3564c3f8-0ed1-4079-afb4-192f7475ecea",
+        "id": "8fcd6248-b71a-4f25-a75c-58669beab1d3->bba275dc-0de9-46be-98d6-eab8fc2639fd_ae4b83d5-5efb-473e-a26f-0f9c9271fa53",
         "type": "Relational",
-        "source": "92e16ea7-5732-48bf-a226-ae6c7dedf41c",
-        "targetHandle": "foreign-key-handle-3564c3f8-0ed1-4079-afb4-192f7475ecea",
-        "target": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+        "source": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+        "targetHandle": "foreign-key-handle-ae4b83d5-5efb-473e-a26f-0f9c9271fa53",
+        "target": "bba275dc-0de9-46be-98d6-eab8fc2639fd",
         "markerStart": {
           "type": "arrow"
         },
         "data": {
           "foreignKeyProps": {
-            "foreignKeyGroupId": "3564c3f8-0ed1-4079-afb4-192f7475ecea",
-            "sourceTableId": "92e16ea7-5732-48bf-a226-ae6c7dedf41c",
-            "columns": []
+            "foreignKeyGroupId": "ae4b83d5-5efb-473e-a26f-0f9c9271fa53",
+            "sourceTableId": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+            "columns": [
+              {
+                "id": "fk_0a8a7f45-e6e7-47b5-8863-42ee81843263",
+                "name": "id",
+                "type": "INT"
+              }
+            ]
           }
         }
       },
       {
-        "id": "bba275dc-0de9-46be-98d6-eab8fc2639fd->8fcd6248-b71a-4f25-a75c-58669beab1d3_10356900-ca28-4eae-9619-6b6e934880e8",
+        "id": "8fcd6248-b71a-4f25-a75c-58669beab1d3->4b75560f-2254-44e5-89f0-0dd9f07afc7c_ba8189c7-6783-4103-b8bd-cb6c1b10f92d",
         "type": "Relational",
-        "source": "bba275dc-0de9-46be-98d6-eab8fc2639fd",
-        "targetHandle": "foreign-key-handle-10356900-ca28-4eae-9619-6b6e934880e8",
-        "target": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+        "source": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+        "targetHandle": "foreign-key-handle-ba8189c7-6783-4103-b8bd-cb6c1b10f92d",
+        "target": "4b75560f-2254-44e5-89f0-0dd9f07afc7c",
         "markerStart": {
           "type": "arrow"
         },
         "data": {
           "foreignKeyProps": {
-            "foreignKeyGroupId": "10356900-ca28-4eae-9619-6b6e934880e8",
-            "sourceTableId": "bba275dc-0de9-46be-98d6-eab8fc2639fd",
-            "columns": []
+            "foreignKeyGroupId": "ba8189c7-6783-4103-b8bd-cb6c1b10f92d",
+            "sourceTableId": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
+            "columns": [
+              {
+                "id": "fk_0a8a7f45-e6e7-47b5-8863-42ee81843263",
+                "name": "id",
+                "type": "INT"
+              }
+            ]
           }
         }
       },
       {
-        "id": "4b75560f-2254-44e5-89f0-0dd9f07afc7c->8fcd6248-b71a-4f25-a75c-58669beab1d3_4a507de8-ed2f-4576-b6af-4ef6320eb4cc",
+        "id": "f7e5206e-bfc4-4738-a912-f1cf78dd96d9->8fcd6248-b71a-4f25-a75c-58669beab1d3_99b0e687-c707-4040-875e-7dcf8ece215e",
         "type": "Relational",
-        "source": "4b75560f-2254-44e5-89f0-0dd9f07afc7c",
-        "targetHandle": "foreign-key-handle-4a507de8-ed2f-4576-b6af-4ef6320eb4cc",
+        "source": "f7e5206e-bfc4-4738-a912-f1cf78dd96d9",
+        "targetHandle": "foreign-key-handle-99b0e687-c707-4040-875e-7dcf8ece215e",
         "target": "8fcd6248-b71a-4f25-a75c-58669beab1d3",
         "markerStart": {
           "type": "arrow"
         },
         "data": {
           "foreignKeyProps": {
-            "foreignKeyGroupId": "4a507de8-ed2f-4576-b6af-4ef6320eb4cc",
-            "sourceTableId": "4b75560f-2254-44e5-89f0-0dd9f07afc7c",
-            "columns": []
+            "foreignKeyGroupId": "99b0e687-c707-4040-875e-7dcf8ece215e",
+            "sourceTableId": "f7e5206e-bfc4-4738-a912-f1cf78dd96d9",
+            "columns": [
+              {
+                "id": "fk_100a19c1-ea14-41aa-96c4-82c6dea16cee",
+                "name": "id",
+                "type": "INT"
+              }
+            ]
           }
         }
       }
     ],
     "viewport": {
-      "x": 363.3336647413182,
-      "y": 370.95848606545593,
-      "zoom": 0.629675759136036
+      "x": 318.58707954726844,
+      "y": 131.56915086408765,
+      "zoom": 0.580754365962861
     }
   },
-  "name": "er_dijagram-Relational Schema (1)",
+  "name": "er_dijagram-Relational_Schema_UpperCamelCase",
   "folder": {
     "name": "Diagrams",
     "folderType": 1,
     "depth": 0,
-    "id": 474575
+    "id": 473098
   },
-  "id": 700668,
-  "updatedAtTimestamp": 1793039321
+  "id": 702372,
+  "updatedAtTimestamp": 1793098968
 }
