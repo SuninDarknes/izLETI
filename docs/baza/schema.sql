@@ -5,7 +5,7 @@ CREATE TABLE Users
   googleId VARCHAR(255) NOT NULL,
   phone VARCHAR(20),
   createdAt TIMESTAMP NOT NULL,
-  fullName VARCHAR(100) NOT NULL,
+  username VARCHAR(100) NOT NULL,
   active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (email),

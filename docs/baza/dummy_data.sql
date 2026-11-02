@@ -38,13 +38,13 @@ INSERT INTO Languages (id, name) VALUES
 
 -- ---------- Users & roles ----------
 
-INSERT INTO Users (id, email, googleId, phone, createdAt, fullName, active) VALUES
-  (1, 'ana.admin@example.com',   'google-100000000000000001', '+351910000001', '2026-01-05 09:00:00', 'Ana Costa',     TRUE),
-  (2, 'marco.guide@example.com', 'google-100000000000000002', '+351910000002', '2026-01-10 10:30:00', 'Marco Silva',   TRUE),
-  (3, 'ines.guide@example.com',  'google-100000000000000003', '+351910000003', '2026-01-12 11:15:00', 'Ines Ferreira', TRUE),
-  (4, 'john.smith@example.com',  'google-100000000000000004', '+14155550104', '2026-03-02 14:20:00', 'John Smith',    TRUE),
-  (5, 'emma.jones@example.com',  'google-100000000000000005', NULL,           '2026-04-18 16:45:00', 'Emma Jones',    TRUE),
-  (6, 'old.user@example.com',    'google-100000000000000006', '+34600000006', '2026-02-01 08:00:00', 'Pablo Ruiz',    FALSE);
+INSERT INTO Users (id, email, googleId, phone, createdAt, username, active, firstname, lastname, picture, locale, emailverified) VALUES
+  (1, 'ana.admin@example.com',   'google-100000000000000001', '+351910000001', '2026-01-05 09:00:00', 'ana_admin',   TRUE, 'Ana',   'Costa',     'https://example.com/pics/ana.jpg', 'en', TRUE),
+  (2, 'marco.guide@example.com', 'google-100000000000000002', '+351910000002', '2026-01-10 10:30:00', 'marco_guide', TRUE, 'Marco', 'Silva',     'https://example.com/pics/marco.jpg', 'pt', TRUE),
+  (3, 'ines.guide@example.com',  'google-100000000000000003', '+351910000003', '2026-01-12 11:15:00', 'ines_guide',  TRUE, 'Ines',  'Ferreira',  'https://example.com/pics/ines.jpg', 'es', TRUE),
+  (4, 'john.smith@example.com',  'google-100000000000000004', '+14155550104', '2026-03-02 14:20:00', 'john_smith',  TRUE, 'John',  'Smith',     NULL,                               'en', TRUE),
+  (5, 'emma.jones@example.com',  'google-100000000000000005', NULL,           '2026-04-18 16:45:00', 'emma_jones',  TRUE, 'Emma',  'Jones',     NULL,                               'en', FALSE),
+  (6, 'old.user@example.com',    'google-100000000000000006', '+34600000006', '2026-02-01 08:00:00', 'pablo_ruiz',  FALSE, 'Pablo', 'Ruiz',     NULL,                               'es', TRUE);
 
 INSERT INTO UserRole (id, roleId, userId) VALUES
   (1, 1, 1),  -- Ana: Admin
@@ -90,12 +90,12 @@ INSERT INTO Activities (id, name, description, locationName, startLatitude, star
       'Moderate hike through forest trails with views over the coast.',
       'Sintra-Cascais Natural Park', 38.797000, -9.388000, 38.787600, -9.390600, 120, 3);
 
-INSERT INTO TripActivity (id, sequenceOrder, tripId, activityId) VALUES
+INSERT INTO TripActivity (sequenceOrder, id, tripId, activityId) VALUES
   (1, 1, 1, 1),
   (2, 2, 1, 2),
-  (3, 1, 2, 3),
-  (4, 1, 3, 5),
-  (5, 2, 3, 4);
+  (1, 3, 2, 3),
+  (1, 4, 3, 5),
+  (2, 5, 3, 4);
 
 INSERT INTO TripTag (id, tripId, tagId) VALUES
   (1, 1, 4),  -- Old Town: History
