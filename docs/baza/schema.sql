@@ -233,3 +233,30 @@ CREATE TABLE TripRatings
   FOREIGN KEY (reservationId) REFERENCES Reservations(id),
   UNIQUE (reservationId)
 );
+
+ALTER TABLE users(
+    ADD COLUMN IF NOT EXISTS givenname VARCHAR(100),
+    ADD COLUMN IF NOT EXISTS familyname VARCHAR(100),
+    ADD COLUMN IF NOT EXISTS picture TEXT,
+    ADD COLUMN IF NOT EXISTS locale VARCHAR(20),
+    ADD COLUMN IF NOT EXISTS emailverified BOOLEAN NOT NULL DEFAULT FALSE
+    );
+
+
+    CREATE SEQUENCE IF NOT EXISTS users_id_seq;
+SELECT setval(
+    'users_id_seq',
+    GREATEST(COALESCE((SELECT MAX(id) FROM users), 1), (SELECT last_value FROM users_id_seq)),
+    EXISTS (SELECT 1 FROM users) OR (SELECT is_called FROM users_id_seq)
+);
+ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq');
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+CREATE SEQUENCE IF NOT EXISTS userrole_id_seq;
+SELECT setval(
+    'userrole_id_seq',
+    GREATEST(COALESCE((SELECT MAX(id) FROM userrole), 1), (SELECT last_value FROM userrole_id_seq)),
+    EXISTS (SELECT 1 FROM userrole) OR (SELECT is_called FROM userrole_id_seq)
+);
+ALTER TABLE userrole ALTER COLUMN id SET DEFAULT nextval('userrole_id_seq');
+ALTER SEQUENCE userrole_id_seq OWNED BY userrole.id;
