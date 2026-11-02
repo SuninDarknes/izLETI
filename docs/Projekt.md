@@ -1,47 +1,64 @@
-# Opis problema i granice sustava
+# 1. Opseg projekta
 
-## Opis projekta
+## 1.1 Problem i cilj projekta
 
-izLETI je aplikacija za pregled i rezervaciju turističkih izleta i aktivnosti. Korisnici mogu pronaći događaj koji ih zanima i rezervirati ga, a organizatori mogu pripremati izlete i upravljati rezervacijama.
+Turisticke agencije i organizatori izleta nude velik broj aktivnosti na razlicitim lokacijama i u razlicitim terminima. Korisnicima treba jednostavan pregled ponude, cijena i slobodnih mjesta, a organizatorima podrska pri upravljanju terminima, kapacitetima, vodicima i dodatnim uslugama.
 
-Aktivnosti i izleti mogu se ponovno koristiti. Tako ista aktivnost može biti dio više izleta, a isti izlet može se održati u više različitih termina.
+izLETI je aplikacija za pregled i rezervaciju turistickih izleta i aktivnosti. Korisnici mogu pronaci dogadaj koji ih zanima i rezervirati ga, a organizatori mogu pripremati izlete i upravljati rezervacijama. Tijekom samog izleta aplikacija na mobilnom uredaju sluzi kao jednostavan digitalni vodic koji prikazuje informacije o lokacijama u blizini korisnika.
 
-## Osnovni pojmovi
+Aktivnosti i izleti mogu se ponovno koristiti. Tako ista aktivnost moze biti dio vise izleta, a isti izlet moze se odrzati u vise razlicitih termina.
 
-- **Aktivnost** – pojedina aktivnost ili mjesto koje se posjećuje, npr. muzej ili vidikovac. Ima opis i lokaciju.
-- **Izlet** – jedna ili više aktivnosti složenih određenim redoslijedom.
-- **Događaj** – održavanje izleta u određenom terminu, s dodijeljenim vodičem i dostupnim dodatnim uslugama (npr. prijevoz ili oprema).
+### Osnovni pojmovi
 
-Rezervira se događaj, a ne izlet općenito.
+- **Aktivnost** - pojedina aktivnost ili mjesto koje se posjecuje, npr. muzej ili vidikovac. Ima opis i lokaciju.
+- **Izlet** - jedna ili vise aktivnosti slozenih odredenim redoslijedom.
+- **Dogadaj** - odrzavanje izleta u odredenom terminu, s dodijeljenim vodicem i dostupnim dodatnim uslugama (npr. prijevoz ili oprema).
 
-## Korisničke uloge
+Rezervira se dogadaj, a ne izlet opcenito.
 
-Korisnik može imati više uloga.
+## 1.2 Ciljani korisnici i dionici
 
-- **User** – pregledava i pretražuje događaje, rezervira ih, bira dodatne usluge te pregledava i otkazuje svoje rezervacije.
-- **Organiser** – dodaje aktivnosti, izlete i događaje, određuje kapacitete, dodjeljuje vodiča te potvrđuje ili odbija rezervacije.
-- **Admin** – pretražuje korisnike i dodjeljuje im ili oduzima uloge.
-- **Owner** – pregledava statistiku rezervacija, popunjenosti, prihoda i popularnosti aktivnosti i dodatnih usluga.
+Korisnik moze imati vise uloga.
 
-Vodič se dodjeljuje događaju, ali njegove zasebne mogućnosti u aplikaciji još nisu određene.
+| Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
+| --- | --- |
+| User | Pregledava i pretrazuje dogadaje, rezervira ih, bira dodatne usluge te pregledava i otkazuje svoje rezervacije. Tijekom izleta dobiva informacije o lokacijama u blizini. |
+| Organiser | Dodaje aktivnosti, izlete i dogadaje, odreduje kapacitete, dodjeljuje vodica te potvrduje ili odbija rezervacije. |
+| Admin | Pretrazuje korisnike i dodjeljuje im ili oduzima uloge. |
+| Owner (voditelj agencije) | Pregledava statistiku rezervacija, popunjenosti, prihoda i popularnosti aktivnosti i dodatnih usluga te je izvozi. |
+| Vodic | Dodjeljuje se dogadaju; njegove zasebne mogucnosti u aplikaciji jos nisu odredene. |
 
-## Što aplikacija obuhvaća
+## 1.3 Granice projekta
 
-- Prijavu putem Google računa.
-- Pregled, pretraživanje i rezervaciju događaja.
+**Ukljuceno:**
+
+- Prijava putem Google racuna.
+- Pregled, pretrazivanje i rezervacija dogadaja uz automatsku provjeru kapaciteta.
 - Dodatne usluge uz rezervaciju, poput prijevoza ili najma opreme.
-- Obavijest o rezervaciji e-poštom.
+- Potvrda rezervacije e-postom.
 - Pregled i otkazivanje vlastitih rezervacija.
-- Upravljanje aktivnostima, izletima i događajima.
-- Pregled i obradu rezervacija za organizatore.
-- Dodjeljivanje korisničkih uloga.
-- Pregled statistike.
-- Prikaz aktivnosti, znamenitosti i lokacije korisnika na karti.
+- Upravljanje aktivnostima, izletima i dogadajima.
+- Pregled i obrada rezervacija za organizatore.
+- Dodjeljivanje korisnickih uloga.
+- Pregled i izvoz statistike.
+- Prikaz aktivnosti, znamenitosti i lokacije korisnika na karti te informacije o lokacijama u blizini tijekom izleta.
 
-## Još nije određeno
+**Jos nije odredeno ili je odgodeno:**
 
-- Pravila otkazivanja i točan tijek promjene statusa rezervacije.
-- Zasebne mogućnosti vodiča u aplikaciji.
-- Hoće li biti moguće ocjenjivati vodiče.
-- Točan format izvoza statistike.
-- Detalji automatske provjere kapaciteta i GPS prepoznavanja blizine lokacija, koji se spominju u projektnom zadatku.
+- Pravila otkazivanja i tocan tijek promjene statusa rezervacije.
+- Zasebne mogucnosti vodica u aplikaciji.
+- Hoce li biti moguce ocjenjivati vodice (nije dio projektnog zadatka, moguce prosirenje).
+- Tocan format izvoza statistike.
+- Nacin vodenja evidencije ostalih resursa organizatora (osim vodica i dodatnih usluga).
+
+**Vanjske ovisnosti:**
+
+- Google OAuth - prijava korisnika.
+- Usluga za slanje e-poste - potvrde rezervacija.
+- Kartografska usluga (OpenStreetMap + Leaflet, nije konacno potvrdeno) - prikaz karte.
+- GPS/geolokacija preglednika na mobilnom uredaju - odredivanje blizine lokacija.
+- PostgreSQL baza podataka.
+
+## 1.4 Postojeci pristupi i opravdanost projekta
+
+Organizator izleta svoju ponudu moze objaviti na web stranici, a rezervacije primati porukama ili telefonom, dok se kapaciteti i vodici vode zasebno. izLETI objedinjuje ponudu, rezervacije s automatskom provjerom slobodnih mjesta i pregled statistike na jednom mjestu, a korisniku tijekom izleta daje informacije o lokacijama koje posjecuje. Prva recenica je primjer korisnickog scenarija, a ne izmjereni podatak o stvarnim agencijama.
