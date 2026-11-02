@@ -1,0 +1,34 @@
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+.login-card {
+    max-width: 420px;
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+}
+
+.app-logo {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 18px;
+    background: #4f46e5;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#google-signin {
+    min-height: 44px;
+}
+
+#message {
+    overflow-wrap: anywhere;
+}
