@@ -43,7 +43,7 @@ class Users {
             users
             JOIN userRole ON userRole.userId = users.id
             JOIN roles ON roles.id = userRole.roleId
-            WHERE userId = $1
+            WHERE users.id = $1
             AND LOWER(roles.name) = $2
             AND users.active = true
             /* AND userRole.active = true */;
