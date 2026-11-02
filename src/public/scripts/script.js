@@ -1,5 +1,4 @@
 "use strict";
-const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
 window.addEventListener("load", () => {
     if (typeof google === "undefined" || !google.accounts?.id) {
         showMessage("Google Sign-In could not be loaded.", true);
@@ -9,8 +8,13 @@ window.addEventListener("load", () => {
     if (!signInElement) {
         throw new Error('Missing element with id "google-signin".');
     }
+    const clientId = signInElement.dataset.clientId;
+    if (!clientId) {
+        showMessage("Google Sign-In is not configured on the server.", true);
+        return;
+    }
     google.accounts.id.initialize({
-        client_id: CLIENT_ID,
+        client_id: clientId,
         callback: handleGoogleLogin,
     });
     google.accounts.id.renderButton(signInElement, {
@@ -34,7 +38,8 @@ async function handleGoogleLogin(response) {
             }),
         });
         if (!result.ok) {
-            throw new Error("Authentication failed.");
+            const data = await result.json();
+            throw new Error(data.error ?? "Authentication failed.");
         }
         const data = await result.json();
         showMessage("Successfully signed in!", false);
@@ -42,8 +47,8 @@ async function handleGoogleLogin(response) {
             window.location.href = data.redirectUrl;
         }
     }
-    catch {
-        showMessage("Could not sign in. Check your server configuration.", true);
+    catch (error) {
+        showMessage(error instanceof Error ? error.message : "Could not sign in.", true);
     }
 }
 function showMessage(message, isError) {

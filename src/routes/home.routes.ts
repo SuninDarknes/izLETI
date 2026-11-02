@@ -1,9 +1,10 @@
 import { Request, Response, Router } from "express";
+import { GOOGLE_CLIENT_ID } from "../google-auth.config";
 
 const router: Router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-    res.render("login");
+    res.render("login", { googleClientId: GOOGLE_CLIENT_ID });
    // return res.sendStatus(200);
 });
 
