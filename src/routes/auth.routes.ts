@@ -204,7 +204,7 @@ router.post("/google", async (req: Request, res: Response) => {
             req.session.save(error => error ? reject(error) : resolve());
         });
 
-        res.json({ redirectUrl: "/dashboard" });
+        res.json({ redirectUrl: "/home" });
     } catch (error) {
         console.error("Could not create a session after Google sign-in:", error);
         res.status(500).json({ error: "Google sign-in succeeded, but a session could not be created." });

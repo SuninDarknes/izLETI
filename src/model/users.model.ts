@@ -45,6 +45,7 @@ class Users {
             JOIN roles ON roles.id = userRole.roleId
             WHERE users.id = $1
             AND LOWER(roles.name) = $2
+            AND roles.active = true
             AND users.active = true
             /* AND userRole.active = true */;
         `,
