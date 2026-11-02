@@ -6,8 +6,8 @@
         "id": "92e16ea7-5732-48bf-a226-ae6c7dedf41c",
         "type": "Table",
         "position": {
-          "x": 254.30650502038668,
-          "y": 164.20974158135277
+          "x": 263.49698389939755,
+          "y": 204.41808667702549
         },
         "data": {
           "label": "Users",
@@ -55,11 +55,11 @@
               "isPrimaryKey": false,
               "isUnique": false,
               "isOptional": false,
-              "size": "TIMESTAMPTZ"
+              "size": "TIMESTAMP"
             },
             {
               "id": "0c533234-2c95-49dd-bd16-f74f28d41bf7",
-              "name": "fullName",
+              "name": "username",
               "type": "VARCHAR(n)",
               "isPrimaryKey": false,
               "isUnique": false,
@@ -71,7 +71,48 @@
               "name": "active",
               "type": "Custom",
               "position": 0,
-              "size": "BOOLEAN"
+              "size": "BOOLEAN",
+              "isOptional": false
+            },
+            {
+              "id": "b71afc22-8ccd-4e3d-a640-c73fe2a0eb1b",
+              "name": "firstname",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "100",
+              "isOptional": true
+            },
+            {
+              "id": "3905878f-b8f7-44b0-a682-72cda7754474",
+              "name": "lastname",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "100",
+              "isOptional": true
+            },
+            {
+              "id": "4bfc56fc-c46a-4540-a3ca-395a8c5ccfbf",
+              "name": "picture",
+              "type": "Custom",
+              "position": 0,
+              "isOptional": true,
+              "size": "TEXT"
+            },
+            {
+              "id": "913acaab-1f75-4e0a-9546-e308c3a3699c",
+              "name": "locale",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "20",
+              "isOptional": true
+            },
+            {
+              "id": "397732b4-a43a-468d-96e4-3fb4343993fb",
+              "name": "emailverified",
+              "type": "Custom",
+              "position": 0,
+              "size": "BOOLEAN",
+              "isOptional": false
             }
           ],
           "numberOfGroups": 0,
@@ -79,7 +120,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 199
+          "height": 326
         },
         "selected": false,
         "dragging": false
@@ -112,13 +153,6 @@
               "size": "50",
               "isUnique": true,
               "position": 1
-            },
-            {
-              "id": "cb58eeb3-80fb-4f1e-ab8b-a221372d6d17",
-              "name": "active",
-              "type": "Custom",
-              "position": 2,
-              "size": "BOOLEAN"
             }
           ],
           "numberOfGroups": 0,
@@ -126,7 +160,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 100
+          "height": 76
         },
         "selected": false,
         "dragging": false
@@ -209,7 +243,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 224
+          "height": 226
         },
         "selected": false,
         "dragging": false
@@ -289,7 +323,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 150
+          "height": 152
         },
         "selected": false,
         "dragging": false
@@ -360,39 +394,19 @@
               "isUnique": false
             },
             {
-              "id": "c756dfc6-63bf-4639-b1f2-fe2900fc5a7e",
-              "name": "startLatitude",
+              "id": "a4797366-c233-47a7-88a9-e721ba028e2e",
+              "name": "latitude",
               "type": "NUMERIC(p s)",
               "isPrimaryKey": false,
               "isOptional": false,
-              "isUnique": false,
               "size": "9,6"
             },
             {
-              "id": "eb109d4b-cd20-4963-af93-03cbede64e34",
-              "name": "startLongitude",
+              "id": "1d50ef6b-862e-44a8-9f65-821f6fc2722d",
+              "name": "longitude",
               "type": "NUMERIC(p s)",
               "isPrimaryKey": false,
               "isOptional": false,
-              "isUnique": false,
-              "size": "9,6"
-            },
-            {
-              "id": "717a27c0-0ec4-4be1-8cb4-08b29efb1be6",
-              "name": "endLatitude",
-              "type": "NUMERIC(p s)",
-              "isPrimaryKey": false,
-              "isOptional": true,
-              "isUnique": false,
-              "size": "9,6"
-            },
-            {
-              "id": "25f9002c-f534-458a-baaf-aa5e2f0af719",
-              "name": "endLongitude",
-              "type": "NUMERIC(p s)",
-              "isPrimaryKey": false,
-              "isOptional": true,
-              "isUnique": false,
               "size": "9,6"
             },
             {
@@ -400,7 +414,7 @@
               "name": "durationMinutes",
               "type": "INT",
               "isPrimaryKey": false,
-              "isOptional": false,
+              "isOptional": true,
               "isUnique": false
             }
           ],
@@ -409,7 +423,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 274
+          "height": 226
         },
         "selected": false,
         "dragging": false
@@ -441,14 +455,6 @@
               "size": "100"
             },
             {
-              "id": "c10e2d1a-5661-4fe0-a243-c23d493225c9",
-              "name": "description",
-              "type": "VARCHAR(n)",
-              "isPrimaryKey": false,
-              "isOptional": false,
-              "size": "1000"
-            },
-            {
               "id": "1f0dfd36-26a1-4e6d-9ffa-547e8f05dfb5",
               "name": "defaultPrice",
               "type": "NUMERIC(p s)",
@@ -462,7 +468,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 125
+          "height": 101
         },
         "selected": false,
         "dragging": false
@@ -580,7 +586,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 200
+          "height": 202
         },
         "selected": false,
         "dragging": false
@@ -619,7 +625,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 76
         },
         "selected": false,
         "dragging": false
@@ -658,7 +664,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 76
         },
         "selected": false,
         "dragging": false
@@ -697,7 +703,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 76
         },
         "selected": false,
         "dragging": false
@@ -736,7 +742,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 76
         },
         "selected": false,
         "dragging": false
@@ -815,14 +821,21 @@
               "type": "INT",
               "isPrimaryKey": false,
               "isOptional": true
+            },
+            {
+              "id": "e1b50347-487d-4313-8a96-edd57d2a4b7f",
+              "name": "description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "size": "1000"
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 252,
-          "height": 150
+          "width": 253,
+          "height": 177
         },
         "selected": false,
         "dragging": false
@@ -891,14 +904,21 @@
                 1
               ],
               "position": 2
+            },
+            {
+              "id": "a6a4c111-9d41-4240-afdb-566e334630ad",
+              "name": "active",
+              "type": "Custom",
+              "position": 2,
+              "size": "BOOLEAN"
             }
           ],
           "numberOfGroups": 0,
           "isSelected": false
         },
         "measured": {
-          "width": 252,
-          "height": 101
+          "width": 253,
+          "height": 127
         },
         "selected": false,
         "dragging": false
@@ -983,7 +1003,7 @@
         },
         "measured": {
           "width": 302,
-          "height": 126
+          "height": 127
         },
         "selected": false,
         "dragging": false
@@ -1059,8 +1079,8 @@
           "isSelected": false
         },
         "measured": {
-          "width": 252,
-          "height": 101
+          "width": 253,
+          "height": 102
         },
         "selected": false,
         "dragging": false
@@ -1138,7 +1158,7 @@
         },
         "measured": {
           "width": 302,
-          "height": 101
+          "height": 102
         },
         "selected": false,
         "dragging": false
@@ -1222,8 +1242,8 @@
           "isSelected": false
         },
         "measured": {
-          "width": 252,
-          "height": 126
+          "width": 253,
+          "height": 127
         },
         "selected": false,
         "dragging": false
@@ -1261,7 +1281,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 75
+          "height": 76
         },
         "selected": false,
         "dragging": false
@@ -1334,8 +1354,8 @@
           "isSelected": false
         },
         "measured": {
-          "width": 252,
-          "height": 101
+          "width": 253,
+          "height": 102
         },
         "selected": false,
         "dragging": false
@@ -1344,8 +1364,8 @@
         "id": "bba275dc-0de9-46be-98d6-eab8fc2639fd",
         "type": "Table",
         "position": {
-          "x": 91.93203543042563,
-          "y": 424.1114143283262
+          "x": 155.05282320136473,
+          "y": 597.3515661304638
         },
         "data": {
           "label": "GuideRatings",
@@ -1409,7 +1429,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 150
+          "height": 152
         },
         "selected": false,
         "dragging": false
@@ -1418,8 +1438,8 @@
         "id": "4b75560f-2254-44e5-89f0-0dd9f07afc7c",
         "type": "Table",
         "position": {
-          "x": 83.10652762656719,
-          "y": 613.2467895462864
+          "x": 539.6749950704432,
+          "y": 682.2247594478793
         },
         "data": {
           "label": "TripRatings",
@@ -1483,7 +1503,7 @@
         },
         "measured": {
           "width": 240,
-          "height": 150
+          "height": 152
         },
         "selected": false,
         "dragging": false
@@ -1926,18 +1946,24 @@
       }
     ],
     "viewport": {
-      "x": 318.58707954726844,
-      "y": 131.56915086408765,
-      "zoom": 0.580754365962861
+      "x": 61.32592789460341,
+      "y": 231.57969857335394,
+      "zoom": 0.6526606815828997
     }
   },
-  "name": "er_dijagram-Relational_Schema_UpperCamelCase",
+  "name": "relational_schema",
   "folder": {
-    "name": "Diagrams",
-    "folderType": 1,
-    "depth": 0,
-    "id": 473098
+    "name": "progi",
+    "folderType": 2,
+    "parentFolder": {
+      "depth": 0,
+      "id": 474575,
+      "name": "Diagrams",
+      "folderType": 1
+    },
+    "depth": 1,
+    "id": 488380
   },
-  "id": 702372,
-  "updatedAtTimestamp": 1793098968
+  "id": 714780,
+  "updatedAtTimestamp": 1793635199
 }
