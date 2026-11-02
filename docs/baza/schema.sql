@@ -9,7 +9,7 @@ CREATE TABLE Users
   active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (email),
-  UNIQUE (googleId)
+  UNIQUE (googleId),
   firstname VARCHAR(100),
   lastname VARCHAR(100),
   picture TEXT,
