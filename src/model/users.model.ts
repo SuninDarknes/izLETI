@@ -24,7 +24,9 @@ function rowToUser(row : UserRow) : User {
 class Users {
     async getUser(id : number) : Promise<User> {
         let response : QueryResult = await pool.query<UserRow>(`
-            SELECT id, email, fullname FROM users
+            SELECT id, email,
+                COALESCE(NULLIF(CONCAT_WS(' ', firstname, lastname), ''), email) AS fullname
+            FROM users
             WHERE id = $1
             AND active = true;
         `,

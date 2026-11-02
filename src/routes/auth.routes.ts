@@ -53,7 +53,7 @@ router.post("/google", async (req: Request, res: Response) => {
         return;
     }
 
-    let user: { id: number; email: string; fullname: string; active: boolean };
+    let user: { id: number; email: string; name: string; active: boolean };
     try {
         await client.query("BEGIN");
         await client.query("SELECT pg_advisory_xact_lock(761204)");
@@ -62,10 +62,11 @@ router.post("/google", async (req: Request, res: Response) => {
             id: number;
             email: string;
             googleid: string;
-            fullname: string;
+            firstname: string | null;
+            lastname: string | null;
             active: boolean;
         }>(
-            `SELECT id, email, googleid, fullname, active
+            `SELECT id, email, googleid, firstname, lastname, active
              FROM users
              WHERE googleid = $1 OR lower(email) = $2
              FOR UPDATE`,
@@ -92,22 +93,21 @@ router.post("/google", async (req: Request, res: Response) => {
             const result = await client.query<{
                 id: number;
                 email: string;
-                fullname: string;
+                firstname: string | null;
+                lastname: string | null;
                 active: boolean;
             }>(
                 `UPDATE users
                  SET email = $1,
-                     fullname = $2,
-                     givenname = $3,
-                     familyname = $4,
-                     picture = $5,
-                     locale = $6,
-                     emailverified = $7
-                 WHERE id = $8
-                 RETURNING id, email, fullname, active`,
+                     firstname = $2,
+                     lastname = $3,
+                     picture = $4,
+                     locale = $5,
+                     emailverified = $6
+                 WHERE id = $7
+                 RETURNING id, email, firstname, lastname, active`,
                 [
                     email,
-                    fullName,
                     payload.given_name ?? null,
                     payload.family_name ?? null,
                     payload.picture ?? null,
@@ -116,24 +116,35 @@ router.post("/google", async (req: Request, res: Response) => {
                     googleUser.id,
                 ],
             );
-            user = result.rows[0];
+            const row = result.rows[0];
+            user = {
+                id: row.id,
+                email: row.email,
+                name: [row.firstname, row.lastname].filter(Boolean).join(" ") || fullName,
+                active: row.active,
+            };
         } else {
+            const userIdResult = await client.query<{ id: number }>(
+                "SELECT COALESCE(MAX(id), 0) + 1 AS id FROM users",
+            );
             const result = await client.query<{
                 id: number;
                 email: string;
-                fullname: string;
+                firstname: string | null;
+                lastname: string | null;
                 active: boolean;
             }>(
                 `INSERT INTO users (
-                     email, googleid, createdat, fullname, active,
-                     givenname, familyname, picture, locale, emailverified
+                     id, email, googleid, createdat, username, active,
+                     firstname, lastname, picture, locale, emailverified
                  )
-                 VALUES ($1, $2, CURRENT_TIMESTAMP, $3, TRUE, $4, $5, $6, $7, $8)
-                 RETURNING id, email, fullname, active`,
+                 VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4, TRUE, $5, $6, $7, $8, $9)
+                 RETURNING id, email, firstname, lastname, active`,
                 [
+                    userIdResult.rows[0].id,
                     email,
                     payload.sub,
-                    fullName,
+                    email.split("@")[0].slice(0, 100),
                     payload.given_name ?? null,
                     payload.family_name ?? null,
                     payload.picture ?? null,
@@ -141,7 +152,13 @@ router.post("/google", async (req: Request, res: Response) => {
                     payload.email_verified === true,
                 ],
             );
-            user = result.rows[0];
+            const row = result.rows[0];
+            user = {
+                id: row.id,
+                email: row.email,
+                name: [row.firstname, row.lastname].filter(Boolean).join(" ") || fullName,
+                active: row.active,
+            };
         }
 
         let roleResult = await client.query<{ id: number }>(
@@ -169,11 +186,14 @@ router.post("/google", async (req: Request, res: Response) => {
             throw new Error('Could not find or create the "Customer" role.');
         }
 
+        const userRoleIdResult = await client.query<{ id: number }>(
+            "SELECT COALESCE(MAX(id), 0) + 1 AS id FROM userrole",
+        );
         await client.query(
-            `INSERT INTO userrole (roleid, userid)
-             VALUES ($1, $2)
+            `INSERT INTO userrole (id, roleid, userid)
+             VALUES ($1, $2, $3)
              ON CONFLICT (roleid, userid) DO NOTHING`,
-            [roleResult.rows[0].id, user.id],
+            [userRoleIdResult.rows[0].id, roleResult.rows[0].id, user.id],
         );
 
         await client.query("COMMIT");
@@ -197,7 +217,7 @@ router.post("/google", async (req: Request, res: Response) => {
         req.session.user = {
             id: String(user.id),
             email: user.email,
-            name: user.fullname,
+            name: user.name,
             picture: payload.picture,
         };
         await new Promise<void>((resolve, reject) => {
