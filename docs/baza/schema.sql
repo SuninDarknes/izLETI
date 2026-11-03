@@ -7,21 +7,20 @@ CREATE TABLE Users
   createdAt TIMESTAMP NOT NULL,
   username VARCHAR(100) NOT NULL,
   active BOOLEAN NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE (email),
-  UNIQUE (googleId),
   firstname VARCHAR(100),
   lastname VARCHAR(100),
   picture TEXT,
   locale VARCHAR(20),
-  emailverified BOOLEAN NOT NULL DEFAULT FALSE
+  emailverified BOOLEAN NOT NULL DEFAULT FALSE,
+  PRIMARY KEY (id),
+  UNIQUE (email),
+  UNIQUE (googleId)
 );
 
 CREATE TABLE Roles
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
-  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (name)
 );
@@ -36,6 +35,7 @@ CREATE TABLE Trips
   maxParticipants INT NOT NULL,
   basePrice NUMERIC(10,2) NOT NULL,
   createdAt TIMESTAMP NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   CHECK (maxParticipants > 0),
   CHECK (basePrice >= 0)
@@ -65,6 +65,7 @@ CREATE TABLE ActivityCategories
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (name)
 );
@@ -79,6 +80,7 @@ CREATE TABLE Activities
   longitude NUMERIC(9,6) NOT NULL,
   durationMinutes INT,
   categoryId INT NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (categoryId) REFERENCES ActivityCategories(id)
 );
@@ -88,6 +90,7 @@ CREATE TABLE Addons
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(100) NOT NULL,
   defaultPrice NUMERIC(10,2) NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -132,6 +135,7 @@ CREATE TABLE TripTags
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (name)
 );
@@ -144,6 +148,7 @@ CREATE TABLE EventAddons
   capacity INT,
   eventId INT NOT NULL,
   addonId INT NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (eventId) REFERENCES Events(id),
   FOREIGN KEY (addonId) REFERENCES Addons(id),
@@ -164,8 +169,8 @@ CREATE TABLE UserRole
 
 CREATE TABLE TripActivity
 (
-  sequenceOrder INT NOT NULL,
   id INT GENERATED ALWAYS AS IDENTITY,
+  sequenceOrder INT NOT NULL,
   tripId INT NOT NULL,
   activityId INT NOT NULL,
   PRIMARY KEY (id),
@@ -188,8 +193,8 @@ CREATE TABLE TripTag
 
 CREATE TABLE ReservationAddon
 (
-  quantity INT NOT NULL,
   id INT GENERATED ALWAYS AS IDENTITY,
+  quantity INT NOT NULL,
   eventAddonId INT NOT NULL,
   reservationId INT NOT NULL,
   PRIMARY KEY (id),
@@ -202,6 +207,7 @@ CREATE TABLE Languages
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (name)
 );
@@ -224,6 +230,7 @@ CREATE TABLE GuideRatings
   comment VARCHAR(500),
   createdAt TIMESTAMP NOT NULL,
   reservationId INT NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (reservationId) REFERENCES Reservations(id),
   UNIQUE (reservationId),
@@ -237,6 +244,7 @@ CREATE TABLE TripRatings
   comment VARCHAR(500),
   createdAt TIMESTAMP NOT NULL,
   reservationId INT NOT NULL,
+  active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (reservationId) REFERENCES Reservations(id),
   UNIQUE (reservationId),
