@@ -5,11 +5,23 @@
 #### User
 Korisnici ukljucujuci i organizatore, administratore, vlasnike, vodice...
 
+#### Languages
+Jezici koje vodič može govoriti.
+
+#### GuideLanguage
+Spojna M:N tablica - koji korisnik (vodič) govori koji jezik.
+
 #### Roles
 Uloge koje administrator pridodjeljuje korisnicima: user, organiser, admin, owner, guide...
 
 #### Reservations
-Rezervacije događaja
+Rezervacije događaja. Svaka rezervacija ima odabranog vodiča (guideId — korisnik bira jednog od vodiča dostupnih na tom eventu preko HasGuide). Sadrži i optional FK-ove guideRatingId i tripRatingId prema GuideRating/TripRating tablicama, popunjene nakon što je izlet realiziran i korisnik ostavi ocjenu.
+
+#### GuideRating
+Ocjena vodiča (rating, comment, createdAt). Svaka rezervacija može imati najviše jednu takvu ocjenu, preko Reservations.guideRatingId.
+
+#### TripRating
+Ocjena izleta (rating, comment, createdAt). Svaka rezervacija može imati najviše jednu takvu ocjenu, preko Reservations.tripRatingId.
 
 #### ReservationStates
 Stanje rezervacije: pending, odbijena, prihvacena, izlet gotov
@@ -33,7 +45,7 @@ Događaji su "instance" izleta. Npr. ako se isti izlet "Razgledavanja gornjeg gr
 Stanje događaja: hidden, planned, cancelled, done...
 
 #### Addons
-Dodatci za izlet, npr. prijevoz, iznajmljivanje planinarske opreme, ručak...
+Dodatci, npr. prijevoz, iznajmljivanje planinarske opreme, ručak... Dijeljeni katalog — isti dodatak (npr. "Prijevoz busom") može se ponuditi na više različitih događaja.
 
 #### EventAddons
-Dodatci koji su dostupni za pojedini dogadaj. Prilikom kreiranja izleta dodaju se svi moguci dodatci, no nisu svi dostupni za svaki dogadaj (npr. mozda za isti izlet u ponedjeljak postoji opcija prijevoza autobusom, dok u srijedu sa vlakom)
+Dodatci koji su dostupni na određenom događaju.
