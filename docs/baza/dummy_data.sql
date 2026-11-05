@@ -81,19 +81,19 @@ INSERT INTO GuideLanguage (userId, languageId) VALUES
 
 -- ---------- Trips, activities, tags ----------
 
-INSERT INTO Trips (name, description, durationMinutes, meetingPoint, maxParticipants, basePrice, createdAt, active) VALUES
+INSERT INTO Trips (name, description, durationMinutes, meetingPointLatitude, meetingPointLongitude, maxParticipants, basePrice, createdAt, active) VALUES
   ('Lisbon Old Town Walking Tour',
       'A relaxed walk through the historic streets and viewpoints of the old town, with a pastry stop along the way.',
-      180, 'Praca do Comercio, main arch', 12, 25.00, '2026-02-01 09:00:00', TRUE),   -- id 1
+      180, 38.707700, -9.136500, 12, 25.00, '2026-02-01 09:00:00', TRUE),   -- id 1
   ('Sunset Sailing on the Tagus',
       'Cruise the river on a small sailboat while the sun goes down. Light snacks and drinks available as add-ons.',
-      120, 'Doca de Santo Amaro marina', 8, 60.00, '2026-02-15 09:00:00', TRUE),      -- id 2
+      120, 38.700600, -9.178000, 8, 60.00, '2026-02-15 09:00:00', TRUE),      -- id 2
   ('Sintra Day Trip',
       'Full-day excursion to the hills and palaces of Sintra, including a guided hike and a palace visit.',
-      480, 'Rossio Station, platform entrance', 10, 85.00, '2026-03-01 09:00:00', TRUE),  -- id 3
+      480, 38.713900, -9.139400, 10, 85.00, '2026-03-01 09:00:00', TRUE),  -- id 3
   ('Fado Evening in Mouraria',
       'An intimate evening of live fado music in a small tavern in the Mouraria district.',
-      150, 'Largo do Carmo, fountain', 10, 45.00, '2026-03-20 09:00:00', FALSE);      -- id 4 (inactive, no events)
+      150, 38.711700, -9.140500, 10, 45.00, '2026-03-20 09:00:00', FALSE);      -- id 4 (inactive, no events)
 
 INSERT INTO Activities (name, description, locationName, latitude, longitude, durationMinutes, categoryId, active) VALUES
   ('Alfama Viewpoint Walk',
