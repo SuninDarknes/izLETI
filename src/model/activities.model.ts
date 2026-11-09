@@ -157,7 +157,7 @@ class Activities {
      * 'Deletes' an existing activity (by setting the active column to false)
      * @throws {NotFoundError} If no activity with the specified id exists
      */
-    async removeActivity(id : number) : Promise<void> {
+    async deleteActivity(id : number) : Promise<void> {
         let response = await pool.query(`
             UPDATE activities
             SET active = false
@@ -293,7 +293,7 @@ class Activities {
      * 'Deletes' an existing activity category (by setting the active column to false)
      * @throws {NotFoundError} If no activity category with the specified id exists
      */
-    async removeCategory(id : number) : Promise<void>{
+    async deleteCategory(id : number) : Promise<void>{
         let response = await pool.query(`
             UPDATE activityCategories
             SET active = false

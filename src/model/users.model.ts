@@ -210,7 +210,7 @@ class Users {
     * 'Deletes' an existing user (by setting the active column to false).
     * @throws {NotFoundError} If no user with the specified id exists
     */
-    async removeUser(id : number) : Promise<void> {
+    async deleteUser(id : number) : Promise<void> {
         let response = await pool.query(`
             UPDATE users
             SET active = false
@@ -224,7 +224,7 @@ class Users {
     }
 
     /**
-    * Reactivates a previously removed user (by setting the active column to true).
+    * Reactivates a previously deleted user (by setting the active column to true).
     * @throws {NotFoundError} If no user with the specified id exists
     */
     async reactivateUser(id : number) : Promise<void> {
@@ -270,7 +270,7 @@ class Users {
         `, [userId, role]);
 
         if (!response.rowCount) {
-            throw new NotFoundError('UserRole');
+            throw new NotFoundError('User or Role');
         }
     }
 
