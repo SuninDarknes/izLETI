@@ -134,9 +134,8 @@ class Users {
     * @throws {NotFoundError} If the user is not found or is inactive.
     */
     async getUser(id : number) : Promise<User> {
-        let response : QueryResult = await pool.query<UserRow>(`
-            SELECT id, email,
-                COALESCE(NULLIF(CONCAT_WS(' ', firstname, lastname), ''), email) AS fullname
+        let response = await pool.query<UserRow>(`
+            SELECT *
             FROM users
             WHERE id = $1
             AND active = true;
@@ -286,10 +285,8 @@ class Users {
             JOIN userRole ON userRole.userId = users.id
             JOIN roles ON roles.id = userRole.roleId
             WHERE users.id = $1
-            AND LOWER(roles.name) = $2
-            AND roles.active = true
-            AND users.active = true
-            /* AND userRole.active = true */;
+            AND LOWER(roles.name) = LOWER($2)
+            AND users.active = true;
         `,
         [id, role]);
 

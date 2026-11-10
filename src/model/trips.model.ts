@@ -1,3 +1,4 @@
+import { Pool, PoolClient } from "pg"
 import pool from "../connect"
 import { NotFoundError } from "../errors"
 import { activities, Activity } from "./activities.model"
@@ -66,6 +67,19 @@ class Trips {
     // ======================================================================================================================
     // ====================================================TRIPS=============================================================
     // ======================================================================================================================
+
+    /**
+     * Checks whether a trip with the id exists.
+     */
+    async exists(id : number, client : Pool | PoolClient = pool) : Promise<boolean> {
+        let response = await client.query<{id: number}>(`
+            SELECT id
+            FROM trips
+            WHERE id = $1;
+        `, [id]);
+
+        return response.rowCount != 0;
+    }
 
     /**
      * Creates a new trip and assigns the specified activities and tags to it.
