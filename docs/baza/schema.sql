@@ -54,7 +54,7 @@ CREATE TABLE Events
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   startDatetime TIMESTAMP NOT NULL,
-  capacityOverride INT,
+  capacity INT NOT NULL,
   tripId INT NOT NULL,
   stateId INT NOT NULL,
   PRIMARY KEY (id),
@@ -146,14 +146,14 @@ CREATE TABLE EventAddons
   id INT GENERATED ALWAYS AS IDENTITY,
   description VARCHAR(1000) NOT NULL,
   price NUMERIC(10,2) NOT NULL,
-  capacity INT,
+  capacity INT NOT NULL,
   eventId INT NOT NULL,
   addonId INT NOT NULL,
   active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (eventId) REFERENCES Events(id),
   FOREIGN KEY (addonId) REFERENCES Addons(id),
-  CHECK (capacity IS NULL OR capacity >= 0)
+  CHECK (capacity >= 0)
 );
 CREATE UNIQUE INDEX uq_eventaddons_active_eventId_addonId ON EventAddons(eventId, addonId) WHERE active;
 
