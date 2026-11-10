@@ -3,7 +3,6 @@ import { NotFoundError } from '../errors'
 import { Trip, trips } from './trips.model'
 import { addons } from './addons.model'
 import { Pool, PoolClient } from 'pg'
-import { stat } from 'node:fs'
 
 export enum EventState {
     Hidden = "hidden",
@@ -14,10 +13,10 @@ export enum EventState {
 }
 
 export enum EventOrdering {
-    byName,
-    byPrice,
-    byDate,
-    byRating
+    byName = "t.name",
+    byPrice = "t.basePrice",
+    byDate = "e.startDateTime",
+    // byRating = ""
 }
 
 export enum SortDirection {
@@ -30,17 +29,17 @@ export type EventSort = {
     direction : SortDirection
 }
 
-type NewEvent = {
+export type NewEvent = {
     startDateTime : Date,
     capacity : number,
     state : EventState
 }
 
-type EditEvent = NewEvent & {
+export type EditEvent = NewEvent & {
     id : number
 };
 
-type Event = EditEvent & {
+export type Event = EditEvent & {
     trip : Trip,
     availableAddons : EventAddon[]
 }
@@ -50,7 +49,7 @@ type EventRow = {
     startdatetime : Date,
     capacity : number,
     state : string,
-    tripId : number
+    tripid : number
 }
 
 
@@ -75,17 +74,17 @@ type EventAddonRow = {
     capacity : number
 }
 
-type EventFilter = {
+export type EventFilter = {
     nameContains? : string,
     dateFrom? : Date,
     dateTo? : Date,
     priceFrom? : number,
     priceTo? : number,
-    /*location,*/
+    //location,
     tagIds? : number[],
-    /*minFreeSpots,*/
+    //minFreeSpots,
     states? : EventState[]
-    /*availableLanguage*/
+    //availableLanguage
 }
 
 function rowToEvent(row : EventRow, trip : Trip, availableAddons : EventAddon[]) : Event {
@@ -182,7 +181,7 @@ class Events {
         }
 
         let [trip, availableAddons] = await Promise.all([
-            trips.getTrip(response.rows[0].tripId),
+            trips.getTrip(response.rows[0].tripid),
             this.getEventAddons(id)
         ]);
 
@@ -208,38 +207,67 @@ class Events {
     }
 
     async getFilteredEvents(filter : EventFilter, page : number, pageSize : number,
-        sort : EventSort = {ordering : EventOrdering.byName, direction : SortDirection.Ascending}) {
+        sort : EventSort = {ordering : EventOrdering.byName, direction : SortDirection.Ascending}) : Promise<number[]> {
 
             if (page <= 0 || pageSize <= 0 || 1000 < pageSize) {
                 throw new Error('Invalid paging parameters');
+            }
+
+            if (!Object.values(EventOrdering).includes(sort.ordering) ||
+                !Object.values(SortDirection).includes(sort.direction)) {
+                throw new Error('Invalid sort parameters');
             }
 
             let params : any[] = [];
             let paramIndex = 1;
             let conditions : string[] = [];
 
+            conditions.push("t.active = true");
+
             if (filter.nameContains) {
-                params.push(filter.nameContains)
-                conditions.push(`t.name LIKE %$${paramIndex++}%`)
+                params.push("%" + filter.nameContains + "%");
+                conditions.push(`t.name ILIKE $${paramIndex++}`);
             }
 
             if (filter.dateFrom) {
-                params.push(filter.dateFrom)
-                conditions.push(`e.startDateTime > $${paramIndex++}`)
+                params.push(filter.dateFrom);
+                conditions.push(`e.startDateTime >= $${paramIndex++}`);
             }
             if (filter.dateTo) {
-                params.push(filter.dateTo)
-                conditions.push(`e.startDateTime < $${paramIndex++}`)
+                params.push(filter.dateTo);
+                conditions.push(`e.startDateTime <= $${paramIndex++}`);
             }
 
             if (filter.priceFrom !== undefined) {
-                params.push(filter.priceFrom)
-                conditions.push(`e.price < $${paramIndex++}`)
+                params.push(filter.priceFrom);
+                conditions.push(`t.basePrice >= $${paramIndex++}`);
             }
             if (filter.priceTo !== undefined) {
-                params.push(filter.priceTo)
-                conditions.push(`e.price > $${paramIndex++}`)
+                params.push(filter.priceTo);
+                conditions.push(`t.basePrice <= $${paramIndex++}`);
             }
+
+            if (filter.tagIds && filter.tagIds.length > 0) {
+                params.push(filter.tagIds);
+                conditions.push(`
+                    EXISTS (
+                        SELECT 1
+                        FROM tripTag tt
+                        JOIN tripTags tg ON tg.id = tt.tagId
+                        WHERE tt.tripId = t.id
+                        AND tg.active = true
+                        AND tg.id = ANY($${paramIndex++}::integer[])
+                    )    
+                `);
+            }
+
+            if (filter.states && filter.states.length > 0) {
+                params.push(filter.states.map(state => (state as string).toLowerCase()));
+                conditions.push(`LOWER(s.name) = ANY($${paramIndex++}::varchar[])`)
+            }
+
+            params.push(pageSize); // LIMIT
+            params.push((page - 1) * pageSize); // OFFSET
 
             let response = await pool.query<{id: number}>(`
                 SELECT e.id
@@ -247,10 +275,12 @@ class Events {
                 JOIN trips t ON t.id = e.tripId
                 JOIN eventStates s ON s.id = e.stateId
                 WHERE ${conditions.join(' AND ')}
-                ORDER BY ${sort.ordering as string} ${sort.direction as string}, e.id ASC
-                LIMIT ${limit}
-                OFFSET ${offset};
+                ORDER BY ${sort.ordering} ${sort.direction}, e.id ASC
+                LIMIT $${paramIndex++}
+                OFFSET $${paramIndex++};
             `, params);
+
+            return response.rows.map(row => row.id)
     }
 
     async editEvent(event : EditEvent) : Promise<void> {
