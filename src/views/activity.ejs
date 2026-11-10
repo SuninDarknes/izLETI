@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= activity.name %></title>
+</head>
+<body>
+    <main>
+        <h1><%= activity.name %></h1>
+        <p><%= activity.description %></p>
+
+        <dl>
+            <dt>Category</dt>
+            <dd><%= activity.categoryName ?? activity.categoryId %></dd>
+
+            <dt>Location</dt>
+            <dd><%= activity.locationName %></dd>
+
+            <dt>Latitude</dt>
+            <dd><%= activity.latitude %></dd>
+
+            <dt>Longitude</dt>
+            <dd><%= activity.longitude %></dd>
+
+            <dt>Duration</dt>
+            <dd><%= activity.durationMinutes === null ? "Not specified" : `${activity.durationMinutes} minutes` %></dd>
+        </dl>
+
+        <a href="/activites">Back to activities</a>
+    </main>
+</body>
+</html>
