@@ -2,8 +2,9 @@ import express, {Request, Response} from "express";
 import path from "node:path";
 import session from "express-session";
 import { checkDb } from "./connect.js";
+import { requireLogin } from "./middleware/authorization";
 import authRouter from "./routes/auth.routes";
-import homeRouter from "./routes/home.routes";
+import homeRouter, { loginRouter } from "./routes/home.routes";
 import activitiesRouter from "./routes/activites.routes";
 import eventsRouter from "./routes/events.routes";
 import reservationsRouter from "./routes/reservations.routes";
@@ -37,16 +38,18 @@ app.use(
 );
 
 app.use("/auth", authRouter);
+app.use("/login", loginRouter);
+app.get("/health", async (req: Request, res: Response) => {
+    const ok = await checkDb();
+    res.status(ok ? 200 : 503).json({ status: ok ? "ok" : "error" });
+});
+
+app.use(requireLogin);
 app.use("/", homeRouter);
 app.use("/activites", activitiesRouter);
 app.use("/events", eventsRouter);
 app.use("/reservations", reservationsRouter);
 app.use("/trips", tripsRouter);
-
-app.get("/health", async (req: Request, res: Response) => {
-    const ok = await checkDb();
-    res.status(ok ? 200 : 503).json({ status: ok ? "ok" : "error" });
-});
 
 const PORT = Number(process.env.PORT ?? 8080);
 app.listen(PORT, () => {

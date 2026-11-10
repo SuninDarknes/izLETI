@@ -1,7 +1,8 @@
 import { OAuth2Client } from "google-auth-library";
 import { Request, Response, Router } from "express";
-import pool from "../connect";
+import { NotFoundError } from "../errors";
 import { GOOGLE_CLIENT_ID } from "../google-auth.config";
+import { Role, User, users } from "../model/users.model";
 
 declare module "express-session" {
     interface SessionData {
@@ -16,6 +17,25 @@ declare module "express-session" {
 
 const router: Router = Router();
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+function isPostgresError(error: unknown): error is Error & { code: string; constraint?: string } {
+    return error instanceof Error
+        && "code" in error
+        && typeof error.code === "string";
+}
+
+router.post("/logout", (req: Request, res: Response) => {
+    req.session.destroy(error => {
+        if (error) {
+            console.error("Could not destroy the session during logout:", error);
+            res.status(500).send("Could not log out. Please try again.");
+            return;
+        }
+
+        res.clearCookie("connect.sid", { path: "/" });
+        res.redirect("/login");
+    });
+});
 
 router.post("/google", async (req: Request, res: Response) => {
     const credential: unknown = req.body?.credential;
@@ -44,170 +64,79 @@ router.post("/google", async (req: Request, res: Response) => {
 
     const email = payload.email.toLowerCase();
     const fullName = payload.name ?? email;
-    let client;
+    let user: User;
     try {
-        client = await pool.connect();
+        try {
+            user = await users.getUserByGoogleId(payload.sub);
+        } catch (error) {
+            if (!(error instanceof NotFoundError)) {
+                throw error;
+            }
+
+            try {
+                await users.createUser({
+                    email,
+                    phone: null,
+                    username: email.split("@")[0].slice(0, 100),
+                    firstName: payload.given_name ?? null,
+                    lastName: payload.family_name ?? null,
+                    picture: payload.picture ?? null,
+                    locale: payload.locale ?? null,
+                    emailVerified: payload.email_verified === true,
+                    googleId: payload.sub,
+                }, [Role.User]);
+                user = await users.getUserByGoogleId(payload.sub);
+            } catch (createError) {
+                if (isPostgresError(createError) && createError.code === "23505") {
+                    if (createError.constraint?.toLowerCase().includes("googleid")) {
+                        try {
+                            user = await users.getUserByGoogleId(payload.sub);
+                        } catch (lookupError) {
+                            if (!(lookupError instanceof NotFoundError)) {
+                                throw lookupError;
+                            }
+                            res.status(403).json({ error: "This account is inactive." });
+                            return;
+                        }
+                    }
+                    else if (createError.constraint?.toLowerCase().includes("email")) {
+                        res.status(409).json({
+                            error: "An account already uses this email. Please contact an administrator to link it.",
+                        });
+                        return;
+                    }
+                }
+                throw createError;
+            }
+        }
+
+        await users.editUser({
+            id: user.id,
+            phone: user.phone,
+            username: user.username,
+            firstName: payload.given_name ?? user.firstName,
+            lastName: payload.family_name ?? user.lastName,
+            picture: payload.picture ?? user.picture,
+            locale: payload.locale ?? user.locale,
+            emailVerified: payload.email_verified === true,
+        });
     } catch (error) {
-        console.error("Could not connect to the database during Google sign-in:", error);
-        res.status(503).json({ error: "The database is unavailable. Please try again." });
-        return;
-    }
-
-    let user: { id: number; email: string; name: string; active: boolean };
-    try {
-        await client.query("BEGIN");
-        await client.query("SELECT pg_advisory_xact_lock(761204)");
-
-        const existingUsers = await client.query<{
-            id: number;
-            email: string;
-            googleid: string;
-            firstname: string | null;
-            lastname: string | null;
-            active: boolean;
-        }>(
-            `SELECT id, email, googleid, firstname, lastname, active
-             FROM users
-             WHERE googleid = $1 OR lower(email) = $2
-             FOR UPDATE`,
-            [payload.sub, email],
-        );
-        const googleUser = existingUsers.rows.find(row => row.googleid === payload.sub);
-        const emailUser = existingUsers.rows.find(row => row.email.toLowerCase() === email);
-
-        if (emailUser && emailUser.googleid !== payload.sub) {
-            await client.query("ROLLBACK");
-            res.status(409).json({
-                error: "An account already uses this email. Please contact an administrator to link it.",
-            });
+        if (error instanceof NotFoundError) {
+            res.status(403).json({ error: "This account is inactive." });
             return;
         }
 
-        if (googleUser) {
-            if (!googleUser.active) {
-                await client.query("ROLLBACK");
-                res.status(403).json({ error: "This account is inactive." });
-                return;
-            }
-
-            const result = await client.query<{
-                id: number;
-                email: string;
-                firstname: string | null;
-                lastname: string | null;
-                active: boolean;
-            }>(
-                `UPDATE users
-                 SET email = $1,
-                     firstname = $2,
-                     lastname = $3,
-                     picture = $4,
-                     locale = $5,
-                     emailverified = $6
-                 WHERE id = $7
-                 RETURNING id, email, firstname, lastname, active`,
-                [
-                    email,
-                    payload.given_name ?? null,
-                    payload.family_name ?? null,
-                    payload.picture ?? null,
-                    payload.locale ?? null,
-                    payload.email_verified === true,
-                    googleUser.id,
-                ],
-            );
-            const row = result.rows[0];
-            user = {
-                id: row.id,
-                email: row.email,
-                name: [row.firstname, row.lastname].filter(Boolean).join(" ") || fullName,
-                active: row.active,
-            };
-        } else {
-            const userIdResult = await client.query<{ id: number }>(
-                "SELECT COALESCE(MAX(id), 0) + 1 AS id FROM users",
-            );
-            const result = await client.query<{
-                id: number;
-                email: string;
-                firstname: string | null;
-                lastname: string | null;
-                active: boolean;
-            }>(
-                `INSERT INTO users (
-                     id, email, googleid, createdat, username, active,
-                     firstname, lastname, picture, locale, emailverified
-                 )
-                 VALUES ($1, $2, $3, CURRENT_TIMESTAMP, $4, TRUE, $5, $6, $7, $8, $9)
-                 RETURNING id, email, firstname, lastname, active`,
-                [
-                    userIdResult.rows[0].id,
-                    email,
-                    payload.sub,
-                    email.split("@")[0].slice(0, 100),
-                    payload.given_name ?? null,
-                    payload.family_name ?? null,
-                    payload.picture ?? null,
-                    payload.locale ?? null,
-                    payload.email_verified === true,
-                ],
-            );
-            const row = result.rows[0];
-            user = {
-                id: row.id,
-                email: row.email,
-                name: [row.firstname, row.lastname].filter(Boolean).join(" ") || fullName,
-                active: row.active,
-            };
-        }
-
-        let roleResult = await client.query<{ id: number }>(
-            "SELECT id FROM roles WHERE name = $1",
-            ["Customer"],
-        );
-        if (roleResult.rowCount === 0) {
-            roleResult = await client.query<{ id: number }>(
-                `INSERT INTO roles (id, name, active)
-                 SELECT COALESCE(MAX(id), 0) + 1, $1, TRUE
-                 FROM roles
-                 ON CONFLICT (name) DO NOTHING
-                 RETURNING id`,
-                ["Customer"],
-            );
-            if (roleResult.rowCount === 0) {
-                roleResult = await client.query<{ id: number }>(
-                    "SELECT id FROM roles WHERE name = $1",
-                    ["Customer"],
-                );
-            }
-        }
-
-        if (roleResult.rowCount !== 1) {
-            throw new Error('Could not find or create the "Customer" role.');
-        }
-
-        const userRoleIdResult = await client.query<{ id: number }>(
-            "SELECT COALESCE(MAX(id), 0) + 1 AS id FROM userrole",
-        );
-        await client.query(
-            `INSERT INTO userrole (id, roleid, userid)
-             VALUES ($1, $2, $3)
-             ON CONFLICT (roleid, userid) DO NOTHING`,
-            [userRoleIdResult.rows[0].id, roleResult.rows[0].id, user.id],
-        );
-
-        await client.query("COMMIT");
-    } catch (error) {
-        try {
-            await client.query("ROLLBACK");
-        } catch (rollbackError) {
-            console.error("Could not roll back the Google sign-in transaction:", rollbackError);
-        }
         console.error("Could not save the Google user and role:", error);
+        if (isPostgresError(error) && (error.code.startsWith("08") || [
+            "ECONNREFUSED",
+            "ENOTFOUND",
+            "ETIMEDOUT",
+        ].includes(error.code))) {
+            res.status(503).json({ error: "The database is unavailable. Please try again." });
+            return;
+        }
         res.status(500).json({ error: "Could not save your account. Please try again." });
         return;
-    } finally {
-        client.release();
     }
 
     try {
@@ -217,14 +146,14 @@ router.post("/google", async (req: Request, res: Response) => {
         req.session.user = {
             id: String(user.id),
             email: user.email,
-            name: user.name,
+            name: [user.firstName, user.lastName].filter(Boolean).join(" ") || fullName,
             picture: payload.picture,
         };
         await new Promise<void>((resolve, reject) => {
             req.session.save(error => error ? reject(error) : resolve());
         });
 
-        res.json({ redirectUrl: "/home" });
+        res.json({ redirectUrl: "/" });
     } catch (error) {
         console.error("Could not create a session after Google sign-in:", error);
         res.status(500).json({ error: "Google sign-in succeeded, but a session could not be created." });
