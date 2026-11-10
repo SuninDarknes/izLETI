@@ -6,7 +6,7 @@ const router: Router = Router();
 
 router.get("/", async (req: Request, res: Response) => {
     try {
-        const activityList = await activities.filterActivities(1, 100);
+        const activityList = await activities.getActivities(1, 100);
         res.render("activites", { activities: activityList });
     } catch (error) {
         console.error("Could not load activities:", error);
@@ -27,6 +27,11 @@ router.get("/:id", async (req: Request, res: Response) => {
 
     try {
         const activity = await activities.getActivity(id);
+        if (req.accepts(["html", "json"]) === "json") {
+            res.json(activity);
+            return;
+        }
+
         if (req.accepts(["html", "json"]) === "json") {
             res.json(activity);
             return;

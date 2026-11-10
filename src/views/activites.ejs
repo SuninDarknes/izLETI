@@ -13,7 +13,7 @@
         <ul>
             <% activities.forEach(activity => { %>
                 <li>
-                    <a href="/activites/<%= activity.id %>"><%= activity.name %></a>
+                    <a href="/activities/<%= activity.id %>"><%= activity.name %></a>
                     <% if (activity.categoryName) { %>
                         — <%= activity.categoryName %>
                     <% } %>
