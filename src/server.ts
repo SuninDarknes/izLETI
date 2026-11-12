@@ -11,6 +11,7 @@ import reservationsRouter from "./routes/reservations.routes";
 import tripsRouter from "./routes/trips.routes";
 
 const app = express();
+app.set("trust proxy", 1);
 const sessionSecret = process.env.SESSION_SECRET ?? "local-development-session-secret";
 
 if (process.env.NODE_ENV === "production" && !process.env.SESSION_SECRET) {
