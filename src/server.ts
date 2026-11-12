@@ -46,6 +46,7 @@ app.get("/health", async (req: Request, res: Response) => {
 
 app.use(requireLogin);
 app.use("/", homeRouter);
+app.use("/activities", activitiesRouter);
 app.use("/activites", activitiesRouter);
 app.use("/events", eventsRouter);
 app.use("/reservations", reservationsRouter);

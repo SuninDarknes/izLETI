@@ -49,3 +49,23 @@ export const requireOwner: RequestHandler = async (req, res, next) => {
         res.status(503).send("Unable to verify permissions right now. Please try again.");
     }
 };
+
+export const requireOrganizer: RequestHandler = async (req, res, next) => {
+    const userId = req.session.user?.id;
+    if (!userId) {
+        res.redirect("/login");
+        return;
+    }
+
+    try {
+        if (!(await users.isOrganizer(Number(userId)))) {
+            res.status(403).render("forbidden");
+            return;
+        }
+
+        next();
+    } catch (error) {
+        console.error("Could not verify organizer access:", error);
+        res.status(503).send("Unable to verify permissions right now. Please try again.");
+    }
+};

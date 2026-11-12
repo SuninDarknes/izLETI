@@ -6,7 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>You are on activites page</h1>
-
+    <h1>Activities</h1>
+    <% if (activities.length === 0) { %>
+        <p>No activities are currently available.</p>
+    <% } else { %>
+        <ul>
+            <% activities.forEach(activity => { %>
+                <li>
+                    <a href="/activities/<%= activity.id %>"><%= activity.name %></a>
+                    <% if (activity.categoryName) { %>
+                        — <%= activity.categoryName %>
+                    <% } %>
+                    <p><%= activity.description %></p>
+                </li>
+            <% }); %>
+        </ul>
+    <% } %>
 </body>
 </html>
