@@ -24,6 +24,20 @@ function isPostgresError(error: unknown): error is Error & { code: string; const
         && typeof error.code === "string";
 }
 
+router.get("/me", (req: Request, res: Response) => {
+    if (!req.session.user) {
+        res.status(401).json({
+            authenticated: false
+        });
+        return;
+    }
+
+    res.json({
+        authenticated: true,
+        user: req.session.user
+    });
+});
+
 router.post("/logout", (req: Request, res: Response) => {
     req.session.destroy(error => {
         if (error) {
@@ -33,7 +47,7 @@ router.post("/logout", (req: Request, res: Response) => {
         }
 
         res.clearCookie("connect.sid", { path: "/" });
-        res.redirect("/login");
+        res.redirect("/");
     });
 });
 
