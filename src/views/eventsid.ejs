@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>izLETI – Izlet v Prisavlje</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    .ph { background: #dedede; }                 /* grey image placeholder */
+    .ph i { font-size: 3rem; color: #b9b9b9; }
+    .ph img { object-fit: cover; }
+
+    :root {
+        --bs-primary: #8f81ca;    
+      }
+    .bg-light-purple {
+      background-color: #8f81ca;
+    }
+
+    .bg-light-pozadina {
+      background-color: #d0e8e3;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <%- include("./partials/header.ejs") %>
+
+  <main class="container-fluid flex-grow-1 py-4">
+
+    <!-- ========== TOP: info (left) + gallery (right) ========== -->
+    <div class="row g-4 mb-4">
+
+      <div class="col-lg-6">
+        <h1 class="h2">
+          Izlet v Prisavlje
+          <span class="ms-2 fs-5" aria-label="Ocjena 3,5 od 5">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i>
+          </span>
+        </h1>
+        <p class="text-body-secondary">Zagreb</p>
+
+        <h2 class="h6">Opis</h2>
+        <p>
+          Jednodnevni izlet kroz Prisavlje s vodičem. Šetnja uz Savu, obilazak lokalnih
+          znamenitosti i ručak u domaćem restoranu. Pravo domaće!
+        </p>
+
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="badge text-bg-light border fw-normal fs-6">tag 1</span>
+          <span class="badge text-bg-light border fw-normal fs-6">tag 2</span>
+          <span class="badge text-bg-light border fw-normal fs-6">tag 3</span>
+        </div>
+
+        <div class="row g-2 align-items-center" style="max-width: 24rem;">
+          <label for="datum" class="col-5 col-form-label">Datum</label>
+          <div class="col-7">
+            <select id="datum" class="form-select">
+              <option>12.3.</option>
+              <option>19.3.</option>
+              <option>26.3.</option>
+            </select>
+          </div>
+          <div class="col-5">Slobodna mjesta</div>
+          <div class="col-7 fw-semibold">12</div>
+        </div>
+      </div>
+
+      <!-- gallery: grey box with a 2x2 grid of images -->
+      <div class="col-lg-6">
+        <div class="ph rounded p-2 bg-light-pozadina">
+          <div class="row row-cols-2 g-2">
+            <img src="/images/slika1probna.jpg" class="rounded object-fit-cover" alt="Izlet 1">
+           <img src="/images/slika1probna.jpg" class="rounded object-fit-cover" alt="Izlet 2">
+           <img src="/images/slika1probna.jpg" class="rounded object-fit-cover" alt="Izlet 3">
+            <img src="/images/slika1probna.jpg" class="rounded object-fit-cover" alt="Izlet 4">
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== INCLUDED ACTIVITIES ========== -->
+    <h2 class="h5 mb-3">Aktivnosti u cijeni</h2>
+    <div class="row g-3 mb-3">
+
+      <!-- activity card: copy this block for each activity -->
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="row g-0 h-100">
+            <div class="col-8">
+              <div class="card-body">
+                <h3 class="h6 card-title mb-0">Ime aktivnosti</h3>
+                <p class="small text-body-secondary mb-2">vrijeme: 10:00</p>
+                <p class="card-text small">Kratki opis aktivnosti, što se radi i što je uključeno.</p>
+              </div>
+            </div>
+            <div class="col-4 ph d-flex align-items-center justify-content-center rounded-end"><i class="bi bi-image"></i></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="row g-0 h-100">
+            <div class="col-8">
+              <div class="card-body">
+                <h3 class="h6 card-title mb-0">Ime aktivnosti</h3>
+                <p class="small text-body-secondary mb-2">vrijeme: 12:30</p>
+                <p class="card-text small">Kratki opis aktivnosti, što se radi i što je uključeno.</p>
+              </div>
+            </div>
+            <div class="col-4 ph d-flex align-items-center justify-content-center rounded-end"><i class="bi bi-image"></i></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="row g-0 h-100">
+            <div class="col-8">
+              <div class="card-body">
+                <h3 class="h6 card-title mb-0">Ime aktivnosti</h3>
+                <p class="small text-body-secondary mb-2">vrijeme: 15:00</p>
+                <p class="card-text small">Kratki opis aktivnosti, što se radi i što je uključeno.</p>
+              </div>
+            </div>
+            <div class="col-4 ph d-flex align-items-center justify-content-center rounded-end"><i class="bi bi-image"></i></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <p class="mb-5">Osnovna cijena: <strong><span id="osnovna" data-price="100">100</span>€</strong></p>
+
+    <!-- ========== EXTRA OFFER ========== -->
+    <h2 class="h5 mb-3">Dodatna ponuda</h2>
+    <div class="row g-3 mb-5">
+
+      <!-- extra card: same as above + price and "Dodaj" button -->
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100 bg-light-pozadina">
+          <div class="row g-0 h-100">
+            <div class="col-8 d-flex flex-column">
+              <div class="card-body pb-2">
+                <h3 class="h6 card-title mb-0">Ime aktivnosti</h3>
+                <p class="small text-body-secondary mb-2">vrijeme: 17:00</p>
+                <p class="card-text small">Kratki opis dodatne aktivnosti.</p>
+              </div>
+              <div class="card-body pt-0 d-flex justify-content-between align-items-end">
+                <span class="fw-semibold">20€</span>
+                <button type="button" class="btn btn-dark btn-sm px-3" data-extra data-price="20" aria-pressed="false">Dodaj</button>
+              </div>
+            </div>
+            <div class="col-4 ph d-flex align-items-center justify-content-center rounded-end"><i class="bi bi-image"></i></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="row g-0 h-100">
+            <div class="col-8 d-flex flex-column">
+              <div class="card-body pb-2">
+                <h3 class="h6 card-title mb-0">Ime aktivnosti</h3>
+                <p class="small text-body-secondary mb-2">vrijeme: 18:30</p>
+                <p class="card-text small">Kratki opis dodatne aktivnosti.</p>
+              </div>
+              <div class="card-body pt-0 d-flex justify-content-between align-items-end">
+                <span class="fw-semibold">35€</span>
+                <button type="button" class="btn btn-dark btn-sm px-3" data-extra data-price="35" aria-pressed="false">Dodaj</button>
+              </div>
+            </div>
+            <div class="col-4 ph d-flex align-items-center justify-content-center rounded-end"><i class="bi bi-image"></i></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-xl-4">
+        <article class="card h-100">
+          <div class="row g-0 h-100">
+            <div class="col-8 d-flex flex-column">
+              <div class="card-body pb-2">
+                <h3 class="h6 card-title mb-0">Ime aktivnosti</h3>
+                <p class="small text-body-secondary mb-2">vrijeme: 20:00</p>
+                <p class="card-text small">Kratki opis dodatne aktivnosti.</p>
+              </div>
+              <div class="card-body pt-0 d-flex justify-content-between align-items-end">
+                <span class="fw-semibold">15€</span>
+                <button type="button" class="btn btn-dark btn-sm px-3" data-extra data-price="15" aria-pressed="false">Dodaj</button>
+              </div>
+            </div>
+            <div class="col-4 ph d-flex align-items-center justify-content-center rounded-end"><i class="bi bi-image"></i></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ========== TOTAL + RESERVE ========== -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 border-top pt-4">
+      <p class="fs-4 mb-0">Ukupna cijena: <strong><span id="ukupno">100</span>€</strong></p>
+      <a href="#" class="btn btn-dark btn-lg px-5">Rezerviraj <i class="bi bi-chevron-right"></i></a>
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // "Dodaj" / "Ukloni" buttons update the total price
+    const base  = Number(document.getElementById('osnovna').dataset.price);
+    const total = document.getElementById('ukupno');
+
+    function recalc() {
+      let sum = base;
+      document.querySelectorAll('[data-extra][aria-pressed="true"]').forEach(b => sum += Number(b.dataset.price));
+      total.textContent = sum;
+    }
+
+    document.querySelectorAll('[data-extra]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const on = btn.getAttribute('aria-pressed') !== 'true';
+        btn.setAttribute('aria-pressed', on);
+        btn.textContent = on ? 'Ukloni' : 'Dodaj';
+        btn.classList.toggle('btn-dark', !on);
+        btn.classList.toggle('btn-outline-dark', on);
+        recalc();
+      });
+    });
+  </script>
+</body>
+</html>
