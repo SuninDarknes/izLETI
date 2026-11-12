@@ -168,7 +168,7 @@ INSERT INTO EventAddons (description, price, capacity, eventId, addonId, active)
   ('Tasting of three local wines, paired with sailing snacks.', 18.00, 8,    2, 1, TRUE),   -- id 3
   ('Sandwich, fruit and a drink.',                              12.50, 10,   3, 3, TRUE),   -- id 4
   ('Tasting of three local wines.',                             15.00, 10,   4, 1, TRUE),   -- id 5
-  ('Digital photos taken by the guide during the trip.',        10.00, NULL, 3, 2, FALSE);  -- id 6 (inactive offer)
+  ('Digital photos taken by the guide during the trip.',        10.00, 10,   3, 2, FALSE);  -- id 6 (inactive offer; capacity is still required)
 
 -- ---------- Reservations ----------
 -- Each reservation's eventGuideId must belong to the same event as its eventId

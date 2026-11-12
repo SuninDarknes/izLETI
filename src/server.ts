@@ -44,10 +44,8 @@ app.get("/health", async (req: Request, res: Response) => {
     res.status(ok ? 200 : 503).json({ status: ok ? "ok" : "error" });
 });
 
-app.use(requireLogin);
 app.use("/", homeRouter);
 app.use("/activities", activitiesRouter);
-app.use("/activites", activitiesRouter);
 app.use("/events", eventsRouter);
 app.use("/reservations", reservationsRouter);
 app.use("/trips", tripsRouter);
