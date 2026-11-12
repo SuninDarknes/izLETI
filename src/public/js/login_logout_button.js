@@ -8,7 +8,7 @@ loginLogoutButton?.addEventListener("click", async (e) => {
     let auth = await checkAuth();
 
     if (!auth.authenticated) {
-        window.location = "/login";
+        window.location = "/auth/login";
         return;
     }
 

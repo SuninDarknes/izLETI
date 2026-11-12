@@ -3,7 +3,7 @@ import { users } from "../model/users.model";
 
 export const requireLogin: RequestHandler = (req, res, next) => {
     if (!req.session.user?.id) {
-        res.redirect("/login");
+        res.redirect("/auth/login");
         return;
     }
 
@@ -13,7 +13,7 @@ export const requireLogin: RequestHandler = (req, res, next) => {
 export const requireAdmin: RequestHandler = async (req, res, next) => {
     const userId = req.session.user?.id;
     if (!userId) {
-        res.redirect("/login");
+        res.redirect("/auth/login");
         return;
     }
 

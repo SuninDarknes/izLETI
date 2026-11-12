@@ -24,6 +24,10 @@ function isPostgresError(error: unknown): error is Error & { code: string; const
         && typeof error.code === "string";
 }
 
+router.get("/login", (req: Request, res: Response) => {
+    res.render("login", { googleClientId: GOOGLE_CLIENT_ID });
+});
+
 router.get("/me", (req: Request, res: Response) => {
     if (!req.session.user) {
         res.status(401).json({

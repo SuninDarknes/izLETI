@@ -20,7 +20,11 @@
         <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
       </ul>
       <a id="logout-button" class="nav-link fs-4" href="#" aria-label="Korisnički račun">
-        <i class="bi bi-person-square"></i>
+        <% if (user && user.picture) { %>
+          <img class="rounded-circle align-middle" src="<%= user.picture %>" width="32" height="32">
+        <% } else { %>
+          <i class="bi bi-person-square"></i>
+        <% } %>
       </a>
     </div>
   </div>
