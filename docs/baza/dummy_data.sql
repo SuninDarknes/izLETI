@@ -81,19 +81,19 @@ INSERT INTO GuideLanguage (userId, languageId) VALUES
 
 -- ---------- Trips, activities, tags ----------
 
-INSERT INTO Trips (name, description, durationMinutes, meetingPoint, maxParticipants, basePrice, createdAt, active) VALUES
+INSERT INTO Trips (name, description, durationMinutes, meetingPointLatitude, meetingPointLongitude, maxParticipants, basePrice, createdAt, active) VALUES
   ('Lisbon Old Town Walking Tour',
       'A relaxed walk through the historic streets and viewpoints of the old town, with a pastry stop along the way.',
-      180, 'Praca do Comercio, main arch', 12, 25.00, '2026-02-01 09:00:00', TRUE),   -- id 1
+      180, 38.707700, -9.136500, 12, 25.00, '2026-02-01 09:00:00', TRUE),   -- id 1
   ('Sunset Sailing on the Tagus',
       'Cruise the river on a small sailboat while the sun goes down. Light snacks and drinks available as add-ons.',
-      120, 'Doca de Santo Amaro marina', 8, 60.00, '2026-02-15 09:00:00', TRUE),      -- id 2
+      120, 38.700600, -9.178000, 8, 60.00, '2026-02-15 09:00:00', TRUE),      -- id 2
   ('Sintra Day Trip',
       'Full-day excursion to the hills and palaces of Sintra, including a guided hike and a palace visit.',
-      480, 'Rossio Station, platform entrance', 10, 85.00, '2026-03-01 09:00:00', TRUE),  -- id 3
+      480, 38.713900, -9.139400, 10, 85.00, '2026-03-01 09:00:00', TRUE),  -- id 3
   ('Fado Evening in Mouraria',
       'An intimate evening of live fado music in a small tavern in the Mouraria district.',
-      150, 'Largo do Carmo, fountain', 10, 45.00, '2026-03-20 09:00:00', FALSE);      -- id 4 (inactive, no events)
+      150, 38.711700, -9.140500, 10, 45.00, '2026-03-20 09:00:00', FALSE);      -- id 4 (inactive, no events)
 
 INSERT INTO Activities (name, description, locationName, latitude, longitude, durationMinutes, categoryId, active) VALUES
   ('Alfama Viewpoint Walk',
@@ -137,13 +137,13 @@ INSERT INTO TripTag (tripId, tagId) VALUES
 
 -- ---------- Events & guides ----------
 
-INSERT INTO Events (startDatetime, capacityOverride, tripId, stateId) VALUES
-  ('2026-11-15 10:00:00', NULL, 1, 1),  -- id 1: upcoming, scheduled
+INSERT INTO Events (startDatetime, capacity, tripId, stateId) VALUES
+  ('2026-11-15 10:00:00', 12,   1, 1),  -- id 1: upcoming, scheduled
   ('2026-11-22 17:00:00', 6,    2, 2),  -- id 2: upcoming, confirmed, reduced capacity
-  ('2026-12-06 09:00:00', NULL, 3, 1),  -- id 3: upcoming, scheduled
-  ('2026-10-10 10:00:00', NULL, 1, 3),  -- id 4: past, completed
-  ('2026-10-25 17:00:00', NULL, 2, 4),  -- id 5: past, cancelled
-  ('2026-11-29 10:00:00', NULL, 1, 1);  -- id 6: upcoming, scheduled, no reservations yet
+  ('2026-12-06 09:00:00', 10,   3, 1),  -- id 3: upcoming, scheduled
+  ('2026-10-10 10:00:00', 12,   1, 3),  -- id 4: past, completed
+  ('2026-10-25 17:00:00', 8,    2, 4),  -- id 5: past, cancelled
+  ('2026-11-29 10:00:00', 12,   1, 1);  -- id 6: upcoming, scheduled, no reservations yet
 
 INSERT INTO EventGuides (eventId, guideId) VALUES
   (1, 2),  -- id 1: Event 1: Marco
@@ -164,7 +164,7 @@ INSERT INTO Addons (name, defaultPrice, active) VALUES
 
 INSERT INTO EventAddons (description, price, capacity, eventId, addonId, active) VALUES
   ('Tasting of three local wines.',                             15.00, 10,   1, 1, TRUE),   -- id 1
-  ('Digital photos taken by the guide during the trip.',        10.00, NULL, 1, 2, TRUE),   -- id 2
+  ('Digital photos taken by the guide during the trip.',        10.00, 12,   1, 2, TRUE),   -- id 2
   ('Tasting of three local wines, paired with sailing snacks.', 18.00, 8,    2, 1, TRUE),   -- id 3
   ('Sandwich, fruit and a drink.',                              12.50, 10,   3, 3, TRUE),   -- id 4
   ('Tasting of three local wines.',                             15.00, 10,   4, 1, TRUE),   -- id 5
