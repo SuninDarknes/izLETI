@@ -1,23 +1,22 @@
 import { Request, Response, Router } from "express";
+import { GOOGLE_CLIENT_ID } from "../google-auth.config";
+import { requireAdmin, requireLogin, requireOwner } from "../middleware/authorization";
 
 const router: Router = Router();
 
 router.get("/", (req: Request, res: Response) => {
     res.render("home");
-   // return res.sendStatus(200);
 });
 
+router.use(requireLogin);
 
-
-router.get("/admin", (req: Request, res: Response) => {
+router.get("/admin", requireAdmin, (req: Request, res: Response) => {
     res.render("admin");
-    //return res.sendStatus(200);
 });
 
 
-router.get("/dashboard", (req: Request, res: Response) => {
+router.get("/dashboard", requireOwner, (req: Request, res: Response) => {
     res.render("dashboard");
-    //return res.sendStatus(200);
 });
 
 

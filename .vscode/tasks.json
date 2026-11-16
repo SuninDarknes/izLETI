@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run izLETI local server",
+			"type": "shell",
+			"command": "npm --prefix src run dev",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

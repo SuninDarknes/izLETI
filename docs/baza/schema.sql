@@ -31,7 +31,8 @@ CREATE TABLE Trips
   name VARCHAR(150) NOT NULL,
   description VARCHAR(1000) NOT NULL,
   durationMinutes INT NOT NULL,
-  meetingPoint VARCHAR(150) NOT NULL,
+  meetingPointLatitude NUMERIC(9,6) NOT NULL,
+  meetingPointLongitude NUMERIC(9,6) NOT NULL,
   maxParticipants INT NOT NULL,
   basePrice NUMERIC(10,2) NOT NULL,
   createdAt TIMESTAMP NOT NULL,
@@ -53,7 +54,7 @@ CREATE TABLE Events
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   startDatetime TIMESTAMP NOT NULL,
-  capacityOverride INT,
+  capacity INT NOT NULL,
   tripId INT NOT NULL,
   stateId INT NOT NULL,
   PRIMARY KEY (id),
@@ -66,9 +67,9 @@ CREATE TABLE ActivityCategories
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
   active BOOLEAN NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE (name)
+  PRIMARY KEY (id)
 );
+CREATE UNIQUE INDEX uq_activitycategories_active_name ON ActivityCategories(name) WHERE active;
 
 CREATE TABLE Activities
 (
@@ -127,7 +128,7 @@ CREATE TABLE Reservations
   FOREIGN KEY (userId) REFERENCES Users(id),
   FOREIGN KEY (eventId) REFERENCES Events(id),
   FOREIGN KEY (stateId) REFERENCES ReservationStates(id),
-  FOREIGN KEY (eventGuideId) REFERENCES EventGuides(id),
+  FOREIGN KEY (eventId, eventGuideId) REFERENCES EventGuides(eventId, id),
   CHECK (numPeople > 0)
 );
 
@@ -136,25 +137,25 @@ CREATE TABLE TripTags
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
   active BOOLEAN NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE (name)
+  PRIMARY KEY (id)
 );
+CREATE UNIQUE INDEX uq_triptags_active_name ON TripTags(name) WHERE active;
 
 CREATE TABLE EventAddons
 (
   id INT GENERATED ALWAYS AS IDENTITY,
   description VARCHAR(1000) NOT NULL,
   price NUMERIC(10,2) NOT NULL,
-  capacity INT,
+  capacity INT NOT NULL,
   eventId INT NOT NULL,
   addonId INT NOT NULL,
   active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (eventId) REFERENCES Events(id),
   FOREIGN KEY (addonId) REFERENCES Addons(id),
-  UNIQUE (eventId, addonId),
-  CHECK (capacity IS NULL OR capacity >= 0)
+  CHECK (capacity >= 0)
 );
+CREATE UNIQUE INDEX uq_eventaddons_active_eventId_addonId ON EventAddons(eventId, addonId) WHERE active;
 
 CREATE TABLE UserRole
 (
@@ -208,9 +209,9 @@ CREATE TABLE Languages
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(50) NOT NULL,
   active BOOLEAN NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE (name)
+  PRIMARY KEY (id)
 );
+CREATE UNIQUE INDEX uq_languages_active_name ON Languages(name) WHERE active;
 
 CREATE TABLE GuideLanguage
 (
@@ -233,9 +234,9 @@ CREATE TABLE GuideRatings
   active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (reservationId) REFERENCES Reservations(id),
-  UNIQUE (reservationId),
   CHECK (rating BETWEEN 1 AND 5)
 );
+CREATE UNIQUE INDEX uq_guideratings_active_reservationid ON GuideRatings(reservationId) WHERE active;
 
 CREATE TABLE TripRatings
 (
@@ -247,9 +248,9 @@ CREATE TABLE TripRatings
   active BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (reservationId) REFERENCES Reservations(id),
-  UNIQUE (reservationId),
   CHECK (rating BETWEEN 1 AND 5)
 );
+CREATE UNIQUE INDEX uq_tripratings_active_reservationid ON TripRatings(reservationId) WHERE active;
 
 CREATE FUNCTION check_addon_matches_event() RETURNS TRIGGER AS $$
 BEGIN
