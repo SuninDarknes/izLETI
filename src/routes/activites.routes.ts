@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { NotFoundError } from "../errors";
 import { requireOrganizer } from "../middleware/authorization";
 import { activities, NewActivity } from "../model/activities.model";
+import { users } from "../model/users.model";
 
 const router: Router = Router();
 
@@ -14,18 +15,26 @@ function parseActivity(b: any): NewActivity | null {
         locationName: String(b.locationName ?? "").trim(),
         latitude: n(b.latitude),
         longitude: n(b.longitude),
-        durationMinutes: n(b.durationMinutes),
+        durationMinutes: b.durationMinutes === undefined || b.durationMinutes === ""
+            ? null
+            : n(b.durationMinutes),
         categoryId: n(b.categoryId),
     };
     const ok = a.name !== "" &&
-        [a.latitude, a.longitude, a.durationMinutes, a.categoryId].every(Number.isFinite);
+        [a.latitude, a.longitude, a.categoryId].every(Number.isFinite) &&
+        (a.durationMinutes === null || Number.isFinite(a.durationMinutes));
     return ok ? a : null;
 }
 
 router.get("/", async (req: Request, res: Response) => {
     try {
-        const activityList = await activities.filterActivities(1, 100);
-        res.render("activites", { activities: activityList });
+        const [activityList, isOrganizer] = await Promise.all([
+            activities.filterActivities(1, 100),
+            req.session.user?.id
+                ? users.isOrganizer(Number(req.session.user.id))
+                : Promise.resolve(false),
+        ]);
+        res.render("activites", { activities: activityList, isOrganizer });
     } catch (error) {
         console.error("Could not load activities:", error);
         res.status(500).send("Could not load activities.");
@@ -35,6 +44,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.get("/add", requireOrganizer, async (req: Request, res: Response) => {
     res.render("activity-form", {
         activity: null,
+        isEditing: false,
         categories: await activities.getCategories(),
         error: null,
     });
@@ -45,6 +55,7 @@ router.post("/add", requireOrganizer, async (req: Request, res: Response) => {
     if (!a) {
         res.status(400).render("activity-form", {
             activity: req.body,
+            isEditing: false,
             categories: await activities.getCategories(),
             error: "Provjeri unesena polja.",
         });
@@ -69,7 +80,10 @@ router.get("/:id", async (req: Request, res: Response) => {
             return;
         }
 
-        res.render("activity", { activity });
+        const isOrganizer = req.session.user?.id
+            ? await users.isOrganizer(Number(req.session.user.id))
+            : false;
+        res.render("activity", { activity, isOrganizer });
     } catch (error) {
         if (error instanceof NotFoundError) {
             res.status(404).send("Activity not found.");
@@ -91,6 +105,7 @@ router.get("/:id/edit", requireOrganizer, async (req: Request, res: Response) =>
     try {
         res.render("activity-form", {
             activity: await activities.getActivity(id),
+            isEditing: true,
             categories: await activities.getCategories(),
             error: null,
         });
