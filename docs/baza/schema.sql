@@ -30,7 +30,7 @@ CREATE TABLE Trips
   id INT GENERATED ALWAYS AS IDENTITY,
   name VARCHAR(150) NOT NULL,
   description VARCHAR(1000) NOT NULL,
-  durationMinutes INT NOT NULL,
+  durationMinutes INT,
   meetingPointLatitude NUMERIC(9,6) NOT NULL,
   meetingPointLongitude NUMERIC(9,6) NOT NULL,
   maxParticipants INT NOT NULL,
