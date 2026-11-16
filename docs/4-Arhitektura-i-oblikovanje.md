@@ -22,7 +22,16 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 
 | Odluka | Razmatrana alternativa | Projektno specifično obrazloženje i kompromis |
 | --- | --- | --- |
-|  |  |  |
+| Odvajanje poslužiteljskih ruta, modela i prikaza | — | Odvajanjem obrade zahtjeva, pristupa podacima i prikaza postiže se preglednija organizacija koda. Modeli su zaduženi za pristup podacima, rute za obradu zahtjeva, a EJS prikazi za generiranje HTML-a. Takva podjela olakšava održavanje i proširivanje aplikacije, ali zahtijeva dosljedno razdvajanje odgovornosti između slojeva. |
+| Poslužiteljsko generiranje HTML prikaza | Renderiranje na klijentskoj strani | Budući da se velik dio aplikacije temelji na prikazu podataka, obrazaca i popisa, poslužiteljsko generiranje prikaza pojednostavljuje razvoj i smanjuje potrebu za složenijom klijentskom logikom. Kompromis je što su za dio interakcija potrebni dodatni zahtjevi poslužitelju i ponovno generiranje prikaza. |
+| Relacijska pohrana podataka | — | Podaci aplikacije imaju jasno definirane međusobne odnose, primjerice između korisnika, rezervacija, događaja, izleta i aktivnosti. Relacijski model omogućuje dosljedno povezivanje podataka i očuvanje referencijalne cjelovitosti. Kompromis je potreba za unaprijed definiranom strukturom baze i migracijama prilikom promjena modela podataka. |
+| Odvajanje pojmova aktivnost, izlet i događaj | Svaki događaj se kreira zasebno | Aktivnost se može koristiti u više izleta, a isti izlet može se održavati u više različitih termina. Zaseban model događaja omogućuje da se za svako održavanje definiraju termin, vodič i kapacitet. Rezervacija se veže uz konkretan događaj, a ne uz izlet općenito. Takav model omogućuje ponovno korištenje aktivnosti i izleta, ali zahtijeva više povezanih entiteta i složenije povezivanje podataka. |
+| Prijava korisnika putem Google OAutha | Lokalna prijava putem e-pošte i lozinke | Korištenje Google računa uklanja potrebu za implementacijom vlastitog sustava lozinki i njihovom sigurnom pohranom u bazi. Aplikacija i dalje vodi vlastite korisničke račune i uloge. Kompromis je ovisnost o vanjskom pružatelju identiteta. |
+| Podrška za više korisničkih uloga po računu | Samo jedna uloga po računu | Jedan korisnik može imati više uloga, a dostupne funkcionalnosti ovise o dodijeljenim ulogama. Time se omogućuje da isti korisnik, primjerice, bude i administrator i organizator. Kompromis je složenije upravljanje dodjelom uloga i povezanim funkcionalnostima korisničkog računa. |
+| Kontrola pristupa pomoću poslužiteljske provjere korisničkih ovlasti | — | Ovlasti se provjeravaju na poslužiteljskoj strani kako korisnici ne bi mogli pristupiti funkcionalnostima drugih uloga izravnim slanjem zahtjeva. Time se zaštita ne oslanja samo na skrivanje pojedinih elemenata sučelja. Kompromis je potreba za dosljednom provjerom ovlasti na svim zaštićenim rutama. |
+| Digitalni vodić za korištenje na mobitelu kao dio web aplikacije | Zasebna mobilna aplikacija | Objedinjavanjem pregleda i rezervacije izleta s digitalnim vodičem u jednoj web-aplikaciji izbjegava se potreba za razvojem i održavanjem zasebne mobilne aplikacije. Kompromis je potreba za prilagodbom sučelja različitim načinima korištenja aplikacije te ovisnost o mogućnostima preglednika i korisnikovu dopuštenju za pristup lokaciji. |
+| Slanje potvrde rezervacije e-poštom nakon potvrde organizatora | — | Slanje potvrde e-poštom povezano je s potvrđivanjem rezervacije od strane organizatora. Neuspješno slanje poruke ne poništava promjenu statusa rezervacije, nego se neuspjeh evidentira. Time se odvajaju poslovni proces rezervacije i vanjska usluga slanja e-pošte, ali je potrebno predvidjeti postupanje u slučaju neuspjele dostave. |
+
 
 Objasnite glavne arhitekturne odluke bez ponavljanja popisa tehnologija. Ako važna odluka ima ADR, dovoljno je u tablici navesti njegov ID.
 
@@ -83,21 +92,25 @@ Započnite crtanjem granice oko predloženog sustava. Unutar nje prepoznajte dij
 
 **Cilj:** Prikazati važne pohranjene entitete, njihove identifikatore i veze te dovoljno atributa za razumijevanje podataka aplikacije. ER dijagram odvojen je od reprezentativnog UML dijagrama razreda u nastavku.
 
-**ER dijagram:**  
-![ER dijagram izLETI](./assets/diagrams/4-2-izleti-data-ERD.svg)
+**ER dijagrami:**  
+![Konceptualni ER dijagram](./assets/diagrams/er_dijagram.png)
+**Slika 4.2.1 Konceptualni ER dijagram sustava izLETI**
 
-**Slika 4.2. ER dijagram podataka sustava izLETI**  
+![Implementacijski ER dijagram](./assets/diagrams/4-2-izleti-data-ERD.svg)
+
+**Slika 4.2.2 Implementacijski ER dijagram sustava izLETI**  
 **Izvor dijagrama:** [izvor](./puml/4-2-izleti-data-ERD.puml)  
-**Implementacija:** [Navedite gdje je odgovarajući model podataka definiran u projektu.]
+**Implementacija:** [implementacija](./baza/schema.sql)
 
 
 ### 4.3.2 Reprezentativni UML dijagram razreda
 
 **Cilj:** Prije implementacije reprezentativnog dijela sustava modelirati i prikazati razrede ili sučelja potrebna za dodjelu odgovornosti, operacija i veza. Oblikovanje ažurirajte kada se te odluke promijene.
 
-**Dijagram razreda:** [Ugradite čitljiv UML dijagram razreda za reprezentativni dio oblikovanja.]  
-**PlantUML izvor:** [Poveznica na odgovarajuću `.puml` datoteku.]  
-**Referenca na kod pri završnom pregledu:** [Poveznica na odgovarajuću implementaciju.]
+**Dijagram razreda:** 
+![Dijagram razreda](./assets/diagrams/dijagram_razreda.svg)
+**PlantUML izvor:** [izvor](./puml/model_class_diagram.puml) 
+**Referenca na kod pri završnom pregledu:** [implementacija](/src/model)
 
 <details>
 <summary><strong>Oblikovanje odgovornosti prijave i dopuštenih promjena</strong></summary>

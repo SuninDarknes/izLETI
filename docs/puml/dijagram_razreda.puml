@@ -1,0 +1,186 @@
+@startuml
+title Dijagram razreda – model podataka
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+
+' ======================================================================
+' KORISNICI
+' ======================================================================
+  class User {
+    +id : number
+    +email : string
+    +googleId : string
+    +phone : string | null
+    +username : string
+    +firstName : string | null
+    +lastName : string | null
+    +picture : string | null
+    +locale : string | null
+    +emailVerified : boolean
+    +createdAt : Date
+  }
+
+  enum Role {
+    user
+    admin
+    organizer
+    owner
+    guide
+  }
+
+  class Language {
+    +id : number
+    +name : string
+  }
+
+' ======================================================================
+' IZLETI I AKTIVNOSTI
+' ======================================================================
+  class Trip {
+    +id : number
+    +name : string
+    +description : string
+    +durationMinutes : number
+    +meetingPointLatitude : number
+    +meetingPointLongitude : number
+    +maxParticipants : number
+    +basePrice : number
+    +createdAt : Date
+  }
+
+  class TripTag {
+    +id : number
+    +name : string
+  }
+
+  class Activity {
+    +id : number
+    +name : string
+    +description : string
+    +locationName : string
+    +latitude : number
+    +longitude : number
+    +durationMinutes : number | null
+  }
+
+  class ActivityCategory {
+    +id : number
+    +name : string
+  }
+
+  class TripActivity {
+    +sequenceOrder : number
+  }
+
+' ======================================================================
+' DOGAĐAJI
+' ======================================================================
+  class Event {
+    +id : number
+    +startDateTime : Date
+    +capacity : number
+    +state : EventState
+  }
+
+  enum EventState {
+    hidden
+    scheduled
+    full
+    cancelled
+    completed
+  }
+
+  class EventGuide {
+    +id : number
+  }
+
+  class Addon {
+    +id : number
+    +name : string
+    +defaultPrice : number
+  }
+
+  class EventAddon {
+    +id : number
+    +description : string
+    +price : number
+    +capacity : number
+  }
+
+' ======================================================================
+' REZERVACIJE
+' ======================================================================
+  class Reservation {
+    +id : number
+    +numPeople : number
+    +createdAt : Date
+    +state : ReservationState
+  }
+
+  enum ReservationState {
+    pending
+    rejected
+    accepted
+    completed
+  }
+
+  class ReservationAddon {
+    +quantity : number
+  }
+
+  class GuideRating {
+    +id : number
+    +rating : number
+    +comment : string | null
+    +createdAt : Date
+  }
+
+  class TripRating {
+    +id : number
+    +rating : number
+    +comment : string | null
+    +createdAt : Date
+  }
+
+' ======================================================================
+' VEZE – korisnici
+' ======================================================================
+User --> "*" Role : uloge
+User "*" -- "*" Language : jezici vodiča
+
+' ======================================================================
+' VEZE – izleti i aktivnosti
+' ======================================================================
+Trip "*" -- "*" TripTag : tagovi
+Trip "*" -- "*" Activity : aktivnosti
+(Trip, Activity) .. TripActivity
+Activity "*" --> "1" ActivityCategory : kategorija
+
+' ======================================================================
+' VEZE – događaji
+' ======================================================================
+Event "*" --> "1" Trip : izlet
+Event ..> EventState
+Event "1" *-- "*" EventAddon : dostupni dodatci
+EventAddon "*" --> "1" Addon : dodatak
+Event "1" -- "*" EventGuide : vodiči
+EventGuide "*" --> "1" User : vodič
+
+' ======================================================================
+' VEZE – rezervacije
+' ======================================================================
+Reservation "*" --> "1" User : korisnik
+Reservation "*" --> "1" Event : događaj
+Reservation "*" --> "1" EventGuide : vodič
+Reservation ..> ReservationState
+Reservation "1" *-- "*" ReservationAddon : odabrani dodatci
+ReservationAddon "*" --> "1" EventAddon
+Reservation "1" -- "0..1" GuideRating : ocjena vodiča
+Reservation "1" -- "0..1" TripRating : ocjena izleta
+
+@enduml
