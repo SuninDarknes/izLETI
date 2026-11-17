@@ -80,13 +80,13 @@ Za provjeru radi li server provjerite [početnu stranicu](http://localhost:8080/
 
 | Član | Glavna uloga ili doprinos |
 | --- | --- |
-| Jakov Biškup | Voditelj tima, model podataka na poslužitelju, ... |
-| Luka Čubek | Dokumentacija, testiranje, ... |
-| Florijan Gotal | Deployment, rad s API-jem za karte, ... |
-| Dražen Grgurić | Implementacija ruta na poslužitelju, ... |
-| Jana Furdi | Dizajn sučelja, programiranje EJS view-ova, ... |
-| Erik Mikšić | Dizajn baze podataka, ... |
-| Ivor Trstenjak | Google login i middleware za autentikaciju, programiranje EJS view-ova, ... |
+| [Jakov Biškup](https://github.com/MrMirror01) | Voditelj tima, model podataka na poslužitelju, ... |
+| [Luka Čubek](https://github.com/lukacubek) | Dokumentacija, testiranje, ... |
+| [Florijan Gotal](https://github.com/SuninDarknes) | Deployment, rad s API-jem za karte, ... |
+| [Dražen Grgurić](https://github.com/drazen-grguric) | Implementacija ruta na poslužitelju, ... |
+| [Jana Furdi](https://github.com/janaf4) | Dizajn sučelja, programiranje EJS view-ova, ... |
+| [Erik Mikšić](https://github.com/erikmiksic) | Dizajn baze podataka, ... |
+| [Ivor Trstenjak](https://github.com/IvorTrstenjak) | Google login i middleware za autentikaciju, programiranje EJS view-ova, ... |
 
 <a id="license"></a>
 
@@ -97,7 +97,7 @@ Za provjeru radi li server provjerite [početnu stranicu](http://localhost:8080/
 
 Ovaj projekt slijedi FER-ova [pravila o primjerenoj uporabi umjetne inteligencije](https://www.fer.unizg.hr/_download/repository/Policy%20on%20the%20appropriate%20use%20of%20artificial%20intelligence%20at%20the%20faculty%20of%20electrical%20engineering%20and%20computing%5B1%5D.pdf).
 
-**Izjava:** Tijekom projekta korišteni su alati umijetne inteligencije. Za razvoj ideja, dokumentacije, kodiranje i debugiranje korišteni su LLM alati kao što su ChatGPT, Claude i Gemini. Sav generirani kod i dokumentaciju tim je provjerio, razumio i po potrebi popravio i nadogradio.
+**Izjava:** Tijekom projekta korišteni su alati umijetne inteligencije. Za razvoj ideja, dokumentacije, kodiranje i debugiranje korišteni su LLM alati kao što su ChatGPT, Claude i GitHub Copilot. Sav generirani kod i dokumentaciju tim je provjerio, razumio i po potrebi popravio i nadogradio.
 
 <a id="code-of-conduct-and-support"></a>
 ## Kodeks ponašanja i podrška [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)

@@ -45,73 +45,34 @@ Predloženi klijentski dio gradi se kao statičko web-mjesto. Poslužiteljska we
 **Cilj:** Omogućiti novom članu tima ili ocjenjivaču da iz čiste radne kopije repozitorija instalira i lokalno pokrene cijeli programski sustav, uključujući bazu podataka i početne podatke.
 
 1. **Preduvjeti i preuzimanje izvornog koda:**
-   * Navedite podržane verzije izvršnog okruženja, upravitelja paketa, baze podataka i CLI alata.
-   * Navedite točne naredbe za kloniranje repozitorija i radni direktorij; naznačite koje se naredbe pokreću iz korijena repozitorija, a koje iz poddirektorija.
+Preduvjeti:
+   - PostgreSQL 18.6
+   - NodeJS v24.16.0
+   - npm 11.13.0
+
+Preuzimanje izvornog koda
+   ```bash
+   git clone https://github.com/SuninDarknes/izLETI.git
+   ```
 2. **Ovisnosti i konfiguracijske varijable:**
-   * Navedite točne naredbe za instalaciju ovisnosti za klijentski i poslužiteljski dio.
-   * Povežite predložak `.env.example`, opišite ulogu svake varijable, koje vrijednosti smiju biti javne i kako ovlašteni korisnik dobiva tajne vrijednosti.
-   * *Upozorenje:* Nikada ne objavljujte stvarne pristupne podatke i tajne ključeve.
+   - koniguracijske varijable nalaze se u datoteci [.env.example](/.env.example)
+
+   | Konfiguracijska varijabla | Način konfiguriranja | Naputak |
+   | --- | --- | --- |
+   | PORT | Odabrati port po želji. | Ako se polje izostavi koristi se port 8080. Na javnoj stranici koristiti port 433.|
+   | GOOGLE_CLIENT_ID | Konfigurirati Google klijent i staviti odgovarajući id. | Ako se polje izostavi koristi se naš id koji je konfiguriran da radi sa localhost:8080. |
+   | SESSION_SECRET | Napisati dugi nasumični niz znakova. | Preporučeno: https://generate-random.org/session-secrets
+   | DB_HOST | Adresa na kojoj se nalazi baza podataka | Najčešće localhost |
+   | DB_PORT | Port na kojem sluša baza podataka | Najčešće 5432 |
+   | DB_NAME | Naziv baze koje ste postavili prilikom konfiguracije baze | |
+   | DB_USER | Naziv korisnika koji se koristi za pristup bazi | Ne preporuča se korištenje korisnika sa punim dozvolama |
+   | DB_PASSWORD | Lozinka korisnika koji se koristi za pristup bazi | |
 3. **Inicijalizacija baze podataka i migracije:**
-   * Navedite redoslijed naredbi za stvaranje lokalne baze, dodjelu korisničkih prava i izvođenje migracija sheme; navedite izvode li se migracije ručno ili pri pokretanju te stvarne putanje verzioniranih skripti.
-   * Objasnite kako se učitavaju nužni početni podaci (samo oni nužni) i kako spriječiti višestruko izvođenje početnih skripti.
+   - Za inicijalizaciju baze podataka preporuča se korištenje alata pgAdmin.
+   - U pgAdminu napravi se nova baza podataka, te se prilikom kreiranja konfigurira naziv baze i port.
+   - Na novoj bazi pokreće se Query tool u koji se kopira sadržaj [sheme baze podataka](./baza/schema.sql). Nakon toga po potrebi se pokreće [skripta za punjenje baze dummy podatcima](./baza/dummy_data.sql).
 4. **Pokretanje i verifikacija:**
-   * Prikažite točan redoslijed pokretanja procesa i lokalne mrežne adrese na kojima su dostupni.
-   * Navedite točan korak provjere (npr. slanje probnog zahtjeva ili pregled u pregledniku) koji dokazuje da klijentski dio uspješno komunicira s poslužiteljskim API-jem i bazom te da se važni podaci trajno pohranjuju.
-   * Navedite gdje čitatelj može provjeriti pogreške ako neki korak ne uspije.
-
-Uključite samo korake koje aplikacija stvarno zahtijeva. Ako README već sadrži potpun i ponovljiv postupak, povežite ga i ovdje dodajte samo ono što nedostaje umjesto održavanja dviju potpunih kopija istih uputa.
-
-<details>
-<summary><strong>Primjer: Instalacija programa s lokalnom PostgreSQL bazom (CrisisMap)</strong></summary>
-
-Ovaj nastavni primjer koristi klijentski dio temeljen na radnom okviru React/Vite (`frontend/`), poslužiteljski dio temeljen na Node.js okruženju (`backend/`) i PostgreSQL bazu podataka.
-
-#### 1. Inicijalizacija baze podataka
-
-U terminalu stvorite razvojnu bazu podataka i pokrenite početnu SQL skriptu iz korijena repozitorija:
-
-```bash
-createdb crisismap_dev
-psql -d crisismap_dev -f backend/db/001_create_schema.sql
-psql -d crisismap_dev -c '\dt'
-```
-
-Verzionirana SQL datoteka u ovom primjeru stvara tablice u **novoj** bazi podataka; provjera `\dt` treba ih prikazati. Konfigurirajte lokalni PostgreSQL račun koji može koristiti tu shemu; ako je riječ o zasebnom računu, zabilježite naredbe za njegovo stvaranje i dodjelu prava. Node.js poslužiteljski dio čita `DATABASE_URL`: lokalno ga postavite tako da se putem PostgreSQL URL-a povezuje na `crisismap_dev`, a potrebne pristupne podatke čuvajte u lokalnoj postavci koja se ne uključuje u repozitorij. Nemojte objaviti puni URL veze ako sadrži lozinku. Ako druga aplikacija koristi automatske migracije, pokrenite je prema uputama i provjerite jesu li migracije provedene umjesto zasebnog izvršavanja skripte početne sheme. Ako ogledne prijave zahtijevaju početne podatke, navedite stvarnu naredbu tog projekta i objasnite kada se treba koristiti.
-
-#### 2. Konfiguracija i pokretanje poslužiteljskog dijela (backend)
-
-U prvom terminalu postavite ovisnosti, pripremite varijable okruženja i pokrenite poslužitelj:
-
-```bash
-cd backend
-npm ci
-cp .env.example .env
-# Uredite .env datoteku: postavite DATABASE_URL=postgresql://localhost:5432/crisismap_dev
-npm start
-```
-
-*Poslužiteljski API pokreće se i sluša na:* `http://localhost:8080`
-
-#### 3. Pokretanje klijentskog dijela (frontend)
-
-U drugom terminalu instalirajte ovisnosti klijenta i pokrenite razvojni poslužitelj:
-
-```bash
-cd frontend
-npm ci
-VITE_API_BASE_URL=http://localhost:8080 npm run dev
-```
-
-*Klijentska aplikacija dostupna je u pregledniku na:* `http://localhost:5173`
-
-#### 4. Provjera rada sustava
-
-Otvorite adresu klijenta koju ispiše Vite, podnesite probnu prijavu s odabranom lokacijom, provjerite prikazuje li se potvrda s novim identifikatorom prijave i ponovno je dohvatite. Samo učitavanje početne stranice klijenta bez slanja i dohvata podataka ne dokazuje ispravnost rada poslužiteljskog dijela i baze podataka.
-
-Ako se adresa poslužiteljskog dijela razlikuje od `http://localhost:8080`, koristite adresu koju aplikacija stvarno ispiše. Ako podnošenje ne uspije, pregledajte API zahtjev u pregledniku i zapis poslužiteljskog dijela; ako pokretanje ne uspije, provjerite postavke veze s bazom podataka i je li shema stvorena. Nemojte kopirati putanje ili naredbe iz ovog primjera ako se vaš repozitorij razlikuje.
-
-**Analiza primjera:** Postupak ima jasan redoslijed: stvoriti bazu podataka, uspostaviti shemu i pristup, konfigurirati veze, pokrenuti oba procesa i provjeriti spremljenu prijavu. Naredbe i očekivani rezultati dovoljno su konkretni da se može dijagnosticirati nepotpuno postavljanje. Oni nadopunjuju kratki put iz README-a do pokrenute aplikacije umjesto da tvrde kako samo učitana web-stranica dokazuje uspješnu instalaciju.
-</details>
+   - za lokalno pokretanje vidi [brzi početak](/README.md#quick-start)
 
 ---
 
