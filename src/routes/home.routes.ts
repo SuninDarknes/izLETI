@@ -1,8 +1,7 @@
 import { Request, Response, Router } from "express";
-import pool from "../connect";
 import { GOOGLE_CLIENT_ID } from "../google-auth.config";
 import { requireAdmin, requireLogin, requireOwner } from "../middleware/authorization";
-import { Role, users } from "../model/users.model";
+import { Role, User, users } from "../model/users.model";
 
 const router: Router = Router();
 
@@ -13,35 +12,6 @@ const roleOptions = [
     { value: Role.Owner, label: "Vlasnik", description: "Pregledava statistiku i poslovne rezultate." },
     { value: Role.Admin, label: "Administrator", description: "Upravlja korisnicima i njihovim ulogama." },
 ];
-
-type AdminUser = {
-    id: number;
-    email: string;
-    firstname: string | null;
-    lastname: string | null;
-    picture: string | null;
-};
-
-async function findActiveUserByEmail(email: string): Promise<AdminUser | undefined> {
-    const result = await pool.query<AdminUser>(`
-        SELECT id, email, firstname, lastname, picture
-        FROM users
-        WHERE LOWER(email) = LOWER($1)
-        AND active = true;
-    `, [email]);
-    return result.rows[0];
-}
-
-async function getUserRoleNames(userId: number): Promise<string[]> {
-    const result = await pool.query<{ name: string }>(`
-        SELECT roles.name
-        FROM userRole
-        JOIN roles ON roles.id = userRole.roleId
-        WHERE userRole.userId = $1
-        ORDER BY roles.name;
-    `, [userId]);
-    return result.rows.map(row => row.name.toLowerCase());
-}
 
 function parseRoleNames(value: unknown): string[] | null {
     if (typeof value === "string") {
@@ -61,15 +31,15 @@ router.use(requireLogin);
 
 router.get("/admin", requireAdmin, async (req: Request, res: Response) => {
     const email = typeof req.query.email === "string" ? req.query.email.trim() : "";
-    let targetUser: AdminUser | undefined;
+    let targetUser: User | undefined;
     let targetRoles: string[] = [];
     let error: string | null = null;
 
     if (email) {
         try {
-            targetUser = await findActiveUserByEmail(email);
+            targetUser = await users.findActiveUserByEmail(email);
             if (targetUser) {
-                targetRoles = await getUserRoleNames(targetUser.id);
+                targetRoles = await users.getUserRoleNames(targetUser.id);
             } else {
                 error = "Korisnik nije pronađen ili je deaktiviran.";
             }
@@ -112,10 +82,10 @@ router.post("/admin/roles", requireAdmin, async (req: Request, res: Response) =>
         return;
     }
 
-    let targetUser: AdminUser | undefined;
+    let targetUser: User | undefined;
     let currentRoles: string[];
     try {
-        targetUser = await findActiveUserByEmail(email);
+        targetUser = await users.findActiveUserByEmail(email);
         if (!targetUser) {
             res.status(404).render("admin", {
                 email,
@@ -127,7 +97,7 @@ router.post("/admin/roles", requireAdmin, async (req: Request, res: Response) =>
             });
             return;
         }
-        currentRoles = await getUserRoleNames(targetUser.id);
+        currentRoles = await users.getUserRoleNames(targetUser.id);
     } catch (lookupError) {
         console.error("Could not look up a user for role assignment:", lookupError);
         res.status(500).send("Could not look up the user.");

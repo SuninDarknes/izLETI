@@ -53,7 +53,7 @@ export const requireOwner: RequestHandler = async (req, res, next) => {
 export const requireOrganizer: RequestHandler = async (req, res, next) => {
     const userId = req.session.user?.id;
     if (!userId) {
-        res.redirect("/login");
+        res.redirect("/auth/login");
         return;
     }
 
