@@ -11,51 +11,17 @@
 
 | Datum i sudionici | Glavna tema | Donesena odluka ili zadatak  | Poveznica na zadatak ili  rezultat, ako postoji |
 | --- | --- | --- | --- |
-|  |  |  |  |
-
-Za svaki relevantan sastanak ili zapis tjedne koordinacije upišite jedan sažet redak. Dodijeljeni zadatak treba imati odgovornu osobu; za neriješeno pitanje treba navesti tko će ga dalje obraditi. Sam naslov sastanka ne pokazuje što se promijenilo. U ovu evidenciju nemojte kopirati cijeli popis issuea ni prijepis razgovora.
-
-<details>
-<summary><strong>Primjer evidencije sastanaka (CrisisMap)</strong></summary>
-
-**Primjer — CrisisMap:**
-
-**Kratice članova tima:** AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj.
-
-| Datum i sudionici | Glavna tema | Odluka, radnja ili otvoreno pitanje | Poveznica na zadatak ili nastali rezultat, ako postoji |
-| --- | --- | --- | --- |
-| 15. 11. 2025.; AK, LM, EP | Lokacija kada je pristup preglednika odbijen | Dodati ručni odabir položaja na karti u obrazac za prijavu. AK obrađuje obrazac; LM provjerava valjanost lokacije. | Zadataka #21 i #23. |
-| 22. 11. 2025.; AK, EP | Usklađivanje formata lokacijskih podataka | klijentski dio i poslužiteljski API koriste neusklađene formate koordinata. EP će uskladiti format zahtjeva i demonstrira spremanje na sljedećem pregledu. | Zadatak #25. |
-
-**Ishod i odgovornost:** Zapisi jasno definiraju tko je odgovoran za koji dio posla i koji je provjerljivi rezultat dogovoren. npr Rečenica „Raspravljali smo o obradi lokacije” prikrila bi je li se itko obvezao na promjenu. Ovi redci navode odluku ili otvorenu radnju, odgovornu osobu i rezultat koji se može pregledati.
-
-</details>
+| 12.10.2026. | Formiranje tima, osnovne informacije |  |  |
+| 22.10.2026. | Raspisivanje Issue-a na GitHub-u, podjela uloga, dogovor formata dokumentacije | | [Issues](https://github.com/SuninDarknes/izLETI/issues) |
+| 29.10.2026. | Određivanje funkcijskih zahtjeva | Funkcijskim zahtjevima potrebno odrediti prioritete | [zahtjevi](./2-Analiza-zahtjeva.md) |
+| 6.11.2026. | Dogovor o izvedbi postavljanja stranice te potrebnih funkcionalnosti na prvoj predaji |  | |
+| 12.11.2026. | Dogovor o završnim poslovima na alpha verziji | |
 
 ## A.2 Plan rada
 
 **Cilj:** Prikazati planirani redoslijed rada i odgovornosti u timu. Prikažite projektne tjedne ili druga kratka razdoblja koja tim koristi, uključujući pripremu za formalne provjere.
 
-**Trenutačni plan:** [Poveznica na GitHub Projects ploču, Gantogram ili održavanu tablicu u nastavku. Navesti osobu zaduženu za ažurnost plana. Odaberite jedan glavni prikaz i navedite tko ga održava ažurnim.]
-
-| Razdoblje/Tjedan | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke |
-| --- | --- | --- | --- |
-|  |  |  |  |
-
-Ako koristite tablicu, plan vodite na korisnoj tjednoj razini i ažurirajte ga kada se prioriteti promijene. Kratice članova tima definirajte  u A.1 i ovdje ih primjenjujte dosljedno; ako dva člana imaju iste inicijale, proširite kraticu. Plan nije dokaz da je planirani rad dovršen (to dokazuje kod i dokumentacija).
-
-<details>
-<summary><strong>Primjer plana rada</strong></summary>
-
-**Primjer — CrisisMap:** Plan rada obuhvaća razvoj prijava, karte i postavljanja aplikacije. Za svako razdoblje navedeni su glavni zadaci i odgovorni članovi.
-
-| Razdoblje | Glavni planirani rad | Odgovorni članovi | Poveznica na zadatke/opis |
-| --- | --- | --- | --- |
-| Projektni tjedan 6 | Obrazac za prijavu i provjera valjanosti lokacije | AK, LM | Zadataka #21 i #23. |
-| Projektni tjedan 7 | Povezivanje obrasca s API-jem za prijave | EP | Zadatak #25. |
-
-**Čitanje plana:** Kratice štede prostor u sažetom planu; njihove definicije s početka A.1 vrijede u cijelom ovom primjeru. Kada rad kasni, ažurirajte stvarni zadatak i očekivanje u planu; nemojte tvrditi da je nedovršena funkcionalnost završena samo zato što je predviđeni tjedan prošao.
-
-</details>
+**Trenutačni plan:** [plan rada po tjednima izveden iz discorda](./Tjedni_plan_rada_iz_discorda.md)
 
 ## A.3 Aktivnosti i doprinosi članova
 

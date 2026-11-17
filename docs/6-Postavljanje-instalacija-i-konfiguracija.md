@@ -71,6 +71,10 @@ Preuzimanje izvornog koda
    - Za inicijalizaciju baze podataka preporuča se korištenje alata pgAdmin.
    - U pgAdminu napravi se nova baza podataka, te se prilikom kreiranja konfigurira naziv baze i port.
    - Na novoj bazi pokreće se Query tool u koji se kopira sadržaj [sheme baze podataka](./baza/schema.sql). Nakon toga po potrebi se pokreće [skripta za punjenje baze dummy podatcima](./baza/dummy_data.sql).
+
+   - prva uloga administratora dodjeljuje se direktno u bazi (ostale uloge dodjeljuje administrator kroz admin sučelje)
+      - prvo je potrebno prijaviti se računom koji će biti administrator kako bi se dodao u bazu
+      - zatim u Query tool pokrenuti upit iz [datoteke](./baza/dodavanje_uloge.sql) (zamijeniti "[EMAIL]" sa email adresom računa administratora)
 4. **Pokretanje i verifikacija:**
    - za lokalno pokretanje vidi [brzi početak](/README.md#quick-start)
 
