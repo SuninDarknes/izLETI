@@ -142,16 +142,23 @@
       <!-- ========== RESULTS ========== -->
       <section class="col-lg-9">
 
-        <!-- search -->
-        <form class="mx-auto mb-4" style="max-width: 40rem;" role="search">
-          <label for="trazi" class="form-label d-block text-center">Pretraži izlete</label>
-          <div class="input-group">
-            <input type="search" id="trazi" class="form-control">
-            <button class="btn btn-outline-secondary" type="submit" aria-label="Traži">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </form>
+        <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-3 mb-4">
+          <form class="mx-auto mb-0 flex-grow-1" style="max-width: 40rem;" role="search">
+            <label for="trazi" class="form-label d-block text-center">Pretraži izlete</label>
+            <div class="input-group">
+              <input type="search" id="trazi" class="form-control">
+              <button class="btn btn-outline-secondary" type="submit" aria-label="Traži">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+          <% if (isOrganizer) { %>
+            <a href="/events/add" class="btn btn-dark flex-shrink-0">
+              <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
+              Novi događaj
+            </a>
+          <% } %>
+        </div>
 
         <!-- EVENT CARD (copy this block for each trip) -->
         <article class="card mb-3">
