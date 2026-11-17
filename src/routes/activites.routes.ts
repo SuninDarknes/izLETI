@@ -27,14 +27,24 @@ function parseActivity(b: any): NewActivity | null {
 }
 
 router.get("/", async (req: Request, res: Response) => {
+    const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+    const categoryId = Number(req.query.categoryId);
+    const category = Number.isSafeInteger(categoryId) && categoryId > 0 ? categoryId : undefined;
+
     try {
-        const [activityList, isOrganizer] = await Promise.all([
-            activities.filterActivities(1, 100),
+        const [activityList, categories, isOrganizer] = await Promise.all([
+            activities.filterActivities(1, 100, category, q || undefined),
+            activities.getCategories(),
             req.session.user?.id
                 ? users.isOrganizer(Number(req.session.user.id))
                 : Promise.resolve(false),
         ]);
-        res.render("activites", { activities: activityList, isOrganizer });
+        res.render("activites", {
+            activities: activityList,
+            categories,
+            query: { q, categoryId: category ?? null },
+            isOrganizer,
+        });
     } catch (error) {
         console.error("Could not load activities:", error);
         res.status(500).send("Could not load activities.");
@@ -62,8 +72,18 @@ router.post("/add", requireOrganizer, async (req: Request, res: Response) => {
         return;
     }
 
-    const id = await activities.createActivity(a);
-    res.redirect(`/activities/${id}`);
+    try {
+        const id = await activities.createActivity(a);
+        res.redirect(`/activities/${id}`);
+    } catch (error) {
+        console.error("Could not create activity:", error);
+        res.status(400).render("activity-form", {
+            activity: req.body,
+            isEditing: false,
+            categories: await activities.getCategories(),
+            error: "Aktivnost nije spremljena. Provjeri kategoriju i ostala polja.",
+        });
+    }
 });
 
 router.get("/:id", async (req: Request, res: Response) => {
@@ -120,9 +140,19 @@ router.get("/:id/edit", requireOrganizer, async (req: Request, res: Response) =>
 
 router.post("/:id/edit", requireOrganizer, async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const a = parseActivity(req.body);
-    if (!Number.isSafeInteger(id) || id <= 0 || !a) {
+    if (!Number.isSafeInteger(id) || id <= 0) {
         res.sendStatus(400);
+        return;
+    }
+
+    const a = parseActivity(req.body);
+    if (!a) {
+        res.status(400).render("activity-form", {
+            activity: { ...req.body, id },
+            isEditing: true,
+            categories: await activities.getCategories(),
+            error: "Provjeri unesena polja.",
+        });
         return;
     }
 
@@ -134,7 +164,13 @@ router.post("/:id/edit", requireOrganizer, async (req: Request, res: Response) =
             res.sendStatus(404);
             return;
         }
-        throw error;
+        console.error("Could not edit activity:", error);
+        res.status(400).render("activity-form", {
+            activity: { ...req.body, id },
+            isEditing: true,
+            categories: await activities.getCategories(),
+            error: "Promjene nisu spremljene. Provjeri kategoriju i ostala polja.",
+        });
     }
 });
 

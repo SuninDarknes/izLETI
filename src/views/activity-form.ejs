@@ -44,9 +44,8 @@
           <div class="card shadow-sm">
             <div class="card-body p-4">
               <form
-                action="<%= isEditing ? `/activities/${activity.id}/edit` : '' %>"
+                action="<%= isEditing ? `/activities/${activity.id}/edit` : '/activities/add' %>"
                 method="post"
-                <%= isEditing ? '' : 'onsubmit="return false;"' %>
               >
                 <div class="mb-3">
                   <label for="name" class="form-label">Naziv aktivnosti</label>
@@ -152,7 +151,7 @@
                     href="<%= isEditing ? `/activities/${activity.id}` : '/activities' %>"
                     class="btn btn-outline-secondary"
                   >Odustani</a>
-                  <button type="<%= isEditing ? 'submit' : 'button' %>" class="btn btn-dark">
+                  <button type="submit" class="btn btn-dark">
                     <i class="bi bi-check-lg me-1" aria-hidden="true"></i>
                     <%= isEditing ? "Spremi promjene" : "Dodaj aktivnost" %>
                   </button>
