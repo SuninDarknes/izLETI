@@ -26,14 +26,34 @@ function parseActivity(b: any): NewActivity | null {
     return ok ? a : null;
 }
 
+// Trajanje iz filtera: kratko (do 1 h), srednje (1-2 h), dugo (vise od 2 h)
+const DURATIONS: Record<string, { min?: number; max?: number }> = {
+    short: { max: 60 },
+    medium: { min: 60, max: 120 },
+    long: { min: 120 },
+};
+
+const text = (v: unknown) => (typeof v === "string" ? v.trim() : "");
+
 router.get("/", async (req: Request, res: Response) => {
-    const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+    const q = text(req.query.q);
+    const location = text(req.query.location);
+    const durationKey = text(req.query.duration);
+    const duration = DURATIONS[durationKey];
     const categoryId = Number(req.query.categoryId);
     const category = Number.isSafeInteger(categoryId) && categoryId > 0 ? categoryId : undefined;
 
     try {
         const [activityList, categories, isOrganizer] = await Promise.all([
-            activities.filterActivities(1, 100, category, q || undefined),
+            activities.filterActivities(
+                1,
+                100,
+                category,
+                q || undefined,
+                location || undefined,
+                duration?.min,
+                duration?.max
+            ),
             activities.getCategories(),
             req.session.user?.id
                 ? users.isOrganizer(Number(req.session.user.id))
@@ -42,7 +62,12 @@ router.get("/", async (req: Request, res: Response) => {
         res.render("activites", {
             activities: activityList,
             categories,
-            query: { q, categoryId: category ?? null },
+            query: {
+                q,
+                location,
+                categoryId: category ?? null,
+                duration: duration ? durationKey : "",
+            },
             isOrganizer,
         });
     } catch (error) {

@@ -176,10 +176,21 @@ class Activities {
     * @param pageSize - the number of activities per page
     * @param categoryId - optional category filter
     * @param nameContains - optional search parameter
+    * @param locationContains - optional location search parameter
+    * @param minDuration - optional minimal duration in minutes (exclusive)
+    * @param maxDuration - optional maximal duration in minutes (inclusive)
     * @returns array of activities that satisfy the filter and are on the required page
     * @throws {Error} - if page index is less then 1 or if page size out of bounds [1, 1000]
     */
-    async filterActivities(page : number, pageSize : number, categoryId? : number, nameContains? : string) : Promise<Activity[]> {
+    async filterActivities(
+        page : number,
+        pageSize : number,
+        categoryId? : number,
+        nameContains? : string,
+        locationContains? : string,
+        minDuration? : number,
+        maxDuration? : number
+    ) : Promise<Activity[]> {
         if (page <= 0 || pageSize <= 0 || 1000 < pageSize) {
             throw new Error('Invalid paging parameters');
         }
@@ -190,6 +201,9 @@ class Activities {
             JOIN activityCategories c ON a.categoryId = c.id
             WHERE ($1::integer IS NULL OR c.id = $1)
             AND ($2::text IS NULL OR a.name ILIKE ('%' || $2 || '%'))
+            AND ($5::text IS NULL OR a.locationName ILIKE ('%' || $5 || '%'))
+            AND ($6::integer IS NULL OR a.durationMinutes > $6)
+            AND ($7::integer IS NULL OR a.durationMinutes <= $7)
             AND a.active = true
             ORDER BY a.name, a.id
             LIMIT $3
@@ -199,7 +213,10 @@ class Activities {
             categoryId ?? null,
             nameContains ?? null,
             pageSize,
-            (page - 1) * pageSize
+            (page - 1) * pageSize,
+            locationContains ?? null,
+            minDuration ?? null,
+            maxDuration ?? null
         ]
         );
 
