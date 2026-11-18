@@ -43,10 +43,9 @@
 ## Tjedan 2: 2. 11. – 8. 11. 2026.
 
 **Zadatci objavljeni:** 1. 11. 2026. u 11:38  
-**Glavni cilj do kraja tjedna:** osnovna verzija sustava treba imati:
-
-- bazu podataka koja je dostupna u produkciji (ne mora biti konačna verzija)
-- prijavu u sustav
+**Glavni ciljevi za osnovnu verziju:**
+- baza podataka koja je dostupna u produkciji (ne mora biti konačna verzija)
+- prijava u sustav
 - osnovno kreiranje aktivnosti, izleta i događaja, bez kategorija, tagova, ocjenjivanja i dodataka vodiča
 - prikaz događaja bez filtriranja
 
@@ -54,10 +53,10 @@ Naglasak je na osnovnoj funkcionalnosti i strukturi koju je lako nadograđivati,
 
 | Odgovorna osoba | Zadatci | Rok / napomena |
 |---|---|---|
-| **Erik** | Dopuniti atribute baze. Razmotriti da opis dodatka specifičan za događaj bude u `EventAddons` (npr. generički dodatak „prijevoz” s opisom konkretnog prijevoza za određeni događaj). Preispitati trebaju li aktivnosti i početnu i završnu koordinatu ili je dovoljna jedna lokacija. Postaviti bazu u produkciju. Dodati korisne `CHECK` constraintove i druga ograničenja koja sprječavaju neispravne podatke (primjer: rezervacija ne smije sadržavati dodatak koji nije dostupan na rezerviranom događaju). Nakon promjena izvesti bazu i staviti export na Git kako bi članovi tima mogli ažurirati lokalne testne baze. | Do kraja tjedna; produkcijska baza i export važni su za cilj tjedna. |
+| **Erik** | Dopuniti atribute baze. Razmotriti da opis dodatka specifičan za događaj bude u `EventAddons` (npr. generički dodatak „prijevoz” s opisom konkretnog prijevoza za određeni događaj). Preispitati trebaju li aktivnosti i početnu i završnu koordinatu ili je dovoljna jedna lokacija. Postaviti bazu u produkciju. Dodati korisne `CHECK` constraintove i druga ograničenja koja sprječavaju neispravne podatke. Nakon promjena izvesti bazu i staviti export na Git kako bi članovi tima mogli ažurirati lokalne testne baze. | Do kraja tjedna; produkcijska baza i export važni su za cilj tjedna. |
 | **Florijan** | Odrediti prioritete za funkcijske zahtjeve. | U sklopu cilja do 8. 11. |
 | **Dražen** | Izraditi backend rute za stranice koje su nužne za osnovnu verziju sustava. | U sklopu cilja do 8. 11. |
-| **Ivor** | Dovršiti login koristeći produženi rok. Izraditi middleware koji korisniku dopušta samo početnu stranicu i login. Izraditi middleware za uloge tako da korisnik koji nije admin ne može pristupiti putanji `/admin`. | Login: do utorka, 3. 11.; middlewarei: u sklopu cilja do 8. 11. |
+| **Ivor** | Dovršiti login. Izraditi middleware koji korisniku dopušta samo početnu stranicu i login. Izraditi middleware za uloge tako da korisnik koji nije admin ne može pristupiti putanji `/admin`. | Login: do utorka, 3. 11.; middlewarei: u sklopu cilja do 8. 11. |
 | **Luka** | Osmisliti primjere izleta i aktivnosti na izletima. Osmisliti potrebne tagove za izlete, kategorije aktivnosti i vrste dodataka (npr. prijevoz, hrana, oprema). Testirati sustav kada bude spreman i unijeti primjere izleta. | U sklopu cilja do 8. 11. |
 | **Jana** | Izraditi dizajne za potrebne stranice i staviti ih na Git. | Do kraja srijede, 4. 11. |
 | **Jakov** | Raditi na modelu za komunikaciju s bazom kako bi backend razvoj bio jednostavniji. | - |
@@ -87,12 +86,6 @@ Do kraja srijede, **11. 11.**, bilo bi poželjno imati mali prototip od dvije do
 - Login je prema poruci trebao raditi na grani `google login`.
 - Većina modela bila je dovršena na grani `backend model`.
 - Najnovija verzija baze nalazila se na grani za bazu.
-
-### Napomene o stanju i koordinaciji
-
-- **10. 11.** Florijan je javio da prebacuje skice u EJS uz Bootstrap.
-- **11. 11.** Erik je pitao je li SQL na grani `routes-activities-events` zadnja verzija. Jakov je pojasnio da su njegove izmjene na grani `baza-relacijska-shema`.
-- **11. 11.** Erik je javio da je pronašao zadnju verziju baze i pokrenuo je na `db.izleti.xyz`.
 
 ---
 
