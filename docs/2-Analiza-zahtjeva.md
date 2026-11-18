@@ -16,7 +16,7 @@
 | --- | --- | --- | --- | --- |
 | F-04 | Organiser može dodati aktivnost s opisom, lokacijom i kategorijom. | Visok | Projektni zadatak | Spremljena aktivnost ima opis, lokaciju i kategoriju te se može odabrati pri izradi izleta. |
 | F-05 | Organiser može sastaviti izlet od jedne ili više aktivnosti u određenom redoslijedu. Može koristiti i već postojeće aktivnosti. | Visok | Dogovor tima | Spremljeni izlet prikazuje aktivnosti zadanim redoslijedom; ista aktivnost može biti dio vise izleta. |
-| F-06 | Organiser može napraviti događaj na temelju novog ili postojećeg izleta. Događaj ima termin i dodijeljenog vodica. | Visok | Projektni zadatak | Spremljeni događaj ima izlet, termin i vodica te se prikazuje u popisu događaja. |
+| F-06 | Organiser može napraviti događaj na temelju novog ili postojećeg izleta. Događaj ima termin i dodijeljenog vodiča. | Visok | Projektni zadatak | Spremljeni događaj ima izlet, termin i vodiča te se prikazuje u popisu događaja. |
 | F-07 | Organiser određuje broj slobodnih mjesta na događaju i za dodatne usluge. | Visok | Projektni zadatak | Uz događaj i svaku dodatnu uslugu prikazuje se uneseni kapacitet i broj slobodnih mjesta. |
 
 ### Pregled i rezervacije
@@ -43,7 +43,6 @@
 
 | ID | Opis | Prioritet | Izvor | Način provjere |
 | --- | --- | --- | --- | --- |
-| NF-01 | Funkcionalnosti su dostupne ovisno o korisničkim ulogama. | Visok | Projektni zadatak | Ispitni scenarij: korisnik bez uloge pokušava otvoriti stranice i API rute druge uloge i biva odbijen. |
 | NF-02 | Sučelje treba biti responzivno na računalima, tabletima i mobilnim uređajima. | Srednji | Projektni zadatak | Pregled glavnih tijekova (pretraživanje, rezervacija, karta) na širini mobitela, tableta i računala. |
 | NF-03 | Aplikacija treba podržavati istovremeni rad više korisnika. | Srednji | Projektni zadatak | Ispitni scenarij: više istovremenih rezervacija zadnjih slobodnih mjesta ne smije premašiti kapacitet događaja. |
 
@@ -74,9 +73,10 @@ Vodič je povezan s događajem, ali njegove ovlasti u aplikaciji još nisu defin
 
 ### Otvorena pitanja
 
-- Pravila otkazivanja i prijelazi između statusa rezervacije (zadatak: zahtjev, potvrđena, otkazana, realizirani izlet; baza: *pending*, odbijena, prihvaćena, izlet gotov).
+- Pravila otkazivanja i prijelazi između statusa rezervacije
 - Format izvoza statistike (spominje se CSV).
 - Kada se šalje obavijest e-poštom i što ona sadrži.
+- Mogućnost ocijenjivanja vodića i izleta
 - Način evidencije ostalih resursa organizatora i radijus za prepoznavanje blizine lokacije.
 
 ## 2.5 Značajne promjene zahtjeva
@@ -85,28 +85,29 @@ Vodič je povezan s događajem, ali njegove ovlasti u aplikaciji još nisu defin
 | --- | --- | --- | --- |
 | 2.11.2026. | F-15, F-16, F-17 | Dodani zahtjevi iz projektnog zadatka koji su bili navedeni samo kao otvorena pitanja (kapacitet, izvoz statistike, GPS digitalni vodič). | Projektni zadatak |
 | 2.11.2026. | Svi | Dodani prioriteti, izvori i kriteriji prihvaćanja. | Predložak dokumentacije kolegija |
+| 18.11.2026. | NF-01 | Uklonjen NF-01 jer je uspostavljeno da je ekvivalentan F-02 | 
 
 ## 2.6 Sljedivost zahtjeva
 
-| ID zahtjeva | Obrazac uporabe | Arhitekturna realizacija | Ispitivanje ili provjera |
-| --- | --- | --- | --- |
-| F-01 | UC-01 | *na čekanju* (Google login) | *na čekanju* |
-| F-02 | UC-01, UC-08 | `users.model.ts` | *na čekanju* |
-| F-03 | UC-08 | `/admin` | *na čekanju* |
-| F-04 | UC-05 | `activites.routes.ts`, `activities.model.ts` | *na čekanju* |
-| F-05 | UC-05 | `trips.routes.ts` | *na čekanju* |
-| F-06 | UC-06 | `events.routes.ts` | *na čekanju* |
-| F-07 | UC-06 | `events.routes.ts` | *na čekanju* |
-| F-08 | UC-02 | `events.routes.ts` (`/events`) | *na čekanju* |
-| F-09 | UC-03 | `events.routes.ts` (`/events/:id/reserve`) | *na čekanju* |
-| F-10 | UC-03, UC-07 | *na čekanju* (slanje e-poste) | *na čekanju* |
-| F-11 | UC-04, UC-10 | `reservations.routes.ts` | *na čekanju* |
-| F-12 | UC-07 | `reservations.routes.ts` | *na čekanju* |
-| F-13 | UC-09 | `/dashboard` | *na čekanju* |
-| F-14 | UC-10, UC-11 | *na čekanju* (karta) | *na čekanju* |
-| F-15 | UC-03 | *na čekanju* (provjera slobodnih mjesta) | *na čekanju* |
-| F-16 | UC-09 | `/dashboard` | *na čekanju* |
-| F-17 | UC-11 | *na čekanju* (digitalni vodič) | *na čekanju* |
+| ID zahtjeva | Obrazac uporabe | Arhitekturna realizacija | Stanje | Ispitivanje ili provjera |
+| --- | --- | --- | --- | --- |
+| F-01 | UC-01 | `auth.routes.ts` | Implementirano | *na čekanju* |
+| F-02 | UC-01, UC-08 | `users.model.ts` | Implementirano | *na čekanju* |
+| F-03 | UC-08 | `/admin` | Implementirano | *na čekanju* |
+| F-04 | UC-05 | `activities.routes.ts`, `activities.model.ts` | Implementirano | *na čekanju* |
+| F-05 | UC-05 | `trips.routes.ts` | Nije implementirano | *na čekanju* |
+| F-06 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
+| F-07 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
+| F-08 | UC-02 | `events.routes.ts` (`/events`) | Djelomično - hardkoidrani frontend | *na čekanju* |
+| F-09 | UC-03 | `events.routes.ts` (`/events/:id/reserve`) | Nije implementirano | *na čekanju* |
+| F-10 | UC-03, UC-07 | *na čekanju* (slanje e-poste) | Nije implementirano | *na čekanju* |
+| F-11 | UC-04, UC-10 | `reservations.routes.ts` | Nije implementirano | *na čekanju* |
+| F-12 | UC-07 | `reservations.routes.ts` | Nije implementirano | *na čekanju* |
+| F-13 | UC-09 | `/dashboard` | Nije implementirano | *na čekanju* |
+| F-14 | UC-10, UC-11 | *na čekanju* (karta) | Nije implementirano | *na čekanju* |
+| F-15 | UC-03 | *na čekanju* (provjera slobodnih mjesta) | Nije implementirano | *na čekanju* |
+| F-16 | UC-09 | `/dashboard` | Nije implementirano | *na čekanju* |
+| F-17 | UC-11 | *na čekanju* (digitalni vodič) | Nije implementirano | *na čekanju* |
 
 ## 2.7 Pregled zahtjeva
 

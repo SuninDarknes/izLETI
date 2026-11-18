@@ -4,7 +4,7 @@
 
 | Tjedan | Glavni cilj |
 |---|---|
-| - 26.11 | Formiranje tima, organizacija, analiza zahtjeva, pripremanje radnog okruženja |
+| - 26.10 | Formiranje tima, organizacija, analiza zahtjeva, pripremanje radnog okruženja |
 | 26. 10. – 1. 11. | Pripremiti dokumentaciju, dizajne, bazu i osnovne backend funkcije. |
 | 2. 11. – 8. 11. | Imati osnovnu verziju baze i prijave te kreiranje i prikaz izleta, aktivnosti i događaja. |
 | 9. 11. – 15. 11. | Spojiti dijelove sustava i deployati barem mali prototip koji se može pregledavati i koristiti. |

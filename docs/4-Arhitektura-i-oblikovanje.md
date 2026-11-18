@@ -273,8 +273,6 @@ Obrasci poput injektiranja ovisnosti (engl. Dependency Injection) ili repozitori
 
 | Rizik | Posljedica | Odgovor na rizik |
 | --- | --- | --- |
-| **Jedna instanca aplikacije obrađuje prijave** | Kvar poslužitelja (hostinga) privremeno onemogućuje nove prijave. | Prihvaćeno u okviru ograničenja projekta za kolegij; tim ne tvrdi da postoji automatsko prebacivanje na pričuvni sustav (failover). |
-| **Nedostupnost vanjskke kartografske usluge** | Prikaz karte može prestati raditi iako su pohranjene prijave u bazi i dalje dostupne. | Implementirana je korisniku vidljiva poruka o pogrešci uz alternativu pregleda prijava u tekstualnom obliku. |
 |  |  |  |
 
 <details>

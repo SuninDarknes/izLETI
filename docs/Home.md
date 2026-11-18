@@ -1,4 +1,4 @@
-# [Naziv aplikacije] — Projektna dokumentacija
+# izLETI — Projektna dokumentacija
 
 **Kolegij:** [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz), Fakultet elektrotehnike i računarstva Sveučilišta u Zagrebu  
 **Akademska godina:** [2026./2027.]  
