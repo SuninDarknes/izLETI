@@ -6,9 +6,6 @@
 
 **Cilj:** Voditi kratak zapis projektnih sastanaka i tjedne koordinacije: tko je sudjelovao, što je odlučeno i koja je radnja uslijedila. Raspravu koja nije dovela do odluke zabilježite samo ako je važno pitanje ostalo otvoreno.
 
->Definirati prije prve uporabe:
-`[Inicijali/Kratica] = [Ime i prezime]` (npr. *AK = Ana Kovač; LM = Luka Marić; EP = Ema Petrović; NK = Nika Kralj*).																														
-
 | Datum i sudionici | Glavna tema | Donesena odluka ili zadatak  | Poveznica na zadatak ili  rezultat, ako postoji |
 | --- | --- | --- | --- |
 | 12.10.2026. | Formiranje tima, osnovne informacije |  |  |
@@ -53,9 +50,16 @@ Koristite aktivnosti specifične za projekt umjesto obaveznog retka za svako pog
 
 **Cilj:** Prikazati kada su promjene napravljene u repozitoriju i tko ih je napravio, uz napomenu da sam broj zapisa promjena ne mjeri kvalitetu doprinosa.
 
-**Prikaz aktivnosti repozitorija:** [Ugradite ili povežite GitHubov prikaz `Contributors` i generirani graf za projektni repozitorij; navedite razdoblje koje obuhvaća.]
+**Prikaz aktivnosti repozitorija:** [LINK NA LIVE VERZIJU](https://github.com/SuninDarknes/izLETI/graphs/contributors?all=1)
+ ![Contributors](./assets/images/contributors_18112026.png)
 
-Graf može pokazati kada su zapisi promjena napravljeni i tko ih je napravio, ali ne prikazuje sav rad na oblikovanju, ispitivanju, integraciji, pregledu ili dokumentaciji. Ako postoji uočljiv nesklad s tablicom aktivnosti, kratko ga objasnite; nemojte iz grafa izvoditi broj sati. Generirani prikaz neka bude vezan uz stvarni repozitorij umjesto da se ručno crta drugi graf.
+
+Graf loše prikazuje ili ne prikazuje slijedeće stavke:
+- Jakov Biškup (MrMirror01) bio je zadužen za merge-anje grana zbog ćega ima veći broj commitova i linija koda
+- Florijan Gotal (SuninDarkness) radio je na postavljanju stranice te većina tog posla nije vidljiva na GitHub repozitoriju
+- Erik Mikšić zabunom je koristio dva account-a za pristup repozitoriju pa je statistika podijeljena
+- Jana Furdi radila je na dizajnu stranice što nije vidljivo iz broja commit-ova i promjenjenih linija koda
+- Luka Čubek bio je zadužen za ispitivanje i planiranje što nije direktno vidljivo iz statistika
 
 ## A.5 Ključni inženjerski izazovi i rješenja
 

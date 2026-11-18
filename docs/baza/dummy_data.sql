@@ -21,10 +21,11 @@ INSERT INTO Roles (name) VALUES
   ('Organizer');  -- id 5
 
 INSERT INTO EventStates (name) VALUES
-  ('Scheduled'),  -- id 1
-  ('Confirmed'),  -- id 2
-  ('Completed'),  -- id 3
-  ('Cancelled');  -- id 4
+  ('Hidden'),  -- id 1
+  ('Scheduled'),  -- id 2
+  ('Full'),  -- id 3
+  ('Cancelled'),  -- id 4
+  ('Completed');  -- id 5
 
 INSERT INTO ReservationStates (name) VALUES
   ('Pending'),    -- id 1

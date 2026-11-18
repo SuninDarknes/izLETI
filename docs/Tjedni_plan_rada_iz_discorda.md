@@ -4,12 +4,22 @@
 
 | Tjedan | Glavni cilj |
 |---|---|
+| - 26.11 | Formiranje tima, organizacija, analiza zahtjeva, pripremanje radnog okruženja |
 | 26. 10. – 1. 11. | Pripremiti dokumentaciju, dizajne, bazu i osnovne backend funkcije. |
 | 2. 11. – 8. 11. | Imati osnovnu verziju baze i prijave te kreiranje i prikaz izleta, aktivnosti i događaja. |
 | 9. 11. – 15. 11. | Spojiti dijelove sustava i deployati barem mali prototip koji se može pregledavati i koristiti. |
 | 16. 11. – 22. 11. | Završiti funkcionalnost kreiranja, uređivanja i pregleda aktivnosti, dokumentaciju, testiranje i predaju. |
 
 ---
+
+## Tjedan 0: Prije 26.10.
+
+| Odgovorna osoba | Zadatci |
+|---|---|
+| **Florijan** | Konfiguracija GitHub repozitorija i okruženja za pokretanje stranice na poslužitelju |
+| **Erik** | Prvi draft za ER dijagram baze podataka. |
+| **Ivor** i **Jakov** | Analiza zahtjeva i raspisivanje GitHub Issues |
+| **Svi** | Planiranje arhitekture, podjela poslova, organizacija |
 
 ## Tjedan 1: 26. 10. – 1. 11. 2026.
 
@@ -19,7 +29,7 @@
 | Odgovorna osoba | Zadatci | Rok |
 |---|---|---|
 | **Luka** | Dovršiti dokumentaciju kako bi se prema njoj mogla složiti prezentacija. | Do kraja utorka, 27. 10. |
-| **Florijan** | Pauza; nema obveznih zadataka. Po potrebi se može dodijeliti dodatni posao. | — |
+| **Florijan** | - | - |
 | **Jana** | Izraditi dizajne za najvažnije stranice, uključujući početnu stranicu i pretraživanje događaja. | Do kraja tjedna, 1. 11. |
 | **Erik** | Dodati tablicu za ocjene izleta i tablicu za jezike povezanu s vodičem; generirati novu relacijsku shemu; dopuniti atribute i generirati SQL. | Do četvrtka, 29. 10. |
 | **Ivor** | Dovršiti login. S Erikom dogovoriti eventualne prilagodbe baze potrebne za login. | Do kraja tjedna, 1. 11. |
@@ -45,12 +55,12 @@ Naglasak je na osnovnoj funkcionalnosti i strukturi koju je lako nadograđivati,
 | Odgovorna osoba | Zadatci | Rok / napomena |
 |---|---|---|
 | **Erik** | Dopuniti atribute baze. Razmotriti da opis dodatka specifičan za događaj bude u `EventAddons` (npr. generički dodatak „prijevoz” s opisom konkretnog prijevoza za određeni događaj). Preispitati trebaju li aktivnosti i početnu i završnu koordinatu ili je dovoljna jedna lokacija. Postaviti bazu u produkciju. Dodati korisne `CHECK` constraintove i druga ograničenja koja sprječavaju neispravne podatke (primjer: rezervacija ne smije sadržavati dodatak koji nije dostupan na rezerviranom događaju). Nakon promjena izvesti bazu i staviti export na Git kako bi članovi tima mogli ažurirati lokalne testne baze. | Do kraja tjedna; produkcijska baza i export važni su za cilj tjedna. |
-| **Florijan** | Dodati prioritete za funkcijske zahtjeve. Izraditi EJS viewove za potrebne stranice. | U sklopu cilja do 8. 11. |
+| **Florijan** | Odrediti prioritete za funkcijske zahtjeve. | U sklopu cilja do 8. 11. |
 | **Dražen** | Izraditi backend rute za stranice koje su nužne za osnovnu verziju sustava. | U sklopu cilja do 8. 11. |
-| **Ivor** | Dovršiti login koristeći produženi rok. Izraditi middleware koji neautoriziranom/neprijavljenom korisniku dopušta samo početnu stranicu i login. Izraditi middleware za uloge tako da korisnik koji nije admin ne može pristupiti putanji `/admin`. | Login: do utorka, 3. 11. (produženo zbog praznika); middlewarei: u sklopu cilja do 8. 11. |
+| **Ivor** | Dovršiti login koristeći produženi rok. Izraditi middleware koji korisniku dopušta samo početnu stranicu i login. Izraditi middleware za uloge tako da korisnik koji nije admin ne može pristupiti putanji `/admin`. | Login: do utorka, 3. 11.; middlewarei: u sklopu cilja do 8. 11. |
 | **Luka** | Osmisliti primjere izleta i aktivnosti na izletima. Osmisliti potrebne tagove za izlete, kategorije aktivnosti i vrste dodataka (npr. prijevoz, hrana, oprema). Testirati sustav kada bude spreman i unijeti primjere izleta. | U sklopu cilja do 8. 11. |
-| **Jana** | Izraditi dizajne za potrebne stranice i staviti ih na Git. Dizajni su preduvjet za Florijanov rad na viewovima. | Do kraja srijede, 4. 11. |
-| **Jakov** | Raditi na modelu za komunikaciju s bazom kako bi backend razvoj bio jednostavniji. | Započeti 1. 11. navečer; nastaviti tijekom tjedna. |
+| **Jana** | Izraditi dizajne za potrebne stranice i staviti ih na Git. | Do kraja srijede, 4. 11. |
+| **Jakov** | Raditi na modelu za komunikaciju s bazom kako bi backend razvoj bio jednostavniji. | - |
 
 ---
 
@@ -62,7 +72,7 @@ Naglasak je na osnovnoj funkcionalnosti i strukturi koju je lako nadograđivati,
 | Odgovorna osoba | Zadatci | Rok / napomena |
 |---|---|---|
 | **Erik** | Postaviti bazu u produkciju. Nastaviti s doradama baze ako se pojave korisne ideje. | Cilj tjedna; baza treba biti deployana. |
-| **Florijan** | Izraditi EJS viewove za potrebne stranice prema pripremljenim dizajnima. | Cilj tjedna; prioritetno zbog prototipa. |
+| **Florijan** | Pobrinuti se da deployana stranica radi i točno je iskonfiguriranja | Cilj tjedna; prioritetno zbog prototipa. |
 | **Jana** | Izraditi EJS viewove za potrebne stranice prema dizajnima. | Cilj tjedna; prioritetno zbog prototipa. |
 | **Dražen** | Izraditi backend rute za nužne stranice. Krenuti od funkcionalnosti koje podržava postojeći model, primjerice dodavanja aktivnosti. | Cilj tjedna; prioritetno zbog prototipa. |
 | **Ivor** | Prilagoditi login tako da koristi user model umjesto izravnog pristupa bazi. Dovršiti ili prilagoditi middleware za uloge zbog promjena u user modelu. Pomoći Draženu s rutama. | Cilj tjedna. |
@@ -103,8 +113,8 @@ Plan rada:
 
 | Odgovorna osoba | Zadatci | Rok |
 |---|---|---|
-| **Erik** | Dokumentirati bazu: ukratko opisati svaki entitet i relaciju, što predstavljaju i zašto postoje; po mogućnosti opisati i atribute. Ažurirati relacijsku shemu da odgovara trenutačnom stanju baze. Popuniti dio vezan uz bazu u dokumentu [4-Arhitektura-i-oblikovanje.md](https://github.com/VladoSruk/Programsko-inzenjerstvo/blob/main/docs/4-Arhitektura-i-oblikovanje.md). | Četvrtak, 19. 11. u 23:59 |
-| **Florijan** | Proučiti koje UML dijagrame treba uključiti u dokumentaciju i generirati ih pomoću PlantUML-a (`puml`). **Opcionalno:** omogućiti odabir lokacije aktivnosti na karti umjesto ručnog upisa koordinata. | Četvrtak, 19. 11. u 23:59 |
+| **Erik** | Dokumentirati bazu: ukratko opisati svaki entitet i relaciju, što predstavljaju i zašto postoje; po mogućnosti opisati i atribute. Ažurirati relacijsku shemu da odgovara trenutačnom stanju baze. Popuniti dio vezan uz bazu u dokumentu [4-Arhitektura-i-oblikovanje.md](./4-Arhitektura-i-oblikovanje.md). | Četvrtak, 19. 11. u 23:59 |
+| **Florijan** | Proučiti koje UML dijagrame treba uključiti u dokumentaciju i generirati ih pomoću PlantUML-a (`puml`). | Četvrtak, 19. 11. u 23:59 |
 | **Jana** | Pročitati sve upute i dostupne primjere za prvu predaju. Provjeriti što sve treba predati i u kojem obliku. Napisati dodatnu dokumentaciju ako se utvrdi da je potrebna. | Četvrtak, 19. 11. u 23:59 |
 | **Dražen** | Dovršiti backend rute potrebne za dogovorenu funkcionalnost kreiranja, uređivanja i pregleda aktivnosti. | Srijeda, 18. 11. u 23:59 |
 | **Ivor** | Izraditi viewove za stranice koje ulaze u funkcionalnost, s naglaskom na kreiranje, uređivanje i pregled aktivnosti. Sakriti poveznice na stranice kojima korisnik nema pravo pristupa (npr. korisniku koji nije admin ne prikazivati gumb „Admin” u headeru). | Srijeda, 18. 11. u 23:59 |
@@ -114,15 +124,4 @@ Plan rada:
 ### Dodatni dogovori i napomene
 
 - U uputama za predaju spominje se `master` grana. Projekt trenutačno koristi `main`; procjena je da to vjerojatno nije problem, ali dogovoreno je napraviti i `master` granu radi sigurnosti.
-- **Jana:** podsjetiti Jakova na izradu `master` grane.
 - Nakon završetka vlastitih zadataka, članovi tima koji imaju vremena mogu popunjavati preostale dijelove dokumentacije. Predlošci već postoje; potrebno ih je popuniti.
-- Jakov je naknadno podijelio Florijanu PDF materijal o UML-u. Florijan je potvrdio da će ga provjeriti.
-
----
-
-## Zajednički dogovori kroz tjedne
-
-1. Ako netko neće stići izvršiti zadatak u dogovorenom roku ili mu treba pomoć, treba javiti unaprijed kako bi se posao mogao preraspodijeliti ili rok prilagoditi.
-2. Kod implementacije prednost dati osnovnoj, proširivoj verziji umjesto rješenjima koja bi kasnije zahtijevala dupliciranje posla.
-3. Promjene baze treba izvesti i podijeliti na Gitu kako bi svi mogli ažurirati lokalne baze za testiranje.
-4. Za završni rok prioritet su funkcionalnost kreiranja, uređivanja i pregleda aktivnosti, odgovarajuće testiranje, dokumentacija i pravovremeni deploy.

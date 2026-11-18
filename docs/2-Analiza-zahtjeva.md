@@ -83,8 +83,8 @@ Vodič je povezan s događajem, ali njegove ovlasti u aplikaciji još nisu defin
 
 | Datum | ID zahtjeva | Promjena i razlog | Dogovoreno s / dokaz |
 | --- | --- | --- | --- |
-|  | F-15, F-16, F-17 | Dodani zahtjevi iz projektnog zadatka koji su bili navedeni samo kao otvorena pitanja (kapacitet, izvoz statistike, GPS digitalni vodič). | Projektni zadatak |
-|  | Svi | Dodani prioriteti, izvori i kriteriji prihvaćanja. | Predložak dokumentacije kolegija |
+| 2.11.2026. | F-15, F-16, F-17 | Dodani zahtjevi iz projektnog zadatka koji su bili navedeni samo kao otvorena pitanja (kapacitet, izvoz statistike, GPS digitalni vodič). | Projektni zadatak |
+| 2.11.2026. | Svi | Dodani prioriteti, izvori i kriteriji prihvaćanja. | Predložak dokumentacije kolegija |
 
 ## 2.6 Sljedivost zahtjeva
 

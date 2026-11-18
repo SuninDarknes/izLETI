@@ -38,8 +38,6 @@ Izlet, odnosno niz od jedne ili više aktivnosti. Izlet je predložak: nema datu
 
 Stanje događaja.
 
-> **Napomena:** vrijednosti u `dummy_data.sql` su `Scheduled`, `Confirmed`, `Completed`, `Cancelled`, a `src/model/events.model.ts` koristi `hidden`, `scheduled`, `full`, `cancelled`, `completed`. Taj popis treba uskladiti prije predaje.
-
 ## Events
 
 Konkretno izvođenje izleta u određenom terminu. Ako se isti izlet ponavlja svakog utorka, postoji jedan zapis u `Trips` i po jedan `Events` za svaki termin. Rezervira se događaj, ne izlet.

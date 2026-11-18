@@ -30,7 +30,7 @@ Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano
 | Podrška za više korisničkih uloga po računu | Samo jedna uloga po računu | Jedan korisnik može imati više uloga, a dostupne funkcionalnosti ovise o dodijeljenim ulogama. Time se omogućuje da isti korisnik, primjerice, bude i administrator i organizator. Kompromis je složenije upravljanje dodjelom uloga i povezanim funkcionalnostima korisničkog računa. |
 | Kontrola pristupa pomoću poslužiteljske provjere korisničkih ovlasti | — | Ovlasti se provjeravaju na poslužiteljskoj strani kako korisnici ne bi mogli pristupiti funkcionalnostima drugih uloga izravnim slanjem zahtjeva. Time se zaštita ne oslanja samo na skrivanje pojedinih elemenata sučelja. Kompromis je potreba za dosljednom provjerom ovlasti na svim zaštićenim rutama. |
 | Digitalni vodić za korištenje na mobitelu kao dio web aplikacije | Zasebna mobilna aplikacija | Objedinjavanjem pregleda i rezervacije izleta s digitalnim vodičem u jednoj web-aplikaciji izbjegava se potreba za razvojem i održavanjem zasebne mobilne aplikacije. Kompromis je potreba za prilagodbom sučelja različitim načinima korištenja aplikacije te ovisnost o mogućnostima preglednika i korisnikovu dopuštenju za pristup lokaciji. |
-| Slanje potvrde rezervacije e-poštom nakon potvrde organizatora | — | Slanje potvrde e-poštom povezano je s potvrđivanjem rezervacije od strane organizatora. Neuspješno slanje poruke ne poništava promjenu statusa rezervacije, nego se neuspjeh evidentira. Time se odvajaju poslovni proces rezervacije i vanjska usluga slanja e-pošte, ali je potrebno predvidjeti postupanje u slučaju neuspjele dostave. |
+| Globalni generički dodatci koji se pridodjeljuju događaju | Dodatci specifični za izlet | Korištenjem globalnih dodataka kojima se pri dodjeljivanju događaju dodaju detalji omogućuje jednostavniju strukturu podatka te statistiku za dodatke. Ovakav pristup je malo više ograničavajući za organizatore jer nemogu napraviti dodatak specifično za potrebe pojedinog izleta.
 
 
 Objasnite glavne arhitekturne odluke bez ponavljanja popisa tehnologija. Ako važna odluka ima ADR, dovoljno je u tablici navesti njegov ID.
@@ -87,7 +87,7 @@ Započnite crtanjem granice oko predloženog sustava. Unutar nje prepoznajte dij
 <a id="model-podataka"></a>
 ## 4.3 Model podataka i oblikovanje razreda
 
-**Cilj:** Objasniti važne informacije koje aplikacija pohranjuje i jedno reprezentativno područje oblikovanja na razini razreda. Model podataka i UML dijagram razreda odgovaraju na različita pitanja; jedno ne zamjenjuje drugo.
+[Detaljan opis strukture baze podataka](./baza/baza.md)
 
 ### 4.3.1 ER dijagram i model podataka
 
@@ -235,8 +235,10 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 
 | Aspekt | Mehanizam | Pravilo | Mjesto primjene |
 | --- | --- | --- | --- |
-| [Npr. Sigurnost] | [Npr. Autorizacija korisnika] | [Npr. Ovlasti se provjeravaju na poslužiteljskoj strani za svaki zaštićeni zahtjev; skrivanje elemenata korisničkog sučelja nije dovoljna zaštita.] | [Npr. Middleware za autorizaciju / zaštita API usmjernika.] |
-| [Npr. Validacija podataka] | [Npr. Provjera ulaznih podataka] | [Npr. Geoprostorni podaci, uključujući koordinate, provjeravaju se prije pohrane.] | [Npr. Sloj za obradu zahtjeva / odgovarajuća usluga.] |
+| Sigurnost | Pristup ograničen u skladu s ulogama | Za svaki zahtijev se provjeravaju uloge te se na poslužiteljskoj strani određuje ima li korisnik pravo pristupiti ruti. | [middleware](/src/middleware/authorization.ts)
+| Validacija podataka | Provjera valjanosti podataka | Provjera valjanosti podataka radi se na korisničkoj strani, zatim na poslužitelju te na kraju i u bazi podatka. | [shema baze](./baza/schema.sql), [model podataka](/src/model/)
+|Smanjenje međuovisnosti | Pristup bazi podataka | Pristup bazi podataka omogućen je isključivo kroz sučelje koje pruža model podataka | [model podataka](/src/model/)
+| Struktura baze podataka | Surogat id stupac | Za sve tablice uvodi se stupac 'id' zbog lakšeg upravljanja bazom podataka | [dijagram baze](./assets/diagrams/4-2-izleti-data-ERD.svg)
 
 <details>
 <summary><strong>Primjer zajedničkih pravila i mehanizama</strong></summary>
@@ -264,9 +266,8 @@ Obrasci poput injektiranja ovisnosti (engl. Dependency Injection) ili repozitori
 
 | Rizik ili kompromis | Posljedica | Odgovor na rizik  |
 | --- | --- | --- |
-| *Npr. Pohrana slika u lokalni file sustav* | *Pri ponovnom pokretanju kontejnera slike će biti izgubljene.* | *Prihvaćeni tehnički dug za demo verziju. U budućnosti planirana migracija na S3 (AWS).* |
-| *Npr. Nepostojanje paginacije na API-ju* | *Moguće usporenje klijenta pri dohvaćanju velike količine podataka iz baze.* | *Ograničen broj testnih unosa. Dodavanje paginacije ostavljeno za sljedeću iteraciju.* |
-|  |  |  |
+| Postavljanje aplikacije na vlastiti poslužitelj | Potencijalni sigurnosni propusti, nedostatak službene tehničke podrške | Praćenje sigurnosnih dobrih praksi. |
+| Nedostatak testova | Nove promijene mogu slučajno i nepredvidivo pokvariti neki stariji dio programa | Nakon svake promijene funkcionalnosti se testiraju. S vremenom je cilj uvesti osnovne testove. |
 
 **Poslovni ili domenski rizici, ako su značajni**
 
