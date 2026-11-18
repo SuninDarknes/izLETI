@@ -119,7 +119,7 @@ Plan rada:
 | **Dražen** | Dovršiti backend rute potrebne za dogovorenu funkcionalnost kreiranja, uređivanja i pregleda aktivnosti. | Srijeda, 18. 11. u 23:59 |
 | **Ivor** | Izraditi viewove za stranice koje ulaze u funkcionalnost, s naglaskom na kreiranje, uređivanje i pregled aktivnosti. Sakriti poveznice na stranice kojima korisnik nema pravo pristupa (npr. korisniku koji nije admin ne prikazivati gumb „Admin” u headeru). | Srijeda, 18. 11. u 23:59 |
 | **Luka** | Provesti i dokumentirati testiranje modela i stranice. | Četvrtak, 19. 11. u 23:59 |
-| **Jakov** | Pročitati svu izrađenu dokumentaciju i ispraviti nejasne ili nelogične dijelove. Koordinirati spajanje promjena i pobrinuti se da sve bude spojeno i predano na vrijeme. | Petak, 20. 11. u 23:59 |
+| **Jakov** | <a id="Jakov-provjeriti-dokumentaciju"><a> Pročitati svu izrađenu dokumentaciju i ispraviti nejasne ili nelogične dijelove. Koordinirati spajanje promjena i pobrinuti se da sve bude spojeno i predano na vrijeme. | Petak, 20. 11. u 23:59 |
 
 ### Dodatni dogovori i napomene
 
