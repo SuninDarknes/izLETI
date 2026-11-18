@@ -80,6 +80,7 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Claude | Opus 5.5 | Florijan Gotal | Generiranje prezentacije iz dokumentacije, pomoć pri postavljanju stranice |
 | GitHub Copilot | GPT-5 mini | Ivor Trstenjak | Pomoć pri povezivanju sa Google API-jem |
 | Claude | Opus 5.5 | Dražen Grgurić | Prijedlozi za backend rute i funkcije koje su potrebne, debuggiranje |
+| Claude | Opus 5.5 | Erik Mikšič | Provjera konzistentnosti sheme. Prijedlozi za bazu. Generiranje ER diagrama |
 
 ### Opseg doprinosa umjetne inteligencije
 
@@ -90,6 +91,8 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Model podataka na backendu | Pomoć pri programiranju | Preinake za neke upite bazi, poboljšanje strukture koda i bacanja iznimaka | Kod je pisan ručno te je AI korišten samo za pomoć pri debuggiranju i nadogradnji | [model](/src/model/)
 | Tjedni plan rada i Pregled aktivnosti grupe | Generiranje dokumenta iz podataka | Markdown datoteku sa tjednim planom rada i tablicu aktivnosti | Tim je priložio povijest dogovora iz Discord servera i povijest commit-ova te uskladio generirane dokumenate sa stvarnim planom rada i aktivnostima | [Pregled aktivnosti](./A-Pregled-aktivnosti-grupe.md) i [Plan rada](./Tjedni_plan_rada_iz_discorda.md) |
 | Prijedlozi za backend rute i funkcije | Ideje za funkcije i rute koje još nisu bile na popisu | Popis funkcija, prijedlozi u kojim rutama bi se koristile. | Tim je zadao već postojeći popis ruta i funkcija koji je bio smišljen te neke osnovne funkcionalnosti koje su poželjne | [Backend funkcije za pristup bazi](<./spec/Backend funkcije za pristup bazi.md>) |
+| Implementacijski ER dijagram | Generiranje ER diagrama |.puml datoteku dijagrama | Tim je zadao sve potrebne informacije za izradu dijagrama i nije bilo potrebe za naknadnim promjenama.| [ER dijagram](<./assets/diagrams/4-2-izleti-data-ERD.svg>) |
+| SQL datoteka | Pregled SQL datoteke |Popis predloženih preinaka | Tim je priložio SQL datoteku koju je model pregledao i predložio preinake. | [schema.sql](<./baza/schema.sql>) |
 
 Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. [Po želji: kao dodatne retke navedite kod ili ispitivanja izrađena uz pomoć umjetne inteligencije.]
 

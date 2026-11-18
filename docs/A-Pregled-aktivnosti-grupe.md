@@ -31,7 +31,7 @@ Sastavljeno na temelju povijesti commit-ova i kanala `#progres-updates` u discor
 | 13. 10. 2026. | Dodani osnovni projektni podaci i TODO popis za prvi tjedan. | Jakov Biškup | Početne projektne datoteke i [TODO](./spec/OsnovniPodatci_i_TODO.md) |
 | 19. 10. 2026. | Dodane početne backend rute i pokrenut poslužitelj koji poslužuje stranice. | Ivor Trstenjak | Početne rute i poslužiteljsko pokretanje |
 | 19. 10. 2026. | Instaliran Express; izrađen privremeni ER dijagram i početni popis potrebnih ruta. | Jakov Biškup | Express konfiguracija, ER dijagram i popis ruta |
-| 20. 10. 2026. | Dodani atributi baze, relacijska shema i SQL. | Erik Mikšić | Dokumentacija baze, ER dijagram, relacijska shema i SQL |
+| 20. 10. 2026. | Dodani atributi baze, relacijska shema i SQL. | Erik Mikšič | Dokumentacija baze, ER dijagram, relacijska shema i SQL |
 | 20. 10. 2026. | Dodana početna dokumentacija baze podataka i ER dijagram. | Jakov Biškup | Dokumentacija baze i ER dijagram |
 | 22. 10. 2026. | Ažuriran ER dijagram. | Jakov Biškup | ER dijagram |
 | 23. 10. 2026. | Izrađen početni frontend za prijavu. | Ivor Trstenjak | Sučelje za prijavu |
@@ -44,9 +44,9 @@ Sastavljeno na temelju povijesti commit-ova i kanala `#progres-updates` u discor
 | 2. 11. 2026. | Implementirana Google prijava i zapis korisnika u bazu; prilagođena shema i dodano automatsko indeksiranje. | Ivor Trstenjak | Google autentifikacija i povezivanje s bazom korisnika |
 | 2. 11. 2026. | Dodana zabrana pristupa administratorskoj stranici korisnicima bez administratorske uloge. | Ivor Trstenjak | Middleware za zaštitu administratorske stranice |
 | 2. 11. 2026. | Izrađen model aktivnosti. | Jakov Biškup | Activity model |
-| 2. 11. 2026. | Ažurirana shema baze: dodana OAuth polja za korisnike, pojednostavljene koordinate aktivnosti, dodani CHECK constrainti i trigger za provjeru dostupnosti dodataka; ažurirani testni podaci. | Erik Mikšić | `schema.sql` i `dummy_data.sql` |
+| 2. 11. 2026. | Ažurirana shema baze: dodana OAuth polja za korisnike, pojednostavljene koordinate aktivnosti, dodani CHECK constrainti i trigger za provjeru dostupnosti dodataka; ažurirani testni podaci. | Erik Mikšič | `schema.sql` i `dummy_data.sql` |
 | 3. 11. 2026. | Dovršen model korisnika i poboljšan model aktivnosti; spojene promjene sheme baze i testnih podataka. | Jakov Biškup | Users i Activity modeli; ažurirana baza |
-| 5. 11. 2026. | U modelu izleta zamijenjena lokacija sastanka zasebnim koordinatama geografske širine i dužine. | Erik Mikšić | Atributi `meetingPointLatitude` i `meetingPointLongitude` |
+| 5. 11. 2026. | U modelu izleta zamijenjena lokacija sastanka zasebnim koordinatama geografske širine i dužine. | Erik Mikšič | Atributi `meetingPointLatitude` i `meetingPointLongitude` |
 | 5. 11. 2026. | Izrađen prvi dio početnog blockout rasporeda korisničkog sučelja. | Jana Furdi | Početni blockout dizajn |
 | 5. 11. 2026. | Započet model izleta. | Jakov Biškup | `trips.models.ts`|
 | 6. 11. 2026. | Dodane početne backend rute. | Dražen Grgurić | Backend rute |
@@ -58,14 +58,14 @@ Sastavljeno na temelju povijesti commit-ova i kanala `#progres-updates` u discor
 | 11. 11. 2026. | Izrađeni radni (WIP) viewovi početne stranice, popisa događaja i detalja događaja. | Jana Furdi | EJS prikazi za home, events i events/:id |
 | 12. 11. 2026. | Dodana konfiguracija `trust proxy` za produkcijsku Google prijavu; javna aplikacija postavljena na `https://izleti.xyz/`. | Florijan Gotal | Produkcijska konfiguracija i javna aplikacija |
 | 12. 11. 2026. | Integrirane promjene više razvojnih grana; povezani backend i frontend te dovršene dorade profilne slike i odjave. | Jakov Biškup | Integracija grana, profilna slika i logout |
-| 16. 11. 2026. | Dokumentirana baza, izrađen ER dijagram u PlantUML-u, preimenovane/numerirane dokumentacijske datoteke i dodane mape za dijagrame. | Erik Mikšić | `docs/4-Arhitektura-i-oblikovanje.md`, `docs/puml/` i `docs/assets/diagrams/` |
+| 16. 11. 2026. | Dokumentirana baza, izrađen ER dijagram u PlantUML-u, preimenovane/numerirane dokumentacijske datoteke i dodane mape za dijagrame. | Erik Mikšič | `docs/4-Arhitektura-i-oblikovanje.md`, `docs/puml/` i `docs/assets/diagrams/` |
 | 16. 11. 2026. | Izrađeni prikazi za dodavanje i uređivanje aktivnosti te prilagođena vidljivost kontrola prema korisničkim ulogama. | Ivor Trstenjak | EJS prikazi `activities/add` i `activities/:id/edit`; kontrole za Admin i Organiser |
 | 16. 11. 2026. | Vraćen konceptualni ER dijagram uz implementacijski; dodana tablica arhitekturnih odluka i UML dijagram razreda. | Jakov Biškup | `docs/4-Arhitektura-i-oblikovanje.md` i pripadajući dijagrami |
 | 16. 11. 2026. | Uređen README prema predlošku i dodane datoteke potrebne za dokumentaciju. | Jakov Biškup | `README.md` i dokumentacijska struktura |
 | 17. 11. 2026. | Izrađen administratorski panel za dodjelu korisničkih uloga, uključujući frontend i backend. Dodan filter na stranici aktivnosti. | Ivor Trstenjak | Administratorski panel i sučelje filtera aktivnosti |
 | 17. 11. 2026. | Dovršeno dodavanje aktivnosti; dodana pretraga po nazivu i kategoriji te poruke za neispravan unos. | Dražen Grgurić | Backend za dodavanje aktivnosti i filtriranje po nazivu/kategoriji |
 | 17. 11. 2026. | Prošireno filtriranje aktivnosti po lokaciji i rasponu trajanja. | Dražen Grgurić | `filterActivities` u `activities.model.ts` |
-| 17. 11. 2026. | Dodani dijakritički znakovi te zahtjevi za ocjenjivanje izleta i vodiča. | Erik Mikšić | `docs/1-Projekt.md` i povezani zahtjevi |
+| 17. 11. 2026. | Dodani dijakritički znakovi te zahtjevi za ocjenjivanje izleta i vodiča. | Erik Mikšič | `docs/1-Projekt.md` i povezani zahtjevi |
 | 18. 11. 2026. | Dodatno uređeni dijelovi dokumentacije | Jakov Biškup | Dokumentacija u `docs/` |
 
 
@@ -98,7 +98,7 @@ Koristite aktivnosti specifične za projekt umjesto obaveznog retka za svako pog
 Graf loše prikazuje ili ne prikazuje slijedeće stavke:
 - Jakov Biškup (MrMirror01) bio je zadužen za merge-anje grana zbog ćega ima veći broj commitova i linija koda
 - Florijan Gotal (SuninDarkness) radio je na postavljanju stranice te većina tog posla nije vidljiva na GitHub repozitoriju
-- Erik Mikšić zabunom je koristio dva account-a za pristup repozitoriju pa je statistika podijeljena
+- Erik Mikšič zabunom je koristio dva account-a za pristup repozitoriju pa je statistika podijeljena
 - Jana Furdi radila je na dizajnu stranice što nije vidljivo iz broja commit-ova i promjenjenih linija koda
 - Luka Čubek bio je zadužen za ispitivanje i planiranje što nije direktno vidljivo iz statistika
 
