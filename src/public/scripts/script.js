@@ -35,6 +35,7 @@ async function handleGoogleLogin(response) {
             },
             body: JSON.stringify({
                 credential: response.credential,
+                returnTo: document.getElementById("google-signin")?.dataset.returnTo,
             }),
         });
         if (!result.ok) {

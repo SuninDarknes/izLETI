@@ -2,6 +2,7 @@ import { OAuth2Client } from "google-auth-library";
 import { Request, Response, Router } from "express";
 import { NotFoundError } from "../errors";
 import { GOOGLE_CLIENT_ID } from "../google-auth.config";
+import { safeReturnTo } from "../middleware/authorization";
 import { Role, User, users } from "../model/users.model";
 
 declare module "express-session" {
@@ -25,7 +26,10 @@ function isPostgresError(error: unknown): error is Error & { code: string; const
 }
 
 router.get("/login", (req: Request, res: Response) => {
-    res.render("login", { googleClientId: GOOGLE_CLIENT_ID });
+    res.render("login", {
+        googleClientId: GOOGLE_CLIENT_ID,
+        returnTo: safeReturnTo(req.query.returnTo),
+    });
 });
 
 router.get("/me", (req: Request, res: Response) => {
@@ -171,7 +175,7 @@ router.post("/google", async (req: Request, res: Response) => {
             req.session.save(error => error ? reject(error) : resolve());
         });
 
-        res.json({ redirectUrl: "/" });
+        res.json({ redirectUrl: safeReturnTo(req.body?.returnTo) });
     } catch (error) {
         console.error("Could not create a session after Google sign-in:", error);
         res.status(500).json({ error: "Google sign-in succeeded, but a session could not be created." });
