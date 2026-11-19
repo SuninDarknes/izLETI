@@ -23,7 +23,7 @@ Korisnik može imati više uloga.
 | Skupina korisnika ili dionika | Potreba ili interes relevantan za ovaj projekt |
 | --- | --- |
 | User | Pregledava i pretražuje događaje, rezervira ih, bira dodatne usluge te pregledava i otkazuje svoje rezervacije. Tijekom izleta dobiva informacije o lokacijama u blizini. |
-| Organiser | Dodaje aktivnosti, izlete i događaje, određuje kapacitete, dodjeljuje vodica te potvrđuje ili odbija rezervacije. |
+| Organiser | Dodaje aktivnosti, izlete i događaje, određuje kapacitete, dodjeljuje vodiča te potvrđuje ili odbija rezervacije. |
 | Admin | Pretražuje korisnike i dodjeljuje im ili oduzima uloge. |
 | Owner | Pregledava statistiku rezervacija, popunjenosti, prihoda i popularnosti aktivnosti i dodatnih usluga te je izvozi. |
 | Guide | Dodjeljuje se događaju; njegove zasebne mogućnosti u aplikaciji još nisu određene. |
