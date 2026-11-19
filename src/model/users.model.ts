@@ -172,6 +172,21 @@ class Users {
     }
 
     /**
+    * Finds an active user by email address.
+    * Returns undefined when no active matching user exists.
+    */
+    async findActiveUserByEmail(email : string) : Promise<User | undefined> {
+        let response = await pool.query<UserRow>(`
+            SELECT *
+            FROM users
+            WHERE LOWER(email) = LOWER($1)
+            AND active = true;
+        `, [email]);
+
+        return response.rows[0] ? rowToUser(response.rows[0]) : undefined;
+    }
+
+    /**
     * Updates the editable profile fields of an active user by id.
     * @throws {NotFoundError} If no active user with the specified ID exists.
     */
@@ -272,6 +287,21 @@ class Users {
         if (!response.rowCount) {
             throw new NotFoundError('User or Role');
         }
+    }
+
+    /**
+    * Gets the names of the roles assigned to a user.
+    */
+    async getUserRoleNames(userId : number) : Promise<string[]> {
+        let response = await pool.query<{name : string}>(`
+            SELECT roles.name
+            FROM userRole
+            JOIN roles ON roles.id = userRole.roleId
+            WHERE userRole.userId = $1
+            ORDER BY roles.name;
+        `, [userId]);
+
+        return response.rows.map(row => row.name.toLowerCase());
     }
 
     /**
