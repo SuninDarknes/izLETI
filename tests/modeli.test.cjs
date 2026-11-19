@@ -98,7 +98,7 @@ test('CT-06 filterActivities: stranica i filter', async () => {
   pool.reset(response([activityRow]));
   const a = await activities.filterActivities(2, 3, 2, 'Šet');
   assert.equal(a.length, 1);
-  assert.deepEqual(last().params, [2, 'Šet', 3, 3]);
+  assert.deepEqual(last().params, [2, 'Šet', 3, 3, null, null, null]);
   checkSql(/ORDER BY a.name/i);
 });
 test('CT-07 filterActivities: nedopuštena paginacija', async () => {
@@ -331,4 +331,33 @@ test('CT-42 getEvent: povezuje izlet i dodatke', async () => {
   assert.equal(result.trip.id,12);
   assert.equal(result.trip.activities[0].id,7);
   assert.equal(result.availableAddons[0].price,12.5);
+});
+
+// NOVO: metode i parametri dodani nakon proširenja modela
+
+test('CT-43 filterActivities: lokacija i trajanje', async () => {
+  pool.reset(response([activityRow]));
+  const found = await activities.filterActivities(1, 20, undefined, undefined, 'Centar', 60, 120);
+  assert.equal(found.length, 1);
+  assert.deepEqual(last().params, [null, null, 20, 0, 'Centar', 60, 120]);
+  checkSql(/a\.locationName ILIKE/i);
+  checkSql(/a\.durationMinutes > \$6/i);
+  checkSql(/a\.durationMinutes <= \$7/i);
+});
+
+test('CT-44 findActiveUserByEmail: postojeći i nepostojeći email', async () => {
+  pool.reset(response([userRow]), response([]));
+  const found = await users.findActiveUserByEmail('TEST@example.com');
+  assert.equal(found?.id, 9);
+  assert.deepEqual(pool.calls[0].params, ['TEST@example.com']);
+  assert.match(pool.calls[0].sql, /LOWER\(email\) = LOWER\(\$1\)/i);
+  assert.match(pool.calls[0].sql, /active = true/i);
+  assert.equal(await users.findActiveUserByEmail('unknown@example.com'), undefined);
+});
+
+test('CT-45 getUserRoleNames: vraća nazive uloga', async () => {
+  pool.reset(response([{name:'Admin'}, {name:'User'}]));
+  assert.deepEqual(await users.getUserRoleNames(9), ['admin', 'user']);
+  assert.deepEqual(last().params, [9]);
+  checkSql(/JOIN roles ON/i);
 });
