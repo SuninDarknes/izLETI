@@ -1,12 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>You are on admin page</h1>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upravljanje ulogama - izLETI</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .bg-light-purple {
+        background-color: #8f81ca;
+      }
+      .role-option {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <%- include("./partials/header.ejs") %>
 
-</body>
+    <main class="container flex-grow-1 py-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-9">
+          <div class="mb-4">
+            <span class="badge rounded-pill text-bg-light border mb-2">
+              <i class="bi bi-shield-lock me-1" aria-hidden="true"></i>Administracija
+            </span>
+            <h1 class="display-6 mb-1">Upravljanje korisničkim ulogama</h1>
+            <p class="text-body-secondary mb-0">
+              Pronađite korisnički račun po e-mail adresi i odaberite njegove uloge.
+            </p>
+          </div>
+
+          <% if (success) { %>
+            <div class="alert alert-success" role="status">
+              Uloge za <strong><%= targetUser.email %></strong> uspješno su ažurirane.
+            </div>
+          <% } %>
+          <% if (error) { %>
+            <div class="alert alert-danger" role="alert"><%= error %></div>
+          <% } %>
+
+          <div class="card shadow-sm">
+            <div class="card-body p-4 p-md-5">
+              <form action="/admin" method="get">
+                <div class="mb-3">
+                  <label for="userEmail" class="form-label fw-semibold">E-mail korisnika</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-envelope" aria-hidden="true"></i>
+                    </span>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="userEmail"
+                      name="email"
+                      value="<%= email %>"
+                      placeholder="ime@primjer.hr"
+                      autocomplete="email"
+                      required
+                    />
+                    <button type="submit" class="btn btn-outline-dark">
+                      <i class="bi bi-search me-1" aria-hidden="true"></i>
+                      Pronađi korisnika
+                    </button>
+                  </div>
+                  <div class="form-text">Uloge je moguće dodijeliti samo postojećem, aktivnom korisniku.</div>
+                </div>
+              </form>
+
+              <% if (targetUser) { %>
+                <hr class="my-4" />
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <% if (targetUser.picture) { %>
+                    <img
+                      src="<%= targetUser.picture %>"
+                      alt=""
+                      class="rounded-circle"
+                      width="52"
+                      height="52"
+                    />
+                  <% } else { %>
+                    <span
+                      class="rounded-circle bg-light-purple d-inline-flex align-items-center justify-content-center text-white"
+                      style="width: 52px; height: 52px;"
+                      aria-hidden="true"
+                    >
+                      <i class="bi bi-person fs-4"></i>
+                    </span>
+                  <% } %>
+                  <div>
+                    <h2 class="h5 mb-1"><%= [targetUser.firstName, targetUser.lastName].filter(Boolean).join(" ") || targetUser.email %></h2>
+                    <p class="text-body-secondary mb-0"><%= targetUser.email %></p>
+                  </div>
+                </div>
+
+                <form action="/admin/roles" method="post">
+                  <input type="hidden" name="email" value="<%= targetUser.email %>" />
+                  <fieldset class="mb-4">
+                    <legend class="fs-6 fw-semibold mb-1">Uloge</legend>
+                    <p class="form-text mb-3">
+                      Odabrane uloge bit će dodijeljene korisniku; neoznačene uloge bit će uklonjene.
+                    </p>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-3">
+                      <% roleOptions.forEach(role => { %>
+                        <div class="col">
+                          <label class="role-option d-flex align-items-start gap-3 border rounded p-3 h-100">
+                            <input
+                              class="form-check-input mt-1"
+                              type="checkbox"
+                              name="roles"
+                              value="<%= role.value %>"
+                              <%= targetRoles.includes(role.value) ? "checked" : "" %>
+                            />
+                            <span>
+                              <span class="d-block fw-semibold"><%= role.label %></span>
+                              <span class="small text-body-secondary"><%= role.description %></span>
+                            </span>
+                          </label>
+                        </div>
+                      <% }); %>
+                    </div>
+                  </fieldset>
+
+                  <div class="d-flex flex-column flex-sm-row justify-content-end gap-2">
+                    <a href="/admin" class="btn btn-outline-secondary">Odustani</a>
+                    <button type="submit" class="btn btn-dark">
+                      <i class="bi bi-person-check me-1" aria-hidden="true"></i>
+                      Spremi uloge
+                    </button>
+                  </div>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

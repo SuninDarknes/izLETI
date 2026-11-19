@@ -1,6 +1,6 @@
 # 3. Obrasci uporabe
 
-Oznake F-01, F-02 itd. odnose se na [analizu zahtjeva](Analiza-zahtjeva.md). Prioriteti zahtjeva navedeni su u odjeljku 2.1.
+Oznake F-01, F-02 itd. odnose se na [analizu zahtjeva](2-Analiza-zahtjeva.md). Prioriteti zahtjeva navedeni su u odjeljku 2.1.
 
 ## 3.1 Dijagram obrazaca uporabe
 
@@ -131,7 +131,7 @@ Dijagram jos nije izraden.
 
 ## 3.3 Provjera dosljednosti obrazaca uporabe
 
-Povezivanje zahtjev - obrazac uporabe - ispitivanje odrzava se samo u [tablici sljedivosti zahtjeva](Analiza-zahtjeva.md#26-sljedivost-zahtjeva).
+Povezivanje zahtjev - obrazac uporabe - ispitivanje odrzava se samo u [tablici sljedivosti zahtjeva](2-Analiza-zahtjeva.md#26-sljedivost-zahtjeva).
 
 | Provjera | Stanje |
 | --- | --- |

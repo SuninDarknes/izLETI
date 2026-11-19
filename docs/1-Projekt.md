@@ -2,7 +2,7 @@
 
 ## 1.1 Problem i cilj projekta
 
-Turisticke agencije i organizatori izleta nude velik broj aktivnosti na razlicitim lokacijama i u razlicitim terminima. Korisnicima treba jednostavan pregled ponude, cijena i slobodnih mjesta, a organizatorima podrska pri upravljanju terminima, kapacitetima, vodicima i dodatnim uslugama.
+Organizatori izleta nude velik broj aktivnosti na razlicitim lokacijama i u razlicitim terminima. Korisnicima treba jednostavan pregled ponude, cijena i slobodnih mjesta, a organizatorima podrska pri upravljanju terminima, kapacitetima, vodicima i dodatnim uslugama.
 
 izLETI je aplikacija za pregled i rezervaciju turistickih izleta i aktivnosti. Korisnici mogu pronaci dogadaj koji ih zanima i rezervirati ga, a organizatori mogu pripremati izlete i upravljati rezervacijama. Tijekom samog izleta aplikacija na mobilnom uredaju sluzi kao jednostavan digitalni vodic koji prikazuje informacije o lokacijama u blizini korisnika.
 

@@ -1,9 +1,25 @@
 import { RequestHandler } from "express";
 import { users } from "../model/users.model";
 
+export function safeReturnTo(value: unknown): string {
+    if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) {
+        return "/";
+    }
+
+    try {
+        const destination = new URL(value, "http://localhost");
+        if (destination.origin !== "http://localhost") {
+            return "/";
+        }
+        return `${destination.pathname}${destination.search}${destination.hash}`;
+    } catch {
+        return "/";
+    }
+}
+
 export const requireLogin: RequestHandler = (req, res, next) => {
     if (!req.session.user?.id) {
-        res.redirect("/auth/login");
+        res.redirect(`/auth/login?returnTo=${encodeURIComponent(req.originalUrl)}`);
         return;
     }
 
@@ -33,7 +49,7 @@ export const requireAdmin: RequestHandler = async (req, res, next) => {
 export const requireOwner: RequestHandler = async (req, res, next) => {
     const userId = req.session.user?.id;
     if (!userId) {
-        res.redirect("/login");
+        res.redirect(`/auth/login?returnTo=${encodeURIComponent(req.originalUrl)}`);
         return;
     }
 
@@ -53,7 +69,7 @@ export const requireOwner: RequestHandler = async (req, res, next) => {
 export const requireOrganizer: RequestHandler = async (req, res, next) => {
     const userId = req.session.user?.id;
     if (!userId) {
-        res.redirect("/login");
+        res.redirect(`/auth/login?returnTo=${encodeURIComponent(req.originalUrl)}`);
         return;
     }
 

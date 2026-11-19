@@ -1,0 +1,246 @@
+@startuml
+title Sustav izLETI – podatkovni model
+
+' Ako dijagram ispadne preuzak/predugacak, odkomentiraj sljedeci redak:
+' left to right direction
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #212529
+
+skinparam entity {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+    FontColor #212529
+}
+
+'Korisnici i uloge
+
+entity "Users" as Users {
+    * id : INT <<PK>>
+    --
+    * email : VARCHAR(255) <<U>>
+    * googleId : VARCHAR(255) <<U>>
+    * username : VARCHAR(100)
+    phone : VARCHAR(20)
+    firstname : VARCHAR(100)
+    lastname : VARCHAR(100)
+    picture : TEXT
+    locale : VARCHAR(20)
+    * emailverified : BOOLEAN
+    * createdAt : TIMESTAMP
+    * active : BOOLEAN
+}
+
+entity "Roles" as Roles {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(50) <<U>>
+}
+
+entity "UserRole" as UserRole {
+    * id : INT <<PK>>
+    --
+    * roleId : INT <<FK>>
+    * userId : INT <<FK>>
+}
+
+entity "Languages" as Languages {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(50)
+    * active : BOOLEAN
+}
+
+entity "GuideLanguage" as GuideLanguage {
+    * id : INT <<PK>>
+    --
+    * userId : INT <<FK>>
+    * languageId : INT <<FK>>
+}
+
+'Aktivnosti i izleti
+
+entity "ActivityCategories" as ActivityCategories {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(50)
+    * active : BOOLEAN
+}
+
+entity "Activities" as Activities {
+    * id : INT <<PK>>
+    --
+    * categoryId : INT <<FK>>
+    * name : VARCHAR(150)
+    * description : VARCHAR(1000)
+    * locationName : VARCHAR(150)
+    * latitude : NUMERIC(9,6)
+    * longitude : NUMERIC(9,6)
+    durationMinutes : INT
+    * active : BOOLEAN
+}
+
+entity "Trips" as Trips {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(150)
+    * description : VARCHAR(1000)
+    durationMinutes : INT
+    * meetingPointLatitude : NUMERIC(9,6)
+    * meetingPointLongitude : NUMERIC(9,6)
+    * maxParticipants : INT
+    * basePrice : NUMERIC(10,2)
+    * createdAt : TIMESTAMP
+    * active : BOOLEAN
+}
+
+entity "TripActivity" as TripActivity {
+    * id : INT <<PK>>
+    --
+    * tripId : INT <<FK>>
+    * activityId : INT <<FK>>
+    * sequenceOrder : INT
+}
+
+entity "TripTags" as TripTags {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(50)
+    * active : BOOLEAN
+}
+
+entity "TripTag" as TripTag {
+    * id : INT <<PK>>
+    --
+    * tripId : INT <<FK>>
+    * tagId : INT <<FK>>
+}
+
+'Dogadaji
+
+entity "EventStates" as EventStates {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(50) <<U>>
+}
+
+entity "Events" as Events {
+    * id : INT <<PK>>
+    --
+    * tripId : INT <<FK>>
+    * stateId : INT <<FK>>
+    * startDatetime : TIMESTAMP
+    * capacity : INT
+}
+
+entity "EventGuides" as EventGuides {
+    * id : INT <<PK>>
+    --
+    * eventId : INT <<FK>>
+    * guideId : INT <<FK>>
+}
+
+entity "Addons" as Addons {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(100)
+    * defaultPrice : NUMERIC(10,2)
+    * active : BOOLEAN
+}
+
+entity "EventAddons" as EventAddons {
+    * id : INT <<PK>>
+    --
+    * eventId : INT <<FK>>
+    * addonId : INT <<FK>>
+    * description : VARCHAR(1000)
+    * price : NUMERIC(10,2)
+    * capacity : INT
+    * active : BOOLEAN
+}
+
+'Rezervacije i ocjene
+
+entity "ReservationStates" as ReservationStates {
+    * id : INT <<PK>>
+    --
+    * name : VARCHAR(50) <<U>>
+}
+
+entity "Reservations" as Reservations {
+    * id : INT <<PK>>
+    --
+    * userId : INT <<FK>>
+    * eventId : INT <<FK>>
+    * stateId : INT <<FK>>
+    * eventGuideId : INT <<FK>>
+    * numPeople : INT
+    * createdAt : TIMESTAMP
+}
+
+entity "ReservationAddon" as ReservationAddon {
+    * id : INT <<PK>>
+    --
+    * reservationId : INT <<FK>>
+    * eventAddonId : INT <<FK>>
+    * quantity : INT
+}
+
+entity "GuideRatings" as GuideRatings {
+    * id : INT <<PK>>
+    --
+    * reservationId : INT <<FK>>
+    * rating : INT
+    comment : VARCHAR(500)
+    * createdAt : TIMESTAMP
+    * active : BOOLEAN
+}
+
+entity "TripRatings" as TripRatings {
+    * id : INT <<PK>>
+    --
+    * reservationId : INT <<FK>>
+    * rating : INT
+    comment : VARCHAR(500)
+    * createdAt : TIMESTAMP
+    * active : BOOLEAN
+}
+
+'Veze
+
+Users ||--o{ UserRole : ima ►
+Roles ||--o{ UserRole : dodijeljena kroz ►
+
+Users ||--o{ GuideLanguage : govori ►
+Languages ||--o{ GuideLanguage : naveden kroz ►
+
+ActivityCategories ||--o{ Activities : kategorizira ►
+
+Trips ||--o{ TripActivity : sadrzi ►
+Activities ||--o{ TripActivity : uvrstena kroz ►
+
+Trips ||--o{ TripTag : oznacen kroz ►
+TripTags ||--o{ TripTag : dodijeljen kroz ►
+
+Trips ||--o{ Events : izvodi se kao ►
+EventStates ||--o{ Events : odreduje stanje ►
+
+Events ||--o{ EventGuides : vode ►
+Users ||--o{ EventGuides : dodijeljen kao ►
+
+Events ||--o{ EventAddons : nudi ►
+Addons ||--o{ EventAddons : ponuden kao ►
+
+Users ||--o{ Reservations : rezervira ►
+Events ||--o{ Reservations : rezervira se ►
+ReservationStates ||--o{ Reservations : odreduje stanje ►
+EventGuides ||--o{ Reservations : odabran na ►
+
+Reservations ||--o{ ReservationAddon : ukljucuje ►
+EventAddons ||--o{ ReservationAddon : narucen kroz ►
+
+Reservations ||--o| GuideRatings : ocjenjuje vodica ►
+Reservations ||--o| TripRatings : ocjenjuje izlet ►
+
+@enduml
