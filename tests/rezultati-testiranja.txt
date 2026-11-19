@@ -1,0 +1,303 @@
+TAP version 13
+# Subtest: CT-01 createActivity: upis i ID
+ok 1 - CT-01 createActivity: upis i ID
+  ---
+  duration_ms: 3.410413
+  type: 'test'
+  ...
+# Subtest: CT-02 getActivity: pretvorba koordinata
+ok 2 - CT-02 getActivity: pretvorba koordinata
+  ---
+  duration_ms: 0.303738
+  type: 'test'
+  ...
+# Subtest: CT-03 getActivity: nepostojeći ID
+ok 3 - CT-03 getActivity: nepostojeći ID
+  ---
+  duration_ms: 0.558762
+  type: 'test'
+  ...
+# Subtest: CT-04 editActivity: promjena i nepostojeći ID
+ok 4 - CT-04 editActivity: promjena i nepostojeći ID
+  ---
+  duration_ms: 0.343759
+  type: 'test'
+  ...
+# Subtest: CT-05 deleteActivity: meko brisanje
+ok 5 - CT-05 deleteActivity: meko brisanje
+  ---
+  duration_ms: 0.216016
+  type: 'test'
+  ...
+# Subtest: CT-06 filterActivities: stranica i filter
+ok 6 - CT-06 filterActivities: stranica i filter
+  ---
+  duration_ms: 0.279081
+  type: 'test'
+  ...
+# Subtest: CT-07 filterActivities: nedopuštena paginacija
+ok 7 - CT-07 filterActivities: nedopuštena paginacija
+  ---
+  duration_ms: 0.260553
+  type: 'test'
+  ...
+# Subtest: CT-08 getTripActivities: vraća rezultate redoslijedom baze
+ok 8 - CT-08 getTripActivities: vraća rezultate redoslijedom baze
+  ---
+  duration_ms: 0.370338
+  type: 'test'
+  ...
+# Subtest: CT-09 kategorije: create, get, edit, delete, getCategories
+ok 9 - CT-09 kategorije: create, get, edit, delete, getCategories
+  ---
+  duration_ms: 0.723651
+  type: 'test'
+  ...
+# Subtest: CT-10 getCategory: nepostojeći ID
+ok 10 - CT-10 getCategory: nepostojeći ID
+  ---
+  duration_ms: 0.370899
+  type: 'test'
+  ...
+# Subtest: CT-11 createAddon i getAddon: cijena iz NUMERIC
+ok 11 - CT-11 createAddon i getAddon: cijena iz NUMERIC
+  ---
+  duration_ms: 0.27876
+  type: 'test'
+  ...
+# Subtest: CT-12 getAddon: nepostojeći ID
+ok 12 - CT-12 getAddon: nepostojeći ID
+  ---
+  duration_ms: 0.144168
+  type: 'test'
+  ...
+# Subtest: CT-13 editAddon i deleteAddon
+ok 13 - CT-13 editAddon i deleteAddon
+  ---
+  duration_ms: 0.176967
+  type: 'test'
+  ...
+# Subtest: CT-14 addons.exists: postoji/ne postoji
+ok 14 - CT-14 addons.exists: postoji/ne postoji
+  ---
+  duration_ms: 0.216547
+  type: 'test'
+  ...
+# Subtest: CT-15 createTrip: transakcija i redoslijed aktivnosti
+ok 15 - CT-15 createTrip: transakcija i redoslijed aktivnosti
+  ---
+  duration_ms: 0.421225
+  type: 'test'
+  ...
+# Subtest: CT-16 createTrip: ROLLBACK nakon greške
+ok 16 - CT-16 createTrip: ROLLBACK nakon greške
+  ---
+  duration_ms: 0.221844
+  type: 'test'
+  ...
+# Subtest: CT-17 getTrip: pripaja aktivnosti i tagove
+ok 17 - CT-17 getTrip: pripaja aktivnosti i tagove
+  ---
+  duration_ms: 0.301845
+  type: 'test'
+  ...
+# Subtest: CT-18 getTrip: nepostojeći ID
+ok 18 - CT-18 getTrip: nepostojeći ID
+  ---
+  duration_ms: 0.147462
+  type: 'test'
+  ...
+# Subtest: CT-19 editTrip i removeTrip
+ok 19 - CT-19 editTrip i removeTrip
+  ---
+  duration_ms: 0.158208
+  type: 'test'
+  ...
+# Subtest: CT-20 tagovi: create, get, edit, delete
+ok 20 - CT-20 tagovi: create, get, edit, delete
+  ---
+  duration_ms: 0.209576
+  type: 'test'
+  ...
+# Subtest: CT-21 tagovi izleta: dodaj, dohvati i makni
+ok 21 - CT-21 tagovi izleta: dodaj, dohvati i makni
+  ---
+  duration_ms: 0.133051
+  type: 'test'
+  ...
+# Subtest: CT-22 removeTag: nema veze
+ok 22 - CT-22 removeTag: nema veze
+  ---
+  duration_ms: 0.090496
+  type: 'test'
+  ...
+# Subtest: CT-23 trips.exists: postoji/ne postoji
+ok 23 - CT-23 trips.exists: postoji/ne postoji
+  ---
+  duration_ms: 0.101403
+  type: 'test'
+  ...
+# Subtest: CT-24 createEvent: transakcija i dodatak
+ok 24 - CT-24 createEvent: transakcija i dodatak
+  ---
+  duration_ms: 0.398501
+  type: 'test'
+  ...
+# Subtest: CT-25 createEvent: nepostojeći izlet uz ROLLBACK
+ok 25 - CT-25 createEvent: nepostojeći izlet uz ROLLBACK
+  ---
+  duration_ms: 0.194964
+  type: 'test'
+  ...
+# Subtest: CT-26 getFilteredEvents: kombinirani filtri
+ok 26 - CT-26 getFilteredEvents: kombinirani filtri
+  ---
+  duration_ms: 0.307063
+  type: 'test'
+  ...
+# Subtest: CT-27 getFilteredEvents: neispravna paginacija i sortiranje
+ok 27 - CT-27 getFilteredEvents: neispravna paginacija i sortiranje
+  ---
+  duration_ms: 0.150146
+  type: 'test'
+  ...
+# Subtest: CT-28 getTripEvents: ID-ovi događaja
+ok 28 - CT-28 getTripEvents: ID-ovi događaja
+  ---
+  duration_ms: 0.134303
+  type: 'test'
+  ...
+# Subtest: CT-29 getEvent: nepostojeći ID
+ok 29 - CT-29 getEvent: nepostojeći ID
+  ---
+  duration_ms: 0.142625
+  type: 'test'
+  ...
+# Subtest: CT-30 editEvent i setEventState
+ok 30 - CT-30 editEvent i setEventState
+  ---
+  duration_ms: 0.33134
+  type: 'test'
+  ...
+# Subtest: CT-31 getEventAddons: aktivni dodatak i NUMERIC
+ok 31 - CT-31 getEventAddons: aktivni dodatak i NUMERIC
+  ---
+  duration_ms: 0.209666
+  type: 'test'
+  ...
+# Subtest: CT-32 addEventAddon: nepostojeći dodatak
+ok 32 - CT-32 addEventAddon: nepostojeći dodatak
+  ---
+  duration_ms: 0.114894
+  type: 'test'
+  ...
+# Subtest: CT-33 events.exists: postoji/ne postoji
+ok 33 - CT-33 events.exists: postoji/ne postoji
+  ---
+  duration_ms: 0.174683
+  type: 'test'
+  ...
+# Subtest: CT-34 createUser: zadana uloga i transakcija
+ok 34 - CT-34 createUser: zadana uloga i transakcija
+  ---
+  duration_ms: 0.375076
+  type: 'test'
+  ...
+# Subtest: CT-35 createUser: ponovljene uloge se uklanjaju
+ok 35 - CT-35 createUser: ponovljene uloge se uklanjaju
+  ---
+  duration_ms: 0.357259
+  type: 'test'
+  ...
+# Subtest: CT-36 createUser: nepoznata uloga poništava unos
+ok 36 - CT-36 createUser: nepoznata uloga poništava unos
+  ---
+  duration_ms: 0.156826
+  type: 'test'
+  ...
+# Subtest: CT-37 getUser: pretvorba naziva polja
+ok 37 - CT-37 getUser: pretvorba naziva polja
+  ---
+  duration_ms: 0.146682
+  type: 'test'
+  ...
+# Subtest: CT-38 getUserByGoogleId: nepostojeći račun
+ok 38 - CT-38 getUserByGoogleId: nepostojeći račun
+  ---
+  duration_ms: 0.147343
+  type: 'test'
+  ...
+# Subtest: CT-39 editUser, deleteUser, reactivateUser
+ok 39 - CT-39 editUser, deleteUser, reactivateUser
+  ---
+  duration_ms: 0.225229
+  type: 'test'
+  ...
+# Subtest: CT-40 addRole i removeRole
+ok 40 - CT-40 addRole i removeRole
+  ---
+  duration_ms: 0.133481
+  type: 'test'
+  ...
+# Subtest: CT-41 role provjere: user, admin, owner, organizer, guide
+ok 41 - CT-41 role provjere: user, admin, owner, organizer, guide
+  ---
+  duration_ms: 0.208474
+  type: 'test'
+  ...
+# Subtest: CT-42 getEvent: povezuje izlet i dodatke
+ok 42 - CT-42 getEvent: povezuje izlet i dodatke
+  ---
+  duration_ms: 0.200132
+  type: 'test'
+  ...
+# Subtest: KS-01 EventState vrijednosti odgovaraju zapisima u dummy_data.sql
+not ok 43 - KS-01 EventState vrijednosti odgovaraju zapisima u dummy_data.sql
+  ---
+  duration_ms: 1.798041
+  type: 'test'
+  location: '/mnt/data/izleti_audit/izLETI-1/tests/uskladenost.test.cjs:15:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    EventState i EventStates u testnim podacima ne sadrže iste nazive stanja
+    + actual - expected
+    
+      [
+        'cancelled',
+        'completed',
+    +   'full',
+    +   'hidden',
+    -   'confirmed',
+        'scheduled'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'cancelled'
+    1: 'completed'
+    2: 'confirmed'
+    3: 'scheduled'
+  actual:
+    0: 'cancelled'
+    1: 'completed'
+    2: 'full'
+    3: 'hidden'
+    4: 'scheduled'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/izleti_audit/izLETI-1/tests/uskladenost.test.cjs:16:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 42
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 425.268034
