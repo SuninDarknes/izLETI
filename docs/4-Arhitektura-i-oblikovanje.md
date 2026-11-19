@@ -232,7 +232,7 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 | Rizik ili kompromis | Posljedica | Odgovor na rizik  |
 | --- | --- | --- |
 | Postavljanje aplikacije na vlastiti poslužitelj | Potencijalni sigurnosni propusti, nedostatak službene tehničke podrške | Praćenje sigurnosnih dobrih praksi. |
-| Nedostatak testova | Nove promijene mogu slučajno i nepredvidivo pokvariti neki stariji dio programa | Nakon svake promijene funkcionalnosti se testiraju. S vremenom je cilj uvesti osnovne testove. |
+| Profilna slika se učitava direktno sa Google servera | Google ponekad blokira zahtijev sa greškom `429 Too Many Requests` te se slika ne učitava ispravno | U budućnosti implementirati spremanje slike na poslužitelju kako se ne bi slali česti zahtijevi na Google API. |
 
 **Poslovni ili domenski rizici, ako su značajni**
 
