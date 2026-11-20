@@ -15,7 +15,7 @@
 | ID | Opis | Prioritet | Izvor | Kriteriji prihvaćanja |
 | --- | --- | --- | --- | --- |
 | F-04 | Organiser može dodati aktivnost s opisom, lokacijom i kategorijom. | Visok | Projektni zadatak | Spremljena aktivnost ima opis, lokaciju i kategoriju te se može odabrati pri izradi izleta. |
-| F-05 | Organiser može sastaviti izlet od jedne ili više aktivnosti u određenom redoslijedu. Može koristiti i već postojeće aktivnosti. | Visok | Dogovor tima | Spremljeni izlet prikazuje aktivnosti zadanim redoslijedom; ista aktivnost može biti dio vise izleta. |
+| F-05 | Organiser može sastaviti izlet od jedne ili više aktivnosti u određenom redoslijedu. Može koristiti i već postojeće aktivnosti. | Visok | Dogovor tima | Spremljeni izlet prikazuje aktivnosti zadanim redoslijedom; ista aktivnost može biti dio više izleta. |
 | F-06 | Organiser može napraviti događaj na temelju novog ili postojećeg izleta. Događaj ima termin, dostupne dodatke i dodijeljenog jednog ili više vodiča. | Visok | Projektni zadatak | Spremljeni događaj ima izlet, termin, dodatke i vodiče te se prikazuje u popisu događaja. |
 | F-07 | Organiser određuje broj slobodnih mjesta na događaju i za dodatne usluge. | Visok | Projektni zadatak | Uz događaj i svaku dodatnu uslugu prikazuje se uneseni kapacitet i broj slobodnih mjesta. |
 | F-21 | Aktivnosti se pridružuju slike na temelju lokacije i Google Places API-ja. | Vrlo nizak | Dogovor tima | Prilikom izrade aktivnosti na temelju odabrane lokacije nude se slike koje se mogu pridružiti aktivnosti. Organizator bira sliku te je ona vidljiva prilikom rezervacije događaja i na digitalnom vodiču. | 
@@ -46,7 +46,7 @@
 | --- | --- | --- | --- | --- |
 | F-18 | Korisnik može ostaviti ocjenu i komentar za izlet nakon što je izlet završio. Prilikom pretraživanja događaja vidljiva je prosječna ocjena i komentari. | Nizak | Dogovor tima | Korisnik može ostaviti recenziju nakon što je događaj završio. Recenzija se povezuje s izletom iz kojeg je napravljen događaj te se prikazuje na budućim događajima koji su stvoreni iz istog izleta. Prosječna ocjena je vidljiva u statistici. |
 | F-19 | Korisnik može ostaviti ocjenu za vodiča koji mu je dodijeljen na događaju nakon što je izlet završio. Prilikom rezervacije događaja vidljiva je prosječna ocjena dostupnih vodiča. | Nizak | Dogovor tima | Korisnik može ostaviti ocjenu za vodiča koji je odabran za događaj nakon što događaj završi. Prosječna ocjena je vidljiva u statistici. |
-| F-20 | Korisnik može odabrati vodiča kojega želi na osnovi njegove prosječne ocjene te jezika koje govori | Nizak | Dogovor tima | Prilikom rezervacije događaja korisnik bira vodiča. Uz ime vodiča piše i jezik kojim govori te njegova prosječna ocjena. Vodič ima ograničen broj polaznika u svojoj grupi. |
+| F-20 | Korisnik može odabrati vodiča kojega želi na osnovi njegove prosječne ocjene te jezika koje govori. | Nizak | Dogovor tima | Prilikom rezervacije događaja korisnik bira vodiča. Uz ime vodiča piše i jezik kojim govori te njegova prosječna ocjena. Vodič ima ograničen broj polaznika u svojoj grupi. |
 
 ## 2.2 Nefunkcijski zahtjevi
 
@@ -77,9 +77,9 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 | --- | --- | --- | --- | --- |
 | C-01 | Ograničenje | Prijava isključivo putem Google OAutha; nema lokalnih lozinki. | Dogovor tima | Nema registracije ni oporavka lozinke; uloge se vežu uz Google račun. |
 | C-02 | Ograničenje | Tehnologije: PostgreSQL, TypeScript, Node.js, Express, EJS, Bootstrap. | Dogovor tima |  |
-| C-03 | Ograničenje | Digitalni vodič je dio web aplikacije. | Projektni zadatak | Web aplikacija radi na mobilnom uređaju te dobavlja GPS lokaciju korisnika prilikom korištenja digitalnog vodiča |
+| C-03 | Ograničenje | Digitalni vodič je dio web aplikacije. | Projektni zadatak | Web aplikacija radi na mobilnom uređaju te dobavlja GPS lokaciju korisnika prilikom korištenja digitalnog vodiča. |
 | C-04 | Ograničenje | Pristup bazi isključivo kroz sučelje koje pruža [model podataka](/src/model/) | Ni jedan drugi dio aplikacije ne smije raditi upite na bazu. Manja međuovisnost. |
-| AS-01 | Pretpostavka | Svaka aktivnost ima valjane koordinate. | Procjena tima | Provjeriti pri unosu aktivnosti |
+| AS-01 | Pretpostavka | Svaka aktivnost ima valjane koordinate. | Procjena tima | Provjeriti pri unosu aktivnosti. |
 | AS-02 | Pretpostavka | Korisnik na izletu dopušta pristup lokaciji i ima mobilnu vezu. | Procjena tima | Ako geolokacija nije dopuštena, prikazati kartu i popis aktivnosti bez automatskog prepoznavanja blizine. |
 | AS-03 | Pretpostavka | Karta će koristiti OpenStreetMap i Leaflet. | Procjena tima | Nije konačno potvrđeno; potvrditi prije izrade F-14. |
 
@@ -95,9 +95,9 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 | --- | --- | --- | --- |
 | 2.11.2026. | F-15, F-16, F-17 | Dodani zahtjevi iz projektnog zadatka koji su bili navedeni samo kao otvorena pitanja (kapacitet, izvoz statistike, GPS digitalni vodič). | Projektni zadatak |
 | 2.11.2026. | Svi | Dodani prioriteti, izvori i kriteriji prihvaćanja. | Predložak dokumentacije kolegija |
-| 18.11.2026. | NF-01 | Uklonjen NF-01 jer je uspostavljeno da je ekvivalentan F-02 | 
-| 18.11.2026. | F-18, F-19, F-20 | Dodani funkcijski zahtjevi vezani za recenzije izleta i vodiča |
-| 18.11.2026. | F-21 | Dodani funkcijski zahtjev za dobavljanje slika uz pomoć Google Places API-ja
+| 18.11.2026. | NF-01 | Uklonjen NF-01 jer je uspostavljeno da je ekvivalentan F-02. | 
+| 18.11.2026. | F-18, F-19, F-20 | Dodani funkcijski zahtjevi vezani za recenzije izleta i vodiča. |
+| 18.11.2026. | F-21 | Dodani funkcijski zahtjev za dobavljanje slika uz pomoć Google Places API-ja.
 
 ## 2.6 Sljedivost zahtjeva
 
@@ -112,7 +112,7 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 | F-07 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
 | F-08 | UC-02 | `events.routes.ts` (`/events`) | Djelomično implementirano - hardkodirani frontend | *na čekanju* |
 | F-09 | UC-03 | `events.routes.ts` (`/events/:id/reserve`) | Nije implementirano | *na čekanju* |
-| F-10 | UC-03, UC-07 | *na čekanju* (slanje e-poste) | Nije implementirano | *na čekanju* |
+| F-10 | UC-03, UC-07 | *na čekanju* (slanje e-pošte) | Nije implementirano | *na čekanju* |
 | F-11 | UC-04, UC-10 | `reservations.routes.ts` | Nije implementirano | *na čekanju* |
 | F-12 | UC-07 | `reservations.routes.ts` | Nije implementirano | *na čekanju* |
 | F-13 | UC-09 | `/dashboard` | Nije implementirano | *na čekanju* |
@@ -129,6 +129,6 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 
 | Kontrolna točka | Povratna informacija ili nalaz | Odluka o zahtjevu ili opsegu |
 | --- | --- | --- |
-| Iteracija 1 |  | Implementirani zahtijevi: F-01, F-02, F-03, F-04, djelomično implementirani F-08  |
+| Iteracija 1 |  | Implementirani zahtjevi: F-01, F-02, F-03, F-04, djelomično implementirani F-08  |
 | Demo 2 |  |  |
 | Završni pregled |  |  |

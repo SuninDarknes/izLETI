@@ -67,15 +67,15 @@
 
 **Cilj:** Prikazati redoslijed poruka za jedan reprezentativni scenarij i odgovore na važnu alternativu.
 
-**Scenarij:** Nije određen
-**sekvencijski dijagram:** Dijagram još nije izrađen
+**Scenarij:** Nije određen.   
+**sekvencijski dijagram:** Dijagram još nije izrađen.
 
 ### 4.4.2 Reprezentativni UML dijagram stanja
 
 **Cilj:** Prikazati važna stanja jednog domenskog objekta ili eksplicitno upravljanog načina rada sustava te događaje ili uvjete koji ih mijenjaju.
 
-**Vlasnik stanja i razlog odabira:** Nije određen
-**Dijagram stanja:** Dijagram još nije izrađen
+**Vlasnik stanja i razlog odabira:** Nije određen.   
+**Dijagram stanja:** Dijagram još nije izrađen.
 
 ## 4.5 Zapisi arhitekturnih odluka
 

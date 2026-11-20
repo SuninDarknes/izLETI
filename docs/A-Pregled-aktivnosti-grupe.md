@@ -5,18 +5,18 @@
 | Datum i sudionici | Glavna tema | Donesena odluka ili zadatak  | Poveznica na zadatak ili  rezultat, ako postoji |
 | --- | --- | --- | --- |
 | 12.10.2026.<br>Nedostaje Dražen | Formiranje tima, osnovne informacije |  |  |
-| 22.10.2026.<br>Svi prisutni | Raspisivanje Issue-a na GitHub-u, podjela uloga, dogovor formata dokumentacije | | [Issues](https://github.com/SuninDarknes/izLETI/issues) |
+| 22.10.2026.<br>Svi prisutni | Raspisivanje Issuea na GitHub-u, podjela uloga, dogovor formata dokumentacije | | [Issues](https://github.com/SuninDarknes/izLETI/issues) |
 | 29.10.2026.<br>Svi prisutni | Određivanje funkcijskih zahtjeva | Funkcijskim zahtjevima potrebno odrediti prioritete | [zahtjevi](./2-Analiza-zahtjeva.md) |
 | 6.11.2026.<br>Nedostaju Jakov, Florijan | Dogovor o izvedbi postavljanja stranice te potrebnih funkcionalnosti na prvoj predaji |  | |
 | 12.11.2026.<br>Svi prisutni | Dogovor o završnim poslovima na alpha verziji | |
 
 ## A.2 Plan rada
 
-**Trenutačni plan:** [plan rada po tjednima izveden iz discorda](./Tjedni_plan_rada_iz_discorda.md)
+**Trenutačni plan:** [plan rada po tjednima izveden iz Discorda](./Tjedni_plan_rada_iz_discorda.md)
 
 ## A.3 Aktivnosti i doprinosi članova
 
-Sastavljeno na temelju povijesti commit-ova (naredba `git log --pretty=format:"%an,%ad,%s" --date=short > commit_history.csv`) i kanala `#progres-updates` u discord serveru.
+Sastavljeno na temelju povijesti commitova (naredba `git log --pretty=format:"%an,%ad,%s" --date=short > commit_history.csv`) i kanala `#progres-updates` u Discord serveru.
 
 | Datum | Aktivnost ili rezultat | Član | Reprezentativni rezultat ili poveznica |
 | --- | --- | --- | --- |
@@ -82,13 +82,13 @@ Sastavljeno na temelju povijesti commit-ova (naredba `git log --pretty=format:"%
 Graf loše prikazuje ili ne prikazuje slijedeće stavke:
 - Jakov Biškup (MrMirror01) je dodavao predloške za dokumentaciju zbog čega ima prevelik broj dodanih linija; također radi puno malih commitova umijesto manje većih
 - Florijan Gotal (SuninDarkness) radio je na postavljanju stranice te većina tog posla nije vidljiva na GitHub repozitoriju
-- Erik Mikšič zabunom je koristio dva account-a za pristup repozitoriju pa je statistika podijeljena
-- Jana Furdi radila je na dizajnu stranice što nije vidljivo iz broja commit-ova i promjenjenih linija koda
+- Erik Mikšič zabunom je koristio dva accounta za pristup repozitoriju pa je statistika podijeljena
+- Jana Furdi radila je na dizajnu stranice što nije vidljivo iz broja commitova i promijenjenih linija koda
 - Luka Čubek bio je zadužen za ispitivanje i planiranje što nije direktno vidljivo iz statistika; također, iz nepoznatog razloga neki njegovi commitovi se ne prikazuju (npr. commit `105bd1b`)
 
 ## A.5 Ključni inženjerski izazovi i rješenja
 
 | Izazov | Poduzeta radnja | Ishod ili preostalo ograničenje |
 | --- | --- | --- |
-| Modeliranje dodataka na događaju u bazi podataka | Erik, Jakov i Florijan raspravili su o mogućnostima, te nakon par iteracija zaključili da je zbog mogućnosti izrade statistike bolje pojednostavit model podataka | Pojednostavljeni model podataka na način da su dodatci sada globalni i generički |
-| Na deployanoj stranici nije radio Google login iako je radio u lokalnom testiranju | Ivor i Florijan su proučili problem, konfigurirali trust proxy i Google API | Google login sada radi i na deployanoj stranici |
+| Modeliranje dodataka na događaju u bazi podataka | Erik, Jakov i Florijan raspravili su o mogućnostima, te nakon par iteracija zaključili da je zbog mogućnosti izrade statistike bolje pojednostavit model podataka. | Pojednostavljeni model podataka na način da su dodatci sada globalni i generički |
+| Na deployanoj stranici nije radio Google login iako je radio u lokalnom testiranju | Ivor i Florijan su proučili problem, konfigurirali trust proxy i Google API. | Google login sada radi i na deployanoj stranici |
