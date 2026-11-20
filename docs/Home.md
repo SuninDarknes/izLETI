@@ -1,7 +1,7 @@
 # izLETI — Projektna dokumentacija
 
 **Kolegij:** [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz), Fakultet elektrotehnike i računarstva Sveučilišta u Zagrebu  
-**Akademska godina:** 2026./2027. 
+**Akademska godina:** 2026./2027.
 **Tim:** L-A-11.2 izLETI  
 **Nastavnik:** Vlado Sruk  
 **Asistent / demonstrator:** Miljenko Krhen / Roko Markov
@@ -19,7 +19,7 @@ Aktivnosti i izleti mogu se ponovno koristiti. Tako ista aktivnost moze biti dio
 U aplikaciji prate se i ocijene izleta i vodiča što omogućuje lakši odabir korisnicima i daje povratnu informaciju organizatorima. Vlasnik turističke agencije može pregledavati korisne statistike koje mu olakšavaju upravljanje agencijom.
 
 **Aplikacija i osnovno postavljanje:** [README – brzi početak](../README.md#quick-start)  
-**Javno dostupna aplikacija:** pogledajte [README – Postavljanje](../README.md#deployment)
+**Javno dostupna aplikacija:** pogledajte [README – javno dostupna aplikacija](../README.md#deployment)
 
 ## Članovi tima i uloge
 
@@ -42,8 +42,7 @@ Ažurirani popis članova, njihovih GitHub profila i glavnih uloga ili doprinosa
 
 | Kontrolna točka | Demonstracija | Video |
 | --- | --- | --- |
-| Iteracija 1 | [Poveznica na demonstraciju ili inačicu projekta] | [Poveznica na video Demo 1, ako je snimljen] |
-| Završni pregled | [Poveznica na završnu inačicu projekta] | [Poveznica na video završne demonstracije, ako je snimljen] |
+| Iteracija 1 | [izleti.xyz](https://izleti.xyz) | [Poveznica na video Demo 1, ako je snimljen] |
 
 Dokumentacija se kontinuirano ažurira kako se aplikacija razvija.
 
@@ -77,10 +76,11 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | ChatGPT | GPT-6 | Jakov Biškup | Debuggiranje, provjera konzistentnosti i poboljšavanje dokumentacije, povjera i poboljšanje sheme baze podataka, generiranje PlantUML dijagrama |
 | ChatGPT | GPT-6 | Jana Furdi | Pomoć pri repliciranju dizajna koristeći Bootstrap |
 | Claude | Sonet 5.5 | Jakov Biškup | Generiranje dummy podataka za bazu |
-| Claude | Opus 5.5 | Florijan Gotal | Generiranje prezentacije iz dokumentacije, pomoć pri postavljanju stranice |
+| Claude | Opus 5.5 | Florijan Gotal | Generiranje prezentacije iz dokumentacije, pomoć pri postavljanju stranice, generiranje UML dijagrama |
 | GitHub Copilot | GPT-5 mini | Ivor Trstenjak | Pomoć pri povezivanju sa Google API-jem |
 | Claude | Opus 5.5 | Dražen Grgurić | Prijedlozi za backend rute i funkcije koje su potrebne, debuggiranje |
 | Claude | Opus 5.5 | Erik Mikšič | Provjera konzistentnosti sheme. Prijedlozi za bazu. Generiranje ER diagrama |
+| Claude | Sonet 5.5 | Luka Čubek | Pomoć pri izradi testova i dokumentacije |
 
 ### Opseg doprinosa umjetne inteligencije
 
@@ -93,8 +93,11 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Prijedlozi za backend rute i funkcije | Ideje za funkcije i rute koje još nisu bile na popisu | Popis funkcija, prijedlozi u kojim rutama bi se koristile. | Tim je zadao već postojeći popis ruta i funkcija koji je bio smišljen te neke osnovne funkcionalnosti koje su poželjne | [Backend funkcije za pristup bazi](<./spec/Backend funkcije za pristup bazi.md>) |
 | Implementacijski ER dijagram | Generiranje ER diagrama |.puml datoteku dijagrama | Tim je zadao sve potrebne informacije za izradu dijagrama i nije bilo potrebe za naknadnim promjenama.| [ER dijagram](<./assets/diagrams/4-2-izleti-data-ERD.svg>) |
 | SQL datoteka | Pregled SQL datoteke |Popis predloženih preinaka | Tim je priložio SQL datoteku koju je model pregledao i predložio preinake. | [schema.sql](<./baza/schema.sql>) |
+| Testovi | Pomoć pri izradi testova | Testove | Tim je priložio dokumentaciju i trenutno stanje projekta. Testovi su provjereni i pregledani te je provedeno i ručno testiranje ključnih dijelova aplikacije. | [testovi](/tests/) |
+| EJS pogledi | Pomoć pri konverziji dizajna u HTML i Bootstrap kod | Dorada HTML koda te dodavanje potrebnih Bootstrap klasa kako bi se ostvario željeni dizajn | Tim je proizveo dizajn stranice te ključne dijelove HTML koda koji su tada nadopunjeni upotrebom umijetne inteligencije. Kod je provjeren te jer testirana responzivnost. Kako su pogledi u ovom ranom stadiju razvoja još skloni promijenama nisu ispravljeni svi problemi (CSS u HTML datoteci, dupliciranje koda), ali su ti ispravci u planu za budući razvoj. | [views](/src/views/) |
 
-Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. [Po želji: kao dodatne retke navedite kod ili ispitivanja izrađena uz pomoć umjetne inteligencije.]
+Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije 
+**Napomena:** kako ovu tablicu tim nije ažurno održavao tijekom cijelog procesa izrade aplikacije već je naknadno izrađena (kao i zbog preglednosti tablice) moguće je da smo neke manje detalje izostavili (debuggiranje, generiranje manjih dijelova koda, manji ispravci u dokumentaciji i kodu...) Manje promijene i provjere uz pomoć umijetne inteligencije rađene su u gotovo svim dijelovima projekta.
 
 ### Provjera generiranog sadržaja
 
