@@ -71,7 +71,7 @@ Oznake F-01, F-02 itd. odnose se na [analizu zahtjeva](2-Analiza-zahtjeva.md). P
 | **Primarni akter** | Organiser |
 | **Povezani zahtjevi** | F-05 |
 | **Preduvjeti** | Korisnik je prijavljen i ima ulogu Organiser. |
-| **Glavni uspješni tok** | 1. Organizator otvara izradu izleta.<br>2. Organizator bira aktivnosti od kojih se izlet sastoji te ih poreda u željenom redoslijedu. <br>3. Postavlja ostale parametre izleta (mijesto polaska, trajanje...) <br>4. Sprema izlet. |
+| **Glavni uspješni tok** | 1. Organizator otvara izradu izleta.<br>2. Organizator bira aktivnosti od kojih se izlet sastoji te ih poreda u željenom redoslijedu. <br>3. Postavlja ostale parametre izleta (mjesto polaska, trajanje...) <br>4. Sprema izlet. |
 | **Alternativni tokovi / Iznimke** | **2.a - Ne postoje sve aktivnosti od kojih se izlet sastoji:** aplikacija omogućuje kreiranje novih aktivnosti unutar sučelja za kreiranje izleta. Nakon kreiranja izleta ove aktivnosti se spremaju te se mogu koristiti i u drugim izletima. <br>**4a - Izlet nema nijednu aktivnost** aplikacija javlja grešku i ne sprema izlet. |
 
 ### UC-06: Kreiranje događaja
@@ -83,7 +83,7 @@ Oznake F-01, F-02 itd. odnose se na [analizu zahtjeva](2-Analiza-zahtjeva.md). P
 | **Preduvjeti** | Korisnik je prijavljen i ima ulogu Organiser. |
 | **Glavni uspješni tok** | 1. Organizator bira postojeći izlet ili izrađuje novi (UC-05.5).<br>2. Određuje termin događaja i dodjeljuje vodiče.<br>3. Unosi kapacitet događaja te dostupne dodatne usluge i njihove kapacitete.<br>4. Bira stanje događaja (*hidden* ili *scheduled*) koje se kasnije može mijenjati<br>5. Sprema događaj. |
 | **Alternativni tokovi / Iznimke** | **2a - Nema slobodnog vodiča u terminu:** aplikacija javlja da vodič nije dostupan i organizator bira drugog vodiča ili termin. |
-| **Posljedice (ishod)** | Događaj je spremljen te je vidljiv korisnicima ako mu je pridodjeljeno stanje *scheduled*. |
+| **Posljedice (ishod)** | Događaj je spremljen te je vidljiv korisnicima ako mu je pridodijeljeno stanje *scheduled*. |
 
 ### UC-07: Obrada rezervacije
 
@@ -147,8 +147,8 @@ Oznake F-01, F-02 itd. odnose se na [analizu zahtjeva](2-Analiza-zahtjeva.md). P
 | **Povezani zahtjevi** | F-18, F-19 |
 | **Preduvjeti** | Korisnik ima rezervaciju za događaj koji je završio. |
 | **Glavni uspješni tok** | 1. Korisnik ocijenjuje izlet <br> 2. Korisnik ostavlja komentar na izlet <br> 3. Korisnik ocijenjuje pridruženog vodiča <br> (sva tri koraka su opcionalna)|
-| **Alternativni tokovi / Iznimke** | **1a - Korisnik je već ocijenio taj događaj:** aplikacija prikazuje korisnikovu bivšu ocijenu te mu dopušta da ju promijeni <br>**2a - Korisnik je već ostavio komentar na taj događaj:** aplikacija prikazuje korisnikov bivši komentar te mu dopušta da ga promijeni <br>**3a - Korisnik je već ocijenio tog vodića za taj događaj:** aplikacija prikazuje korisnikovu bivšu ocijenu te mu dopušta da ju promijeni|
-| **Posljedice (ishod)** | Mijenjaju se prosiječne ocijene izleta i vodiča. Pri rezervaciji budućih događaja vezanih za isti izlet vidi se komentar. |
+| **Alternativni tokovi / Iznimke** | **1a - Korisnik je već ocijenio taj događaj:** aplikacija prikazuje korisnikovu bivšu ocjenu te mu dopušta da ju promijeni <br>**2a - Korisnik je već ostavio komentar na taj događaj:** aplikacija prikazuje korisnikov bivši komentar te mu dopušta da ga promijeni <br>**3a - Korisnik je već ocijenio tog vodiča za taj događaj:** aplikacija prikazuje korisnikovu bivšu ocjenu te mu dopušta da ju promijeni|
+| **Posljedice (ishod)** | Mijenjaju se prosiječne ocjene izleta i vodiča. Pri rezervaciji budućih događaja vezanih za isti izlet vidi se komentar. |
 
 ## 3.3 Provjera dosljednosti obrazaca uporabe
 
