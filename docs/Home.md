@@ -20,6 +20,7 @@ U aplikaciji prate se i ocijene izleta i vodiča što omogućuje lakši odabir k
 
 **Aplikacija i osnovno postavljanje:** [README – brzi početak](../README.md#quick-start)  
 **Javno dostupna aplikacija:** pogledajte [README – javno dostupna aplikacija](../README.md#deployment)
+**Cijela dokumentacija u PDF-u:** [izLETI-dokumentacija.pdf](./deliverables/izLETI-dokumentacija.pdf)
 
 ## Članovi tima i uloge
 
