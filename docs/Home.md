@@ -42,7 +42,7 @@ Ažurirani popis članova, njihovih GitHub profila i glavnih uloga ili doprinosa
 
 | Kontrolna točka | Demonstracija | Video |
 | --- | --- | --- |
-| Iteracija 1 | [izleti.xyz](https://izleti.xyz) | [Poveznica na video Demo 1, ako je snimljen] |
+| Iteracija 1 | [izleti.xyz](https://izleti.xyz) | [video](https://drive.google.com/file/d/1adONSj133L-aNItnB8KN_mb0FsGuhEoU/view) |
 
 Dokumentacija se kontinuirano ažurira kako se aplikacija razvija.
 

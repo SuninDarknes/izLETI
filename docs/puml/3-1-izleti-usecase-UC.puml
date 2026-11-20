@@ -1,10 +1,14 @@
 @startuml
 title Sustav izLETI – dijagram obrazaca uporabe
 
+' ---------- Stil ----------
 skinparam shadowing false
 skinparam defaultFontName Arial
-skinparam ArrowColor #212529
-skinparam actorStyle awesome
+skinparam defaultTextAlignment center
+skinparam ArrowColor #495057
+skinparam ArrowFontSize 11
+skinparam nodesep 22
+skinparam ranksep 80
 skinparam usecase {
     BackgroundColor #E7F1FF
     BorderColor #0D6EFD
@@ -13,58 +17,101 @@ skinparam usecase {
 skinparam rectangle {
     BorderColor #0D6EFD
     FontColor #0D6EFD
+    BackgroundColor #FFFFFF
+}
+skinparam note {
+    BackgroundColor #FFF9DB
+    BorderColor #F08C00
 }
 
 left to right direction
 
-actor "Korisnik aplikacije" as Korisnik
+' ---------- Primarni akteri (uloge) ----------
+actor "Korisnik\naplikacije" as Korisnik
 actor "User\n(A-01)" as User
+actor "Guide\n(A-06)" as Guide
 actor "Organiser\n(A-02)" as Organiser
 actor "Admin\n(A-03)" as Admin
 actor "Owner\n(A-04)" as Owner
+
+' ---------- Sekundarni akteri (vanjski sustavi) ----------
 actor "Google OAuth\n(A-05)" as Google <<sekundarni akter>>
+actor "Google Places API\n(A-07)" as Places <<sekundarni akter>>
+actor "Usluga za slanje\ne-pošte\n(A-08)" as Mail <<sekundarni akter>>
+actor "Usluga za prikaz\nkarte\n(A-09)" as Maps <<sekundarni akter>>
 
-User -up-|> Korisnik
-Organiser -up-|> Korisnik
-Admin -up-|> Korisnik
-Owner -up-|> Korisnik
-
+' ---------- Obrasci uporabe, grupirani po ulozi ----------
+' Redoslijed deklaracije utječe na poredak odozgo prema dolje; ako dodaješ obrasce,
+' provjeri render (npr. UC-07 je namjerno deklariran prije UC-05.5 i UC-05).
 rectangle "izLETI" {
-    usecase "UC-01\nPrijava" as UC01
-    usecase "UC-02\nPretraživanje događaja" as UC02
-    usecase "UC-03\nRezervacija događaja" as UC03
-    usecase "UC-04\nPregled i otkazivanje\nrezervacije" as UC04
-    usecase "UC-10\nPrikaz lokacija na karti" as UC10
-    usecase "UC-11\nDigitalni vodič\ntijekom izleta" as UC11
-    usecase "UC-05\nUnos aktivnosti i izleta" as UC05
-    usecase "UC-06\nKreiranje događaja" as UC06
-    usecase "UC-07\nObrada rezervacije" as UC07
-    usecase "UC-08\nDodjeljivanje\nkorisničkih uloga" as UC08
-    usecase "UC-09\nPregled i izvoz statistike" as UC09
+    rectangle "Zajedničke funkcije" as GZ {
+        usecase "UC-01\nPrijava" as UC01
+        usecase "UC-02\nPretraživanje događaja" as UC02
+    }
+    rectangle "Funkcije uloge User" as GU {
+        usecase "UC-03\nRezervacija događaja" as UC03
+        usecase "UC-04\nPregled i otkazivanje\nrezervacije" as UC04
+        usecase "UC-10\nPrikaz lokacija na karti" as UC10
+        usecase "UC-11\nDigitalni vodič\ntijekom izleta" as UC11
+        usecase "UC-12\nRecenzije izleta i vodiča" as UC12
+    }
+    rectangle "Funkcije uloge Organiser" as GO {
+        usecase "UC-06\nKreiranje događaja" as UC06
+        usecase "UC-07\nObrada rezervacije" as UC07
+        usecase "UC-05.5\nKreiranje izleta" as UC055
+        usecase "UC-05\nKreiranje aktivnosti" as UC05
+    }
+    rectangle "Funkcije uloge Admin" as GA {
+        usecase "UC-08\nDodjeljivanje\nkorisničkih uloga" as UC08
+    }
+    rectangle "Funkcije uloge Owner" as GW {
+        usecase "UC-09\nPregled i izvoz statistike" as UC09
+    }
 }
 
+' ---------- Generalizacija aktera ----------
+Korisnik <|-- User
+Korisnik <|-- Guide
+Korisnik <|-- Organiser
+Korisnik <|-- Admin
+Korisnik <|-- Owner
+
+' ---------- Asocijacije: primarni akteri ----------
 Korisnik -- UC01
 Korisnik -- UC02
-UC01 -- Google
 
 User -- UC03
 User -- UC04
 User -- UC10
 User -- UC11
+User -- UC12
 
-Organiser -- UC05
+Guide -- UC12
+Guide -- UC06
+
 Organiser -- UC06
 Organiser -- UC07
+Organiser -- UC055
+Organiser -- UC05
 
 Admin -- UC08
 Owner -- UC09
 
-UC10 .> UC04 : <<extend>>
-UC11 .> UC10 : <<include>>
-UC05 .> UC06 : <<extend>>
+' ---------- Asocijacije: sekundarni akteri ----------
+UC01 -- Google
+UC05 -- Places
+UC07 -- Mail
+UC10 -- Maps
+UC11 -- Maps
+
+' ---------- Odnosi između obrazaca uporabe ----------
+' [norank] sprječava da strelice poremete poredak, pa ostaju ravne i kratke.
+UC10 .[norank].> UC04 : <<extend>>
+UC11 .[norank].> UC10 : <<include>>
+UC055 .[norank].> UC06 : <<extend>>
+UC05 .[norank].> UC055 : <<extend>>
 
 note bottom of Korisnik
   Jedan korisnik može imati više uloga (F-02).
-  Svaki novi korisnik pri prvoj prijavi dobiva ulogu User.
 end note
 @enduml

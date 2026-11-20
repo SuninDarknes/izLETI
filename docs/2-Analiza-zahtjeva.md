@@ -68,6 +68,8 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 | A-05 | Google OAuth - vanjski sustav za prijavu (sekundarni akter) | F-01 |
 | A-06 | Guide - pridodjeljuje se događaju, dobiva recenzije | F-19, F-20 |
 | A-07 | Google Places API - vanjski sustav za pridruživanje slika lokaciji | F-21 |
+| A-08 | Usluga za slanje e-pošte | F-10 |
+| A-09 | Usluga za prikaz karte | F-17 |
 
 ## 2.4 Ograničenja i pretpostavke
 
@@ -101,10 +103,10 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 
 | ID zahtjeva | Obrazac uporabe | Arhitekturna realizacija | Stanje | Ispitivanje ili provjera |
 | --- | --- | --- | --- | --- |
-| F-01 | UC-01 | `auth.routes.ts` | Implementirano | *na čekanju* |
-| F-02 | UC-01, UC-08 | `users.model.ts` | Implementirano | *na čekanju* |
-| F-03 | UC-08 | `/admin` | Implementirano | *na čekanju* |
-| F-04 | UC-05 | `activities.routes.ts`, `activities.model.ts` | Implementirano | *na čekanju* |
+| F-01 | UC-01 | `auth.routes.ts` | Implementirano | Ručno testirano sa više koriničkih računa 19.11.2026. |
+| F-02 | UC-01, UC-08 | `users.model.ts` | Implementirano | Ručno testirano 19.11.2026. |
+| F-03 | UC-08 | `/admin` | Implementirano | Ručno testirano 19.11.2026. |
+| F-04 | UC-05 | `activities.routes.ts`, `activities.model.ts` | Implementirano | [testovi](/tests/modeli.test.cjs), Ručno testirano 19.11.2026. |
 | F-05 | UC-05.5 | `trips.routes.ts` | Nije implementirano | *na čekanju* |
 | F-06 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
 | F-07 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
@@ -127,6 +129,6 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 
 | Kontrolna točka | Povratna informacija ili nalaz | Odluka o zahtjevu ili opsegu |
 | --- | --- | --- |
-| Iteracija 1 |  | Implementirani zahtijevi: F-01, F-02, F-03, F-04  |
+| Iteracija 1 |  | Implementirani zahtijevi: F-01, F-02, F-03, F-04, djelomično implementirani F-08  |
 | Demo 2 |  |  |
 | Završni pregled |  |  |
