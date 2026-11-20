@@ -1,0 +1,62 @@
+@startuml
+title Sustav izLETI – dijagram razmještaja (produkcija)
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #212529
+skinparam node {
+    BackgroundColor #F8F9FA
+    BorderColor #0D6EFD
+}
+skinparam artifact {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+}
+skinparam database {
+    BackgroundColor #FFF3CD
+    BorderColor #997404
+}
+
+node "Korisnički uređaj" as Client <<device>> {
+    node "Web-preglednik" <<execution environment>> {
+        artifact "HTML stranice\n+ script.js" as Html
+    }
+}
+
+cloud "Cloudflare\n(DNS, proxy)" as CF
+
+node "Mrežni poslužitelj" as NM <<device>> {
+    node "nginx" <<execution environment>> {
+        artifact "vhost izleti.xyz\n(TLS, certbot)" as Vhost
+    }
+}
+
+node "Aplikacijski poslužitelj (Debian 12)" as Web <<device>> {
+    node "Docker Engine (Compose projekt progi)" <<execution environment>> {
+        node "kontejner app\n(node:22-alpine)" <<container>> {
+            artifact "izLETI\n(npx tsx server.ts, :8080)" as App
+        }
+        node "kontejner postgres\n(postgres:18-alpine)" <<container>> {
+            database "baza izleti\n(volumen pg-data)" as PG
+        }
+        node "kontejner pgadmin\n(pgadmin4)" <<container>> {
+            artifact "pgAdmin" as PgAdmin
+        }
+    }
+    artifact "deploy.sh, autodeploy.sh\n(systemd timer)" as Deploy
+}
+
+cloud "Google Identity Services" as Google
+cloud "GitHub\n(SuninDarknes/izLETI,\ngrana production)" as GH
+
+Html --> CF : HTTPS 443\nizleti.xyz, db.izleti.xyz
+CF --> Vhost : HTTPS 443
+Vhost --> App : HTTP 3100 → 8080
+Vhost --> PgAdmin : HTTP 3101 → 80
+App --> PG : TCP 5432\n(interna Docker mreža)
+PgAdmin --> PG : TCP 5432
+Html --> Google : HTTPS (prijava, ID token)
+App --> Google : HTTPS (provjera ID tokena)
+Deploy --> GH : HTTPS git fetch\n(svake minute)
+Deploy ..> App : docker compose\nbuild / up
+@enduml

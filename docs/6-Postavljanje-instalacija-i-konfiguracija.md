@@ -10,33 +10,21 @@ Zamijenite oglednu topologiju, naredbe i postavke onima koje vaš tim stvarno ko
 
 **Cilj:** Prikazati okruženja izvođenja, raspodijeljene dijelove programa, spremište podataka i relevantne vanjske usluge. Njihovu komunikaciju i mrežne protokole prikažite jednim UML dijagramom razmještaja. Dok dijagram komponenata iz Poglavlja 4 prikazuje logičke odgovornosti, dijagram razmještaja pokazuje gdje se izvršni artefakti fizički ili virtualno izvode.
 
-**Dijagram razmještaja:** [Ugradite čitljivu sliku UML dijagrama razmještaja.]  
-**PlantUML izvor:** [Poveznica na odgovarajuću `.puml` datoteku.]  
-**Javno dostupna aplikacija:** [Poveznica na javnu adresu navedenu u README-u ili na njegov odjeljak o postavljanju.]
+**Dijagram razmještaja:**  
+![Dijagram razmještaja](./assets/diagrams/6-1-izleti-deployment-DD.svg)  
+**PlantUML izvor:** [izvor](./puml/6-1-izleti-deployment-DD.puml)  
+**Javno dostupna aplikacija:** [izleti.xyz](https://izleti.xyz)
 
-*Pravila izrade prikaza:*
-* Označite stvarne čvorove na kojima se program izvodi (korisnički uređaj, poslužitelj, baza podataka) i protokole među njima.
-* Bazu podataka ili vanjskog pružatelja usluga uključite samo ako ih postavljeni program stvarno koristi.
-* Razvojno računalo nije javni poslužitelj; prikažite isključivo produkcijsko okruženje.
-* Ako se planirana arhitektura tijekom implementacije promijenila, ovdje prikažite stvarni razmještaj i odgovarajuće ažurirajte opis arhitekture.
-
-<details>
-<summary><strong>Primjer: Javno postavljanje programa za prijave i obavijesti </strong></summary>
-
-**Primjer — CrisisMap:**
-Predloženi klijentski dio gradi se kao statičko web-mjesto. Poslužiteljska web-usluga obrađuje prijave i asinkrono šalje obavijesti unutar **iste postavljene poslužiteljske aplikacije**. PostgreSQL sprema podatke prijava, pružatelj kartografskih usluga isporučuje kartografske pločice pregledniku, a Firebase Cloud Messaging prima zahtjeve za slanje upozorenja iz poslužiteljskog dijela. Primjer pretpostavlja da obavijesti pripadaju opsegu tog konkretnog projekta.
-
-![UML dijagram razmještaja sustava CrisisMap](./assets/diagrams/6-1-crisismap-DD.svg)
-
-**Slika 6.1. UML dijagram razmještaja sustava CrisisMap**
-
-**PlantUML izvor:** [izvor](./puml/6-1-crisismap-DD.puml)
 **Analiza razmještaja:**
-* **Korisnički uređaj:** Web-preglednik izvršava klijentski kod nakon preuzimanja statičkih datoteka.
-* **Poslužiteljski čvor:** Poslužiteljski API i pozadinski zadaci nalaze se unutar jedne usluge (jednog izvršnog procesa).
-* **Baza podataka:** Veza s bazom uspostavlja se isključivo iz poslužiteljskog dijela putem interne mreže, a nikada izravno iz klijentskog preglednika.
-* **Vanjske usluge:** Pružatelj kartografskih usluga i pružatelj obavijesti nalaze se izvan infrastrukture koju postavlja tim.
-</details>
+* **Korisnički uređaj:** Web-preglednik prima HTML stranice koje generira poslužitelj (EJS) te klijentske skripte. Preglednik izravno komunicira s Google Identity Services radi prijave i dobivanja ID tokena, koji zatim šalje poslužitelju.
+* **Cloudflare:** DNS za domenu `izleti.xyz` i proxy. Promet od preglednika do Cloudflarea i od Cloudflarea do nginxa ide preko HTTPS-a (port 443).
+* **Mrežni poslužitelj (nginx):** Obrnuti proxy koji završava TLS vezu (certifikat Let's Encrypt, certbot) i prosljeđuje zahtjeve aplikacijskom poslužitelju preko HTTP-a u lokalnoj mreži: `izleti.xyz` na aplikaciju, `db.izleti.xyz` na pgAdmin.
+* **Aplikacijski poslužitelj:** Debian 12 s Docker Engineom. Sustav se pokreće kao Docker Compose projekt s tri kontejnera:
+  * `app`: Node.js aplikacija (Express, `npx tsx server.ts`, port 8080),
+  * `postgres`: PostgreSQL 18 s podacima u Docker volumenu,
+  * `pgadmin`: web-sučelje za pregled baze, dostupno samo ovlaštenim članovima tima.
+* **Baza podataka:** Dostupna je samo iz interne Docker mreže (aplikacija i pgAdmin) i lokalno na poslužitelju. Preglednik joj nikad ne pristupa izravno.
+* **Vanjske usluge:** Google Identity Services (prijava; poslužitelj provjerava ID token preko HTTPS-a) i GitHub, s kojeg skripta za automatsko postavljanje svake minute dohvaća granu `production` (vidi 6.3).
 
 ---
 
@@ -59,7 +47,7 @@ Preuzimanje izvornog koda
 
    | Konfiguracijska varijabla | Način konfiguriranja | Naputak |
    | --- | --- | --- |
-   | PORT | Odabrati port po želji. | Ako se polje izostavi koristi se port 8080. Na javnoj stranici koristiti port 433.|
+   | PORT | Odabrati port po želji. | Ako se polje izostavi koristi se port 8080. Na javnoj stranici koristiti port 8080 koji se nalazi iza reverse proxya.|
    | GOOGLE_CLIENT_ID | Konfigurirati Google klijent i staviti odgovarajući id. | Ako se polje izostavi koristi se naš id koji je konfiguriran da radi sa localhost:8080. |
    | SESSION_SECRET | Napisati dugi nasumični niz znakova. | Preporučeno: https://generate-random.org/session-secrets
    | DB_HOST | Adresa na kojoj se nalazi baza podataka | Najčešće localhost |
@@ -301,13 +289,9 @@ Postupak je napisan za čisti Linux poslužitelj. Naredbe `docker` izvode se kao
 
 ### Pristup i administracija
 
-- **Nadzor rada i zapisi pogrešaka:** poslužitelju pristupaju samo ovlašteni članovi tima, putem SSH-a s ključem. Korisne naredbe:
-  ```bash
-  sudo docker compose --project-directory /opt/progi-deploy ps            # stanje kontejnera
-  sudo docker compose --project-directory /opt/progi-deploy logs -f app   # zapisi aplikacije (console.log / greške)
-  sudo journalctl -u progi-autodeploy.service -f                          # tijek automatskog postavljanja
-  cat /srv/progi-backups/deploy-history.log                               # povijest postavljanja (commit, ok/FAILED)
-  ```
+- **Nadzor rada i zapisi pogrešaka:** poslužitelju pristupaju samo ovlašteni članovi tima, putem SSH-a s ključem. 
+  Zapisi aplikacije: `sudo docker compose --project-directory /opt/progi-deploy logs -f app`.
+  Povijest postavljanja: `/srv/progi-backups/deploy-history.log`.
   Zapisi HTTP zahtjeva i grešaka proxyja nalaze se u nginxu (`/var/log/nginx/access.log`, `error.log`).
 - **Pristup bazi podataka:** baza nije izložena internetu. Pregled podataka ide preko pgAdmina na [https://db.izleti.xyz](https://db.izleti.xyz) (račune otvara administrator pgAdmina; unaprijed je podešena veza s ulogom `progi_ro`, koja smije samo čitati) ili preko SSH tunela na `127.0.0.1:5432`.
 - **Upravljanje administratorskim ovlastima:** administratori dodjeljuju uloge drugim korisnicima kroz sučelje na `/admin` (pretraga korisnika po e-mailu i promjena uloga). **Prvog** administratora postavlja održavatelj poslužitelja izravno u bazi:

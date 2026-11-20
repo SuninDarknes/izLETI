@@ -4,7 +4,9 @@ Oznake F-01, F-02 itd. odnose se na [analizu zahtjeva](2-Analiza-zahtjeva.md). P
 
 ## 3.1 Dijagram obrazaca uporabe
 
-Dijagram jos nije izraden.
+![Dijagram obrazaca uporabe](./assets/diagrams/3-1-izleti-usecase-UC.svg)
+
+**PlantUML izvor:** [izvor](./puml/3-1-izleti-usecase-UC.puml)
 
 ## 3.2 Specifikacije obrazaca uporabe
 

@@ -1,0 +1,70 @@
+@startuml
+title Sustav izLETI – dijagram obrazaca uporabe
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #212529
+skinparam actorStyle awesome
+skinparam usecase {
+    BackgroundColor #E7F1FF
+    BorderColor #0D6EFD
+    FontColor #212529
+}
+skinparam rectangle {
+    BorderColor #0D6EFD
+    FontColor #0D6EFD
+}
+
+left to right direction
+
+actor "Korisnik aplikacije" as Korisnik
+actor "User\n(A-01)" as User
+actor "Organiser\n(A-02)" as Organiser
+actor "Admin\n(A-03)" as Admin
+actor "Owner\n(A-04)" as Owner
+actor "Google OAuth\n(A-05)" as Google <<sekundarni akter>>
+
+User -up-|> Korisnik
+Organiser -up-|> Korisnik
+Admin -up-|> Korisnik
+Owner -up-|> Korisnik
+
+rectangle "izLETI" {
+    usecase "UC-01\nPrijava" as UC01
+    usecase "UC-02\nPretraživanje događaja" as UC02
+    usecase "UC-03\nRezervacija događaja" as UC03
+    usecase "UC-04\nPregled i otkazivanje\nrezervacije" as UC04
+    usecase "UC-10\nPrikaz lokacija na karti" as UC10
+    usecase "UC-11\nDigitalni vodič\ntijekom izleta" as UC11
+    usecase "UC-05\nUnos aktivnosti i izleta" as UC05
+    usecase "UC-06\nKreiranje događaja" as UC06
+    usecase "UC-07\nObrada rezervacije" as UC07
+    usecase "UC-08\nDodjeljivanje\nkorisničkih uloga" as UC08
+    usecase "UC-09\nPregled i izvoz statistike" as UC09
+}
+
+Korisnik -- UC01
+Korisnik -- UC02
+UC01 -- Google
+
+User -- UC03
+User -- UC04
+User -- UC10
+User -- UC11
+
+Organiser -- UC05
+Organiser -- UC06
+Organiser -- UC07
+
+Admin -- UC08
+Owner -- UC09
+
+UC10 .> UC04 : <<extend>>
+UC11 .> UC10 : <<include>>
+UC05 .> UC06 : <<extend>>
+
+note bottom of Korisnik
+  Jedan korisnik može imati više uloga (F-02).
+  Svaki novi korisnik pri prvoj prijavi dobiva ulogu User.
+end note
+@enduml
