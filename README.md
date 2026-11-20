@@ -21,13 +21,13 @@ Za potpuni opseg, zahtjeve, oblikovanje i dokaze ispitivanja pogledajte [docs](d
 
 **Javno dostupna aplikacija:** [izleti.xyz](https://izleti.xyz)
 
-**Isprobajte:** Prijavite se uz pomoć Google računa te pregledajte popis aktivnosti na */activities*
+**Isprobajte:** Prijavite se uz pomoć Google računa te pregledajte i filtrirajte popis aktivnosti na */activities*
 
 **Demonstracija:** Za isprobavanje svih mogućnosti potrebno je dodjeliti si odgovarajuće uloge, što zahtjeva pristup admin računu ili bazi podataka. Za isprobavanje vidi [postupak postavljanja lokalnog okruženja](#quick-start).
 
 **Ograničenja:** Trenutno je upogonjen samo jednostavni prototip sa osnovnim funkcionalnostima autentifikacije te pregledavanja i kreiranja aktivnosti
 
-[Vodič za postavljanje i pokretanje](docs/6-Postavljanje-instalacija-i-konfiguracija.md) opisuje smještaj aplikacije (engl. hosting) koji tim stvarno koristi.
+[Vodič za postavljanje i pokretanje](docs/6-Postavljanje-instalacija-i-konfiguracija.md#63-javno-postavljanje-i-administracija) opisuje smještaj aplikacije (engl. hosting) koji tim stvarno koristi.
 
 <a id="quick-start"></a>
 ## Brzi početak / instalacija
@@ -59,7 +59,7 @@ npx tsx --env-file=.env server.ts
 
 **Adresa:** [http://localhost:8080/](http://localhost:8080/)
 
-**Konfiguracija:** Sva potrebna konfiguracija nalazi se u [.env.example](./.env.example).
+**Konfiguracija:** Sva potrebna konfiguracija nalazi se u [.env.example](./.env.example), a detalje vidi u [tablici konfiguracijskih varijabli](./docs/6-Postavljanje-instalacija-i-konfiguracija.md#lokalna-konfiguracija-env).
 
 Za provjeru radi li server provjerite [početnu stranicu](http://localhost:8080/), za provjeru radi li povezivanje s bazom provjerite [health stranicu](http://localhost:8080/health), a za provjeru radi li Google OAuth API provjerite [stranicu za prijavu](http://localhost:8080/auth/login). Za detaljnije upute za postavljanje pogledajte [projektnu dokumentaciju](./docs/6-Postavljanje-instalacija-i-konfiguracija.md).
 
@@ -99,7 +99,7 @@ Za detaljnije raspisane doprinose i podjelu poslova vidi [pregled aktivnosti gru
 
 Ovaj projekt slijedi FER-ova [pravila o primjerenoj uporabi umjetne inteligencije](https://www.fer.unizg.hr/_download/repository/Policy%20on%20the%20appropriate%20use%20of%20artificial%20intelligence%20at%20the%20faculty%20of%20electrical%20engineering%20and%20computing%5B1%5D.pdf).
 
-**Izjava:** Tijekom projekta korišteni su alati umijetne inteligencije. Za razvoj ideja, dokumentacije, kodiranje i debugiranje korišteni su LLM alati kao što su ChatGPT, Claude i GitHub Copilot. Sav generirani kod i dokumentaciju tim je provjerio, razumio i po potrebi popravio i nadogradio.
+**Izjava:** Tijekom projekta korišteni su alati umijetne inteligencije. Za razvoj ideja, dokumentacije, kodiranje i debugiranje korišteni su LLM alati kao što su ChatGPT, Claude i GitHub Copilot. Sav generirani kod i dokumentaciju tim je provjerio, razumio i po potrebi popravio i nadogradio. Za detaljniji pregled vidi [izjavu o upotrebi umijetne inteligencije](./docs/Home.md#izjava-o-uporabi-umjetne-inteligencije)
 
 <a id="code-of-conduct-and-support"></a>
 ## Kodeks ponašanja i podrška [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)

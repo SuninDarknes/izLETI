@@ -39,6 +39,8 @@
    ```bash
    git clone https://github.com/SuninDarknesizLETI.git
    ```
+
+   <a id="lokalna-konfiguracija-env"></a>
 2. **Ovisnosti i konfiguracijske varijable:**
    - koniguracijske varijable nalaze se u datoteci [.env.example](/.env.example)
 
