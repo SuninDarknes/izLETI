@@ -2,8 +2,6 @@
 
 **Cilj:** Detaljno dokumentirati topologiju izvođenja, postupak lokalne instalacije i konfiguracije iz izvornog koda te način javnog postavljanja i administracije programa. [README](../README.md) navodi javnu adresu i sažeti postupak lokalnog pokretanja; ova stranica donosi potpun inženjerski postupak koji osigurava točnu ponovljivost na drugom računalu.
 
-Zamijenite oglednu topologiju, naredbe i postavke onima koje vaš tim stvarno koristi (u primjeru se koristi Render; dokumentirajte platformu odabranu za vaš projekt).
-
 ---
 
 ## 6.1 Prikaz razmještaja
@@ -30,17 +28,16 @@ Zamijenite oglednu topologiju, naredbe i postavke onima koje vaš tim stvarno ko
 
 ## 6.2 Lokalna instalacija i konfiguracija
 
-**Cilj:** Omogućiti novom članu tima ili ocjenjivaču da iz čiste radne kopije repozitorija instalira i lokalno pokrene cijeli programski sustav, uključujući bazu podataka i početne podatke.
-
 1. **Preduvjeti i preuzimanje izvornog koda:**
-Preduvjeti:
-   - PostgreSQL 18.6
-   - NodeJS v24.16.0
-   - npm 11.13.0
 
-Preuzimanje izvornog koda
+   Preduvjeti:
+      - PostgreSQL 18.6
+      - NodeJS v24.16.0
+      - npm 11.13.0
+
+   Preuzimanje izvornog koda
    ```bash
-   git clone https://github.com/SuninDarknes/izLETI.git
+   git clone https://github.com/SuninDarknesizLETI.git
    ```
 2. **Ovisnosti i konfiguracijske varijable:**
    - koniguracijske varijable nalaze se u datoteci [.env.example](/.env.example)
@@ -52,17 +49,17 @@ Preuzimanje izvornog koda
    | SESSION_SECRET | Napisati dugi nasumični niz znakova. | Preporučeno: https://generate-random.org/session-secrets
    | DB_HOST | Adresa na kojoj se nalazi baza podataka | Najčešće localhost |
    | DB_PORT | Port na kojem sluša baza podataka | Najčešće 5432 |
-   | DB_NAME | Naziv baze koje ste postavili prilikom konfiguracije baze | |
+   | DB_NAME | Naziv baze koji ste postavili prilikom konfiguracije baze | |
    | DB_USER | Naziv korisnika koji se koristi za pristup bazi | Ne preporuča se korištenje korisnika sa punim dozvolama |
    | DB_PASSWORD | Lozinka korisnika koji se koristi za pristup bazi | |
+
 3. **Inicijalizacija baze podataka i migracije:**
    - Za inicijalizaciju baze podataka preporuča se korištenje alata pgAdmin.
    - U pgAdminu napravi se nova baza podataka, te se prilikom kreiranja konfigurira naziv baze i port.
    - Na novoj bazi pokreće se Query tool u koji se kopira sadržaj [sheme baze podataka](./baza/schema.sql). Nakon toga po potrebi se pokreće [skripta za punjenje baze dummy podatcima](./baza/dummy_data.sql).
-
    - prva uloga administratora dodjeljuje se direktno u bazi (ostale uloge dodjeljuje administrator kroz admin sučelje)
       - prvo je potrebno prijaviti se računom koji će biti administrator kako bi se dodao u bazu
-      - zatim u Query tool pokrenuti upit iz [datoteke](./baza/dodavanje_uloge.sql) (zamijeniti "[EMAIL]" sa email adresom računa administratora)
+      - zatim u Query tool pokrenuti upit iz [datoteke](./baza/dodavanje_uloge.sql) (zamijeniti `[EMAIL]` sa email adresom računa administratora)
 4. **Pokretanje i verifikacija:**
    - za lokalno pokretanje vidi [brzi početak](/README.md#quick-start)
 

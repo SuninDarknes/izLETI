@@ -1,53 +1,31 @@
 # 4. Arhitektura i oblikovanje
 
-**Cilj:** Definirati arhitekturni stil, dekompoziciju programa na podsustave i module, organizaciju podataka te dinamičko ponašanje tijekom izvođenja. Arhitektura predstavlja temelj za implementaciju i ažurira se pri svakoj važnijoj promjeni projektnih odluka.
-
 | Arhitekturni pogled | Ključno inženjersko pitanje | Primijenjeni model ili dijagram |
 | :--- | :--- | :--- |
-| **Strategija rješenja** | Koji stil i temeljne odluke određuju program? | Tablica odluka (odjeljak 4.1) |
+| **Strategija rješenja** | Koji stil i temeljne odluke određuju program? | Tablica odluka (odjeljak [4.1](#41-ključne-arhitekturne-odluke)) |
 | **Struktura podsustava** | Koji su glavni dijelovi i kako komuniciraju? | Dijagram komponenata |
 | **Model podataka** | Kako su strukturirani trajni podaci programa? | Relacijski ER dijagram |
 | **Struktura koda** | Kako su dodijeljene odgovornosti i ključne klase? | Reprezentativni dijagram razreda |
-| **Dinamičko ponašanje** | Kako moduli surađuju pri obradi ključnih transakcija? | sekvencijski dijagram |
+| **Dinamičko ponašanje** | Kako moduli surađuju pri obradi ključnih transakcija? | Sekvencijski dijagram |
 | **Stanja sustava** | Kako ključni domenski objekt mijenja svoja stanja? | Dijagram stanja |
 | **Fizički razmještaj** | Na kojim se izvršnim čvorovima program izvodi? | Dijagram razmještaja (poglavlje 6) |
 
 ---
 
-Za svaki UML dijagram čuvajte čitljivu sliku i PlantUML izvor, kako je opisano na stranici [Home](./Home.md). U dovršenoj stranici koristite vlastite projektne odluke i modele.
-
 ## 4.1 Ključne arhitekturne odluke
-
-**Cilj:** Objasniti nekoliko arhitekturnih odluka koje najviše utječu na rješenje i navesti njihove projektno specifične razloge.
 
 | Odluka | Razmatrana alternativa | Projektno specifično obrazloženje i kompromis |
 | --- | --- | --- |
-| Odvajanje poslužiteljskih ruta, modela i prikaza | — | Odvajanjem obrade zahtjeva, pristupa podacima i prikaza postiže se preglednija organizacija koda. Modeli su zaduženi za pristup podacima, rute za obradu zahtjeva, a EJS prikazi za generiranje HTML-a. Takva podjela olakšava održavanje i proširivanje aplikacije, ali zahtijeva dosljedno razdvajanje odgovornosti između slojeva. |
+| Odvajanje poslužiteljskih ruta, modela i prikaza | — | [ADR-01](#adr-01) |
 | Poslužiteljsko generiranje HTML prikaza | Renderiranje na klijentskoj strani | Budući da se velik dio aplikacije temelji na prikazu podataka, obrazaca i popisa, poslužiteljsko generiranje prikaza pojednostavljuje razvoj i smanjuje potrebu za složenijom klijentskom logikom. Kompromis je što su za dio interakcija potrebni dodatni zahtjevi poslužitelju i ponovno generiranje prikaza. |
-| Relacijska pohrana podataka | — | Podaci aplikacije imaju jasno definirane međusobne odnose, primjerice između korisnika, rezervacija, događaja, izleta i aktivnosti. Relacijski model omogućuje dosljedno povezivanje podataka i očuvanje referencijalne cjelovitosti. Kompromis je potreba za unaprijed definiranom strukturom baze i migracijama prilikom promjena modela podataka. |
-| Odvajanje pojmova aktivnost, izlet i događaj | Svaki događaj se kreira zasebno | Aktivnost se može koristiti u više izleta, a isti izlet može se održavati u više različitih termina. Zaseban model događaja omogućuje da se za svako održavanje definiraju termin, vodič i kapacitet. Rezervacija se veže uz konkretan događaj, a ne uz izlet općenito. Takav model omogućuje ponovno korištenje aktivnosti i izleta, ali zahtijeva više povezanih entiteta i složenije povezivanje podataka. |
+| Relacijska pohrana podataka | — | Podaci aplikacije imaju jasno definirane međusobne odnose, primjerice između korisnika, rezervacija, događaja, izleta i aktivnosti. Relacijski model omogućuje dosljedno povezivanje podataka i očuvanje ograničenja stranih ključeva. Kompromis je potreba za unaprijed definiranom strukturom baze i migracijama prilikom promjena modela podataka. |
+| Odvajanje pojmova aktivnost, izlet i događaj | Svaki događaj se kreira zasebno | [ADR-02](#adr-02) |
 | Prijava korisnika putem Google OAutha | Lokalna prijava putem e-pošte i lozinke | Korištenje Google računa uklanja potrebu za implementacijom vlastitog sustava lozinki i njihovom sigurnom pohranom u bazi. Aplikacija i dalje vodi vlastite korisničke račune i uloge. Kompromis je ovisnost o vanjskom pružatelju identiteta. |
 | Podrška za više korisničkih uloga po računu | Samo jedna uloga po računu | Jedan korisnik može imati više uloga, a dostupne funkcionalnosti ovise o dodijeljenim ulogama. Time se omogućuje da isti korisnik, primjerice, bude i administrator i organizator. Kompromis je složenije upravljanje dodjelom uloga i povezanim funkcionalnostima korisničkog računa. |
 | Kontrola pristupa pomoću poslužiteljske provjere korisničkih ovlasti | — | Ovlasti se provjeravaju na poslužiteljskoj strani kako korisnici ne bi mogli pristupiti funkcionalnostima drugih uloga izravnim slanjem zahtjeva. Time se zaštita ne oslanja samo na skrivanje pojedinih elemenata sučelja. Kompromis je potreba za dosljednom provjerom ovlasti na svim zaštićenim rutama. |
-| Digitalni vodić za korištenje na mobitelu kao dio web aplikacije | Zasebna mobilna aplikacija | Objedinjavanjem pregleda i rezervacije izleta s digitalnim vodičem u jednoj web-aplikaciji izbjegava se potreba za razvojem i održavanjem zasebne mobilne aplikacije. Kompromis je potreba za prilagodbom sučelja različitim načinima korištenja aplikacije te ovisnost o mogućnostima preglednika i korisnikovu dopuštenju za pristup lokaciji. |
-| Slanje potvrde rezervacije e-poštom nakon potvrde organizatora | — | Slanje potvrde e-poštom povezano je s potvrđivanjem rezervacije od strane organizatora. Neuspješno slanje poruke ne poništava promjenu statusa rezervacije, nego se neuspjeh evidentira. Time se odvajaju poslovni proces rezervacije i vanjska usluga slanja e-pošte, ali je potrebno predvidjeti postupanje u slučaju neuspjele dostave. |
-
-
-Objasnite glavne arhitekturne odluke bez ponavljanja popisa tehnologija. Ako važna odluka ima ADR, dovoljno je u tablici navesti njegov ID.
-
-<details>
-<summary><strong>Primjer arhitekturnih odluka i kompromisa</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Odluka | Razmatrana alternativa | Projektno specifično obrazloženje i kompromis |
-| --- | --- | --- |
-| Klijent u pregledniku i jedan poslužiteljski API | Više zasebno postavljenih poslužiteljskih usluga | Klijent prikazuje kartu, dok poslužiteljski sustav provjerava i pohranjuje prijave. Jedan poslužiteljski sustav upravljiv je za ovaj opseg; njegov kvar može privremeno prekinuti rad s prijavama. Obrazloženje je u ADR-01. |
-| Relacijska pohrana prijava | Dokumentno orijentirana pohrana | Prijave imaju prepoznatljive veze s korisnicima i lokacijama. Relacijska shema te veze čini eksplicitnima, ali zahtijeva migracije kada se shema promijeni. |
-
-**Analiza primjera:** Obje odluke navode razlog vezan uz aplikaciju za prijavljivanje kriznih događaja i priznaju kompromis. Odluka o poslužiteljskom sustavu upućuje na ADR-01 umjesto ponavljanja cijele usporedbe. Moduli unutar jedne aplikacije koja se postavlja kao cjelina nisu zasebne mikrousluge. U vlastitoj tablici navedite alternative koje je tim doista razmatrao.
-
-</details>
+| Digitalni vodić za korištenje na mobitelu kao dio web aplikacije | Zasebna mobilna aplikacija | [ADR-03](#adr-03) |
+| Globalni generički dodatci koji se pridodjeljuju događaju | Dodatci specifični za izlet | Korištenjem globalnih dodataka kojima se pri dodjeljivanju događaju dodaju detalji omogućuje jednostavniju strukturu podatka te statistiku za dodatke. Ovakav pristup je malo više ograničavajući za organizatore jer ne mogu napraviti dodatak specifično za potrebe pojedinog izleta.
+| Slike se za aktivnosti se povlače sa Google Places API-ja | Upload slike za aktivnost | Ovako izbjegavamo upload datoteka na poslužitelj što može dovesti do sigurnosnih propusta i zahtijevati kompliciraniju konfiguraciju hostinga. Također ovo ubrzava proces izradnje aktivnosti, ali i smanjuje slobodu korisnika da koristi željenu sliku. |
 
 ## 4.2 Gradivni blokovi i UML dijagram komponenata
 
@@ -87,7 +65,7 @@ Započnite crtanjem granice oko predloženog sustava. Unutar nje prepoznajte dij
 <a id="model-podataka"></a>
 ## 4.3 Model podataka i oblikovanje razreda
 
-**Cilj:** Objasniti važne informacije koje aplikacija pohranjuje i jedno reprezentativno područje oblikovanja na razini razreda. Model podataka i UML dijagram razreda odgovaraju na različita pitanja; jedno ne zamjenjuje drugo.
+[Detaljan opis strukture baze podataka](./baza/baza.md)
 
 ### 4.3.1 ER dijagram i model podataka
 
@@ -106,27 +84,11 @@ Započnite crtanjem granice oko predloženog sustava. Unutar nje prepoznajte dij
 
 ### 4.3.2 Reprezentativni UML dijagram razreda
 
-**Cilj:** Prije implementacije reprezentativnog dijela sustava modelirati i prikazati razrede ili sučelja potrebna za dodjelu odgovornosti, operacija i veza. Oblikovanje ažurirajte kada se te odluke promijene.
-
 **Dijagram razreda:** 
 ![Dijagram razreda](./assets/diagrams/dijagram_razreda.svg)
+**Slika 4.3 Dijagram razreda modela podataka**
 **PlantUML izvor:** [izvor](./puml/model_class_diagram.puml) 
 **Referenca na kod pri završnom pregledu:** [implementacija](/src/model)
-
-<details>
-<summary><strong>Oblikovanje odgovornosti prijave i dopuštenih promjena</strong></summary>
-
-**Primjer — CrisisMap:** Prijava sadrži pravila za promjenu vlastitog statusa. Razred tijeka rada koordinira podnošenje i pregled, dok sučelje repozitorija opisuje potrebne operacije trajne pohrane. Dijagram predlaže te odgovornosti prije implementacije.
-
-![Dijagram razreda za obradu prijava kriznih događaja](./assets/diagrams/4-3-crisismap-domain-CD.svg)
-
-**Slika 4.3. Dijagram razreda za obradu prijava kriznih događaja**
-
-**PlantUML izvor:** [izvor](./puml/4-3-crisismap-domain-CD.puml)
-
-**Analiza primjera:** `DisasterReport` sadrži dopuštena pravila promjene stanja pa tijek rada ne može prešutno odobriti već odbijenu prijavu. `ReportWorkflow` koordinira operaciju bez preuzimanja pravila prijelaza stanja same prijave; `ReportRepository` definira potrebne operacije pohrane. Kompozicija `Location` i odabrani tipovi prikazuju veze korisne za oblikovanje. Dijagram namjerno izostavlja stupce baze podataka i nepovezane razrede: ER model objašnjava pohranjene podatke, dok ovaj dijagram dodjeljuje programske odgovornosti i operacije. Ti su razredi odluka oblikovanja, a ne obavezni slojevi za svaki tim. Završnu implementaciju usporedite s početnim oblikovanjem i ažurirajte dijagram tamo gdje su se odluke promijenile; generiranje dijagrama iz koda tek na kraju ne može zamijeniti ovo početno modeliranje.
-
-</details>
 
 ## 4.4 Ponašanje tijekom izvođenja
 
@@ -192,15 +154,38 @@ Napišite nekoliko ADR-a za važne odluke čije obrazloženje, alternative i kom
 
 **Detaljni zapis arhitekturne odluke (engl. Architecture Decision Record, ADR), kada odluka zahtijeva dodatno objašnjenje:**
 
-### ADR-[ID]: [Naslov odluke]
+<a id="ADR-01"></a>
+### ADR-01: Odvajanje pojmova aktivnost, izlet i događaj
 
 | Polje | Zapis odluke |
 | --- | --- |
-| Kontekst i cilj | [Koji je arhitekturni problem učinio ovu odluku potrebnom?] |
-| Kriteriji odluke | [Što je timu stvarno bilo važno?] |
-| Razmatrane alternative | [Realne mogućnosti koje je tim razmotrio, ukratko.] |
-| Odluka i obrazloženje | [Odabrana mogućnost, zašto je odabrana i čega se tim odrekao.] |
-| Status | [Predloženo, prihvaćeno ili zamijenjeno; ako je primjenjivo, poveznica na novu odluku.] |
+| Kontekst i cilj | U aplikaciji je potrebno omogućiti ponovnu uporabu aktivnosti i izleta te njihovo održavanje u različitim terminima. Pritom je potrebno razlikovati izlet kao cjelinu koja se može organizirati od konkretnog događaja, odnosno pojedinog održavanja izleta. Rezervacija se mora odnositi na konkretan termin održavanja. |
+| Kriteriji odluke | Omogućiti ponovnu uporabu aktivnosti u više izleta, održavanje istog izleta u više termina te definiranje specifičnih podataka za svaki termin, poput vodiča i kapaciteta. Model treba omogućiti povezivanje rezervacije s konkretnim događajem. |
+| Razmatrane alternative | Svaki događaj kreirati zasebno, bez zasebnog modeliranja pojmova aktivnosti, izleta i događaja. |
+| Odluka i obrazloženje | Odvojiti pojmove aktivnosti, izleta i događaja kao zasebne modele. Aktivnost se može koristiti u više izleta, dok se isti izlet može održavati u više različitih termina. Za svaki događaj definiraju se termin, vodič i kapacitet, a rezervacija se veže uz konkretan događaj. Time se omogućuje ponovna uporaba aktivnosti i izleta, uz prihvaćanje većeg broja povezanih entiteta i složenijeg povezivanja podataka. |
+| Status | Prihvaćeno |
+
+<a id="ADR-02"></a>
+### ADR-02: Globalni generički dodatci koji se pridodjeljuju događaju
+
+| Polje | Zapis odluke |
+| --- | --- |
+| Kontekst i cilj | Aplikacija omogućuje dodjeljivanje dodataka događajima. Potrebno je odabrati način modeliranja dodataka koji omogućuje njihovu ponovnu uporabu i jednostavnije praćenje statistike. |
+| Kriteriji odluke | Pojednostaviti strukturu podataka, omogućiti ponovnu uporabu dodataka te omogućiti vođenje statistike za pojedine dodatke. |
+| Razmatrane alternative | Definiranje dodataka specifičnih za pojedini izlet. |
+| Odluka i obrazloženje | Koristiti globalne generičke dodatke koji se pridodjeljuju događaju. Prilikom dodjeljivanja događaju definiraju se potrebni detalji dodatka. Time se pojednostavljuje struktura podataka i omogućuje lakše praćenje statistike za dodatke. Kompromis je smanjena fleksibilnost organizatora jer ne mogu definirati dodatke specifične za potrebe pojedinog izleta. |
+| Status | Prihvaćeno |
+
+<a id="ADR-03"></a>
+### ADR-03: Globalni generički dodatci koji se pridodjeljuju događaju
+
+| Polje | Zapis odluke |
+| --- | --- |
+| Kontekst i cilj | Aplikacija objedinjuje pregled i rezervaciju izleta s digitalnim vodičem koji korisnici koriste tijekom izleta. Potrebno je odabrati platformu na kojoj će digitalni vodič biti dostupan, uzimajući u obzir opseg razvoja i održavanja aplikacije. |
+| Kriteriji odluke | Objediniti pregled, rezervaciju i korištenje digitalnog vodiča u jednoj aplikaciji. Izbjeći dodatni razvoj i održavanje zasebne mobilne aplikacije. Omogućiti korištenje na mobilnim uređajima. |
+| Razmatrane alternative | Razvoj zasebne mobilne aplikacije za korištenje digitalnog vodiča. |
+| Odluka i obrazloženje | Digitalni vodič implementirati kao dio postojeće web-aplikacije, prilagođene korištenju na mobilnim uređajima. Time se izbjegava razvoj i održavanje zasebne mobilne aplikacije te se pregled i rezervacija izleta objedinjuju s digitalnim vodičem. Kompromisi su potreba za prilagodbom sučelja različitim načinima korištenja aplikacije te ovisnost o mogućnostima preglednika i dopuštenju korisnika za pristup lokaciji. |
+| Status | Prihvaćeno |
 
 ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjene implementacije. Značajna promjena odluke može se zabilježiti novim ADR-om koji zamjenjuje stari; rutinski odabiri alata ne trebaju detaljne zapise. Promjene dogovorenog opsega pripadaju zahtjevima i njihovoj povijesti promjena; povratna informacija o zadatku ostaje uz odgovarajući zadatak.
 
@@ -229,32 +214,14 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 
 ## 4.6 Zajednička pravila oblikovanja (engl. Cross-cutting concerns)
 
-**Cilj:** Prepoznati i opisati globalna pravila i mehanizme oblikovanja koji se primjenjujuju u više dijelova aplikacije, navesti gdje se planira primijeniti i ažurirati objašnjenje kako implementacija poprima konačan oblik. Uključite samo pravila koja su važna za ovaj projekt.
-
 **Implementirani mehanizmi:**
 
 | Aspekt | Mehanizam | Pravilo | Mjesto primjene |
 | --- | --- | --- | --- |
-| [Npr. Sigurnost] | [Npr. Autorizacija korisnika] | [Npr. Ovlasti se provjeravaju na poslužiteljskoj strani za svaki zaštićeni zahtjev; skrivanje elemenata korisničkog sučelja nije dovoljna zaštita.] | [Npr. Middleware za autorizaciju / zaštita API usmjernika.] |
-| [Npr. Validacija podataka] | [Npr. Provjera ulaznih podataka] | [Npr. Geoprostorni podaci, uključujući koordinate, provjeravaju se prije pohrane.] | [Npr. Sloj za obradu zahtjeva / odgovarajuća usluga.] |
-
-<details>
-<summary><strong>Primjer zajedničkih pravila i mehanizama</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Aspekt | Mehanizam | Pravilo | Mjesto primjene |
-| --- | --- | --- | --- |
-| Sigurnost | Autorizacija moderiranja prijava | Ovlasti moderatora provjeravaju se na poslužiteljskoj strani prije odobravanja ili odbijanja prijave; skrivanje gumba u korisničkom sučelju nije dovoljna zaštita. | Poslužiteljski dio funkcionalnosti za moderiranje prijava. |
-| Validacija podataka | Provjera lokacije prijave | Nedostajuće ili nevaljane koordinate odbijaju se prije pohrane prijave. | Obrada podnošenja prijave. |
-| Aspekt | Mehanizam | Pravilo | Mjesto primjene |
-| Upravljanje ovisnostima | Injektiranje ovisnosti | Objekt koji provodi poslovnu logiku ne stvara sam konkretnu implementaciju repozitorija, nego potrebnu ovisnost prima izvana. | `ReportWorkflow` prima implementaciju sučelja `ReportRepository` pri stvaranju objekta. |
-
-**Analiza primjera:** Prvi redak pokazuje sigurnosno pravilo koje se provodi neovisno o korisničkom sučelju, a drugi pravilo provjere podataka prije pohrane. U vlastitoj dokumentaciji navedite samo aspekte koji se stvarno primjenjuju u projektu te konkretno mjesto njihove primjene.
-
-Obrasci poput injektiranja ovisnosti (engl. Dependency Injection) ili repozitorija (engl. Repository) pripadaju ovdje samo kada ih kod stvarno koristi i kada objašnjavaju zajedničko pravilo oblikovanja. Tvrdnja „sustav koristi autentikaciju” sama po sebi ne govori čitatelju gdje se provjera provodi niti što štiti. Sigurnost, bilježenje događaja i obrada pogrešaka ne trebaju svaki zaseban pododjeljak po zadanom pravilu.
-
-</details>
+| Sigurnost | Pristup ograničen u skladu s ulogama | Za svaki zahtijev se provjeravaju uloge te se na poslužiteljskoj strani određuje ima li korisnik pravo pristupiti ruti. | [middleware](/src/middleware/authorization.ts)
+| Validacija podataka | Provjera valjanosti podataka | Provjera valjanosti podataka radi se na korisničkoj strani, zatim na poslužitelju te na kraju i u bazi podatka. | [shema baze](./baza/schema.sql), [model podataka](/src/model/)
+|Smanjenje međuovisnosti | Pristup bazi podataka | Pristup bazi podataka omogućen je isključivo kroz sučelje koje pruža model podataka | [model podataka](/src/model/)
+| Struktura baze podataka | Surogat id stupac | Za sve tablice uvodi se stupac 'id' zbog lakšeg upravljanja bazom podataka | [dijagram baze](./assets/diagrams/4-2-izleti-data-ERD.svg)
 
 ## 4.7 Arhitekturni rizici i tehnički dug
 
@@ -264,33 +231,16 @@ Obrasci poput injektiranja ovisnosti (engl. Dependency Injection) ili repozitori
 
 | Rizik ili kompromis | Posljedica | Odgovor na rizik  |
 | --- | --- | --- |
-| *Npr. Pohrana slika u lokalni file sustav* | *Pri ponovnom pokretanju kontejnera slike će biti izgubljene.* | *Prihvaćeni tehnički dug za demo verziju. U budućnosti planirana migracija na S3 (AWS).* |
-| *Npr. Nepostojanje paginacije na API-ju* | *Moguće usporenje klijenta pri dohvaćanju velike količine podataka iz baze.* | *Ograničen broj testnih unosa. Dodavanje paginacije ostavljeno za sljedeću iteraciju.* |
-|  |  |  |
+| Postavljanje aplikacije na vlastiti poslužitelj | Potencijalni sigurnosni propusti, nedostatak službene tehničke podrške | Praćenje sigurnosnih dobrih praksi. |
+| Profilna slika se učitava direktno sa Google servera | Google ponekad blokira zahtijev sa greškom `429 Too Many Requests` te se slika ne učitava ispravno | U budućnosti implementirati spremanje slike na poslužitelju kako se ne bi slali česti zahtijevi na Google API. |
 
 **Poslovni ili domenski rizici, ako su značajni**
 
 | Rizik | Posljedica | Odgovor na rizik |
 | --- | --- | --- |
-| **Jedna instanca aplikacije obrađuje prijave** | Kvar poslužitelja (hostinga) privremeno onemogućuje nove prijave. | Prihvaćeno u okviru ograničenja projekta za kolegij; tim ne tvrdi da postoji automatsko prebacivanje na pričuvni sustav (failover). |
-| **Nedostupnost vanjskke kartografske usluge** | Prikaz karte može prestati raditi iako su pohranjene prijave u bazi i dalje dostupne. | Implementirana je korisniku vidljiva poruka o pogrešci uz alternativu pregleda prijava u tekstualnom obliku. |
-|  |  |  |
-
-<details>
-<summary><strong>Primjer tehničkih i domenskih rizika</strong></summary>
-
-**Primjer — CrisisMap, tehnički rizici:**
-
-| Rizik ili kompromis | Posljedica | Odgovor na rizik |
-| --- | --- | --- |
-| Jedna instanca aplikacije obrađuje podnošenje prijava. | Kvar smještaja aplikacije privremeno onemogućuje nove prijave. | Rizik je prihvaćen za opseg projekta; ne uvodi se pričuvna instanca ni automatsko prebacivanje. |
-| Vanjske kartografske usluge nisu dostupne. | Prikaz karte može prestati raditi iako su pohranjene prijave i dalje dostupne. | Karta se ne može prikazati, ali pohranjene prijave ostaju dostupne. | Aplikacija prikazuje poruku o nedostupnosti karte i omogućuje pregled prijava u tekstualnom obliku. |
-
-**Primjer — CrisisMap, domenski rizik:** Čitatelji mogu neprovjerenu prijavu građanina zamijeniti za službeno upozorenje. Tim može u sučelju jasno razlikovati status provjere prijave i uputiti korisnike na službene izvore.
-
-**Analiza primjera:** Prvi tehnički rizik prihvaća realistično ograničenje projekta kolegija; domenski se rizik odnosi na način na koji čitatelj tumači prijavu. Zabilježite ograničenje i realan odgovor koji pripadaju vašem projektu. Neostvarena obavezna funkcionalnost nije tehnički dug nego nedovršen opseg.
-
-</details>
+| Ovisnost o vanjskim pružateljima usluga | Nedostupnost Google OAutha, usluge za slanje e-pošte ili kartografskih usluga može otežati prijavu, potvrdu rezervacije ili korištenje digitalnog vodiča. | Predvidjeti razumljive poruke o pogreškama i omogućiti korištenje dijelova aplikacije koji ne ovise o nedostupnoj usluzi. |
+| Istovremeno rezerviranje posljednjih slobodnih mjesta | Više korisnika može istodobno pokušati rezervirati isto posljednje slobodno mjesto, što može dovesti do prekoračenja kapaciteta događaja. | Provjeru i zauzimanje kapaciteta provoditi kao transakciju. |
+| Nedostupnost odgovarajuće slike na Google Places API-ju | Može dovesti do aktivnosti bez slike ili aktivnosti sa neodgovarajućom slikom | Ako nisu pronađene slike ili slike nisu odgovarjuće pruža se opcija *placeholder* slike. |
 
 ---
 

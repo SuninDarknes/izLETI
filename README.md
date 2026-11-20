@@ -1,6 +1,6 @@
 # izLETI
 
-**izLETI** je aplikacija organizaciju, pretraživanje i rezervaciju turističkih događaja.
+**izLETI** je aplikacija za organizaciju, pretraživanje i rezervaciju turističkih događaja.
 
 **Projekt na kolegiju:** Ovu je aplikaciju razvio studentski tim u sklopu kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu (FER).
 
@@ -23,9 +23,9 @@ Za potpuni opseg, zahtjeve, oblikovanje i dokaze ispitivanja pogledajte [docs](d
 
 **Isprobajte:** Prijavite se uz pomoć Google računa te pregledajte popis aktivnosti na */activities*
 
-**Demonstracija:** Za prijavu je potreban Google račun.
+**Demonstracija:** Za isprobavanje svih mogućnosti potrebno je dodjeliti si odgovarajuće uloge, što zahtjeva pristup admin računu ili bazi podataka. Za isprobavanje vidi [postupak postavljanja lokalnog okruženja](#quick-start).
 
-**Ograničenja:** [Kratko navedite ograničenja postavljene inačice ili postavite poveznicu na jedinstveno mjerodavno mjesto u dokumentaciji s poznatim problemima.]
+**Ograničenja:** Trenutno je upogonjen samo jednostavni prototip sa osnovnim funkcionalnostima autentifikacije te pregledavanja i kreiranja aktivnosti
 
 [Vodič za postavljanje i pokretanje](docs/6-Postavljanje-instalacija-i-konfiguracija.md) opisuje smještaj aplikacije (engl. hosting) koji tim stvarno koristi.
 
@@ -51,7 +51,7 @@ npm install
 
 2. Napraviti .env file u [src folderu](./src), unutra kopirati sadržaj [primjera .env datoteke](./.env.example) i prilagoditi za svoje okruženje
 
-3. Pokrenuti aplikaciju slijedećom naredbom (u [src folderu](./src)):
+3. Pokrenuti aplikaciju slijedećom naredbom (pozicionirati se u src folder):
 
 ```bash
 npx tsx --env-file=.env server.ts
@@ -61,14 +61,14 @@ npx tsx --env-file=.env server.ts
 
 **Konfiguracija:** Sva potrebna konfiguracija nalazi se u [.env.example](./.env.example).
 
-Za provjeru radi li server provjerite [početnu stranicu](http://localhost:8080/), za provjeru radi li povezivanje s bazom provjerite [health stranicu](http://localhost:8080/health), a za provjeru radi li Google OAuth API provjerite [stranicu za prijavu](http://localhost:8080/auth/login) Za detaljno postavljanje pogledajte [projektnu dokumentaciju](docs/Home.md).
+Za provjeru radi li server provjerite [početnu stranicu](http://localhost:8080/), za provjeru radi li povezivanje s bazom provjerite [health stranicu](http://localhost:8080/health), a za provjeru radi li Google OAuth API provjerite [stranicu za prijavu](http://localhost:8080/auth/login). Za detaljnije upute za postavljanje pogledajte [projektnu dokumentaciju](./docs/6-Postavljanje-instalacija-i-konfiguracija.md).
 
 ## Tehnologije
 
 | Tehnologija ili alat | Uloga u ovom projektu | Razlog uporabe ili važno ograničenje |
 | --- | --- | --- |
 |Google OAuth 2.0 | Autentifikacija korisnika | Omogućuje jednostavnu autentifikaciju korisnika bez potrebe za vlastitu implementaciju koja je sklona sigurnosnim propustima.
-| Node.js | Poslužitelj i API | Svi članovi tima upoznati su s tehnologijom. Omogućuje izvođenje JavaScript/TypeScript koda na poslužiteljskoj strani. |
+| Node.js | Poslužitelj i API | Svi članovi tima upoznati su s tehnologijom. Omogućuje izvođenje JavaScript (TypeScript) koda na poslužiteljskoj strani. |
 | Express | Web-framework za poslužiteljsku aplikaciju | Svi članovi tima upoznati su s tehnologijom. Olakšava definiranje ruta i obradu HTTP zahtjeva, a middleware omogućuje jednostavniju implementaciju zajedničke logike, primjerice provjere autentifikacije i ovlasti korisnika.
 |TypeScript	| Programski jezik za implementaciju aplikacije	| Omogućuje provjeru tipova tijekom razvoja, što olakšava otkrivanje određenih pogrešaka i održavanje koda.
 | PostgreSQL | Baza podataka | Svi članovi tima su upoznati s tehnologijom. Relacijski model omogućuje dosljedno definiranje odnosa među objektima i ograničenja nad podatcima što olakšava modeliranje potrebnih entiteta.
@@ -80,13 +80,15 @@ Za provjeru radi li server provjerite [početnu stranicu](http://localhost:8080/
 
 | Član | Glavna uloga ili doprinos |
 | --- | --- |
-| [Jakov Biškup](https://github.com/MrMirror01) | Voditelj tima, model podataka na poslužitelju, ... |
-| [Luka Čubek](https://github.com/lukacubek) | Dokumentacija, testiranje, ... |
-| [Florijan Gotal](https://github.com/SuninDarknes) | Deployment, rad s API-jem za karte, ... |
-| [Dražen Grgurić](https://github.com/drazen-grguric) | Implementacija ruta na poslužitelju, ... |
-| [Jana Furdi](https://github.com/janaf4) | Dizajn sučelja, programiranje EJS view-ova, ... |
-| [Erik Mikšić](https://github.com/erikmiksic) | Dizajn baze podataka, ... |
-| [Ivor Trstenjak](https://github.com/IvorTrstenjak) | Google login i middleware za autentikaciju, programiranje EJS view-ova, ... |
+| [Jakov Biškup](https://github.com/MrMirror01) | Voditelj tima, model podataka na poslužitelju |
+| [Luka Čubek](https://github.com/lukacubek) | Dokumentacija, testiranje |
+| [Florijan Gotal](https://github.com/SuninDarknes) | Postavljanje stranice |
+| [Dražen Grgurić](https://github.com/drazen-grguric) | Implementacija ruta na poslužitelju |
+| [Jana Furdi](https://github.com/janaf4) | Dizajn sučelja, programiranje EJS view-ova |
+| [Erik Mikšić](https://github.com/erikmiksic) | Dizajn baze podataka |
+| [Ivor Trstenjak](https://github.com/IvorTrstenjak) | Google login, programiranje ruta i view-ova |
+
+Za detaljnije raspisane doprinose i podjelu poslova vidi [pregled aktivnosti grupe](./docs/A-Pregled-aktivnosti-grupe.md).
 
 <a id="license"></a>
 
