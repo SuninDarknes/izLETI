@@ -8,7 +8,7 @@ Organizator može dodavati, uređivati i pretraživati aktivnosti.
 
 ## 7.2 Izazovi i naučene lekcije
 
-U ranijim iteracijama dizajna baze probali smo organizirati dodatke na izletima na način da budu dostupni samo na jednom izletu. Ovo je dovelo do kompliciranog modela podataka te bi u budućnosti izazvalo poteškoće kod izrade statistike dodataka. Zbog toga smo odlučili da postoje generički dodatci koji se dodaju na događaj (a ne izlet) uz dodatno pojašnjenje.
+U ranijim iteracijama dizajna baze probali smo organizirati dodatke na izletima na način da budu dostupni samo na jednom izletu. Ovo je dovelo do kompliciranog modela podataka te bi u budućnosti izazvalo poteškoće kod izrade statistike dodataka. Zbog toga smo odlučili da postoje generički dodatci koji se dodaju na događaj (a ne izlet) uz dodatno pojašnjenje specifično za događaj.
 
 Na početku razvoja projekta napredak je bio raspodijeljen preko mnogo grana u git repozitoriju te se nisu provodila česta spajanja što je dovelo do problema u konzistenciji, puno različih verzija istog koda na različitim granama, problema kod spajanja...
 U budućnosti ćemo uvesti češća spajanja grana sa main-om i jasniju komunikaciju oko toga na kojoj se grani nalaze promjene.

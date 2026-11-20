@@ -16,7 +16,7 @@
 
 ## A.3 Aktivnosti i doprinosi članova
 
-Sastavljeno na temelju povijesti commit-ova i kanala `#progres-updates` u discord serveru.
+Sastavljeno na temelju povijesti commit-ova (naredba `git log --pretty=format:"%an,%ad,%s" --date=short > commit_history.csv`) i kanala `#progres-updates` u discord serveru.
 
 | Datum | Aktivnost ili rezultat | Član | Reprezentativni rezultat ili poveznica |
 | --- | --- | --- | --- |
@@ -60,7 +60,18 @@ Sastavljeno na temelju povijesti commit-ova i kanala `#progres-updates` u discor
 | 17. 11. 2026. | Dovršeno dodavanje aktivnosti; dodana pretraga po nazivu i kategoriji te poruke za neispravan unos. | Dražen Grgurić | Backend za dodavanje aktivnosti i filtriranje po nazivu/kategoriji |
 | 17. 11. 2026. | Prošireno filtriranje aktivnosti po lokaciji i rasponu trajanja. | Dražen Grgurić | `filterActivities` u `activities.model.ts` |
 | 17. 11. 2026. | Dodani dijakritički znakovi te zahtjevi za ocjenjivanje izleta i vodiča. | Erik Mikšič | `docs/1-Projekt.md` i povezani zahtjevi |
-| 18. 11. 2026. | Dodatno uređeni dijelovi dokumentacije | Jakov Biškup | Dokumentacija u `docs/` |
+| 18. 11. 2026. | Dovršena poglavlja Projekt, Analiza zahtjeva i Obrasci uporabe; dodatno uređeni dokumentacija arhitekture, pregled aktivnosti grupe, tjedni plan, README i početna stranica dokumentacije. | Jakov Biškup | `docs/1-Projekt.md`, `docs/2-Analiza zahtjeva.md`, `docs/3-Obrasci-uporabe.md`, `docs/4-Arhitektura-i-oblikovanje.md`, `A-Pregled-aktivnosti-grupe.md`, `README.md`, `Home.md` |
+| 18. 11. 2026. | Povezano filtriranje aktivnosti na frontend i backend; pretraga i filtri aktivnosti sada se šalju putem GET forme. | Ivor Trstenjak | Frontend i backend filtriranje aktivnosti; GET forma za pretragu |
+| 18. 11. 2026. | Dodani podaci o korištenju AI alata u projektnoj dokumentaciji. | Erik Mikšič | `Home.md` – korištenje AI alata |
+| 18. 11. 2026. | Dopunjena projektna dokumentacija podacima o korištenju AI alata. | Dražen Grgurić | `Home.md` – korištenje AI alata |
+| 19. 11. 2026. | Pregledan prvi dio projektne dokumentacije. | Jana Furdi | Pregled dokumentacije – prvi dio |
+| 19. 11. 2026. | Dovršeno preusmjeravanje korisnika nakon prijave na stranicu kojoj je prvotno pokušao pristupiti. Dodan i zajednički prikaz za funkcionalnosti u izradi. | Ivor Trstenjak | `Preserve login return destinations`; `under-construction` partial view |
+| 19. 11. 2026. | Provedeno potpuno testiranje aplikacije, dodani dodatni testovi za novu funkcionalnost te promjene spojene u glavnu granu. Jedan test ostao je neuspješan zbog neusklađenosti testnih podataka i koda, dok je ostalo testiranje prošlo. | Luka Čubek | Testna grana, dodatni testovi i rezultati testiranja |
+| 19. 11. 2026. | Integrirane sve funkcionalnosti u glavnu granu i postavljene u produkcijsko okruženje. | Jakov Biškup | `main`; produkcijska aplikacija: [izleti.xyz](https://izleti.xyz/) |
+| 19. – 20. 11. 2026. | Dovršeni preostali dijelovi dokumentacije, uključujući dijagram obrazaca uporabe, dijagram razmještaja i pripadajuću analizu te opis javnog postavljanja aplikacije. | Florijan Gotal | Poglavlja 3.1, 6.1 i 6.3 dokumentacije |
+| 20. 11. 2026. | Provedene završne dorade projektne dokumentacije, uključujući upute za instalaciju i konfiguraciju, dokumentaciju ispitivanja, UML dijagram postavljanja te dorade poglavlja Home, Analiza zahtjeva i Arhitektura. Dokumentacija je spojena u glavnu granu. | Jakov Biškup | `README.md`, `Home.md` i datoteke u `docs/`; UML dijagrami |
+| 20. 11. 2026. | Dodani zapisi o izvođenju komponentnih i integracijskih testova. | Luka Čubek | Dokumentacija rezultata komponentnog i integracijskog testiranja |
+| 20. 11. 2026. | Izrađena video demonstracija rada aplikacije. | Ivor Trstenjak | [Video](https://drive.google.com/file/d/1adONSj133L-aNItnB8KN_mb0FsGuhEoU/view) |
 
 ## A.4 Pregled promjena u repozitoriju
 
@@ -69,11 +80,11 @@ Sastavljeno na temelju povijesti commit-ova i kanala `#progres-updates` u discor
 
 
 Graf loše prikazuje ili ne prikazuje slijedeće stavke:
-- Jakov Biškup (MrMirror01) bio je zadužen za merge-anje grana te je dodavao predloške za dokumentaciju zbog ćega ima veći broj commitova i linija koda
+- Jakov Biškup (MrMirror01) je dodavao predloške za dokumentaciju zbog čega ima prevelik broj dodanih linija; također radi puno malih commitova umijesto manje većih
 - Florijan Gotal (SuninDarkness) radio je na postavljanju stranice te većina tog posla nije vidljiva na GitHub repozitoriju
 - Erik Mikšič zabunom je koristio dva account-a za pristup repozitoriju pa je statistika podijeljena
 - Jana Furdi radila je na dizajnu stranice što nije vidljivo iz broja commit-ova i promjenjenih linija koda
-- Luka Čubek bio je zadužen za ispitivanje i planiranje što nije direktno vidljivo iz statistika
+- Luka Čubek bio je zadužen za ispitivanje i planiranje što nije direktno vidljivo iz statistika; također, iz nepoznatog razloga neki njegovi commitovi se ne prikazuju (npr. commit `105bd1b`)
 
 ## A.5 Ključni inženjerski izazovi i rješenja
 
