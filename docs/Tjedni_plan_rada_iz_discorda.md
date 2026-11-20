@@ -71,7 +71,7 @@ Naglasak je na osnovnoj funkcionalnosti i strukturi koju je lako nadograđivati,
 | Odgovorna osoba | Zadatci | Rok / napomena |
 |---|---|---|
 | **Erik** | Postaviti bazu u produkciju. Nastaviti s doradama baze ako se pojave korisne ideje. | Cilj tjedna; baza treba biti deployana. |
-| **Florijan** | Pobrinuti se da deployana stranica radi i točno je iskonfiguriranja | Cilj tjedna; prioritetno zbog prototipa. |
+| **Florijan** | Pobrinuti se da deployana stranica radi i točno je iskonfigurirana | Cilj tjedna; prioritetno zbog prototipa. |
 | **Jana** | Izraditi EJS viewove za potrebne stranice prema dizajnima. | Cilj tjedna; prioritetno zbog prototipa. |
 | **Dražen** | Izraditi backend rute za nužne stranice. Krenuti od funkcionalnosti koje podržava postojeći model, primjerice dodavanja aktivnosti. | Cilj tjedna; prioritetno zbog prototipa. |
 | **Ivor** | Prilagoditi login tako da koristi user model umjesto izravnog pristupa bazi. Dovršiti ili prilagoditi middleware za uloge zbog promjena u user modelu. Pomoći Draženu s rutama. | Cilj tjedna. |

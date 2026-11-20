@@ -52,16 +52,16 @@
    | DB_HOST | Adresa na kojoj se nalazi baza podataka | Najčešće localhost |
    | DB_PORT | Port na kojem sluša baza podataka | Najčešće 5432 |
    | DB_NAME | Naziv baze koji ste postavili prilikom konfiguracije baze | |
-   | DB_USER | Naziv korisnika koji se koristi za pristup bazi | Ne preporuča se korištenje korisnika sa punim dozvolama |
+   | DB_USER | Naziv korisnika koji se koristi za pristup bazi | Ne preporuča se korištenje korisnika s punim dozvolama. |
    | DB_PASSWORD | Lozinka korisnika koji se koristi za pristup bazi | |
 
 3. **Inicijalizacija baze podataka i migracije:**
-   - Za inicijalizaciju baze podataka preporuča se korištenje alata pgAdmin.
+   - Za inicijalizaciju baze podataka preporučuje se korištenje alata pgAdmin.
    - U pgAdminu napravi se nova baza podataka, te se prilikom kreiranja konfigurira naziv baze i port.
    - Na novoj bazi pokreće se Query tool u koji se kopira sadržaj [sheme baze podataka](./baza/schema.sql). Nakon toga po potrebi se pokreće [skripta za punjenje baze dummy podatcima](./baza/dummy_data.sql).
    - prva uloga administratora dodjeljuje se direktno u bazi (ostale uloge dodjeljuje administrator kroz admin sučelje)
       - prvo je potrebno prijaviti se računom koji će biti administrator kako bi se dodao u bazu
-      - zatim u Query tool pokrenuti upit iz [datoteke](./baza/dodavanje_uloge.sql) (zamijeniti `[EMAIL]` sa email adresom računa administratora)
+      - zatim u Query tool pokrenuti upit iz [datoteke](./baza/dodavanje_uloge.sql) (zamijeniti `[EMAIL]` s email adresom računa administratora)
 4. **Pokretanje i verifikacija:**
    - za lokalno pokretanje vidi [brzi početak](/README.md#quick-start)
 
@@ -86,7 +86,7 @@ Tijek zahtjeva: preglednik → Cloudflare (HTTPS) → nginx (HTTPS, certifikat L
 
 ### Konfiguracijske varijable
 
-Sve vrijednosti nalaze se u datoteci `.env` **na poslužitelju** (`/opt/progi-deploy/.env`, prava `640`, vlasnik `root`). Ta datoteka nikad nije u Gitu. Vrijednosti čuva član tima zadužen za postavljanje (Florijan Gotal); novi održavatelj ih dobiva od njega privatno, ne kroz repozitorij ni javne kanale.
+Sve vrijednosti nalaze se u datoteci `.env` **na poslužitelju** (`/opt/progi-deploy/.env`, prava `640`, vlasnik `root`). Ta datoteka nikad nije u repozitoriju. Vrijednosti čuva član tima zadužen za postavljanje (Florijan Gotal); novi održavatelj ih dobiva od njega privatno, ne kroz repozitorij ni javne kanale.
 
 | Varijabla | Svrha | Odakle vrijednost | Koja usluga je koristi |
 | --- | --- | --- | --- |
