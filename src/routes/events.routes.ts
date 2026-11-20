@@ -95,7 +95,9 @@ router.get("/:id", async (req: Request, res: Response) => {
     }
 
     try {
-        res.render("event", { event: await events.getEvent(id) });
+       // res.render("event", { event: await events.getEvent(id) });
+        res.render("event", { event:1});
+
     } catch (error) {
         if (error instanceof NotFoundError) {
             res.sendStatus(404);
