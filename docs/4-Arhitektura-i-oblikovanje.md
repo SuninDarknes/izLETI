@@ -23,9 +23,9 @@
 | Prijava korisnika putem Google OAutha | Lokalna prijava putem e-pošte i lozinke | Korištenje Google računa uklanja potrebu za implementacijom vlastitog sustava lozinki i njihovom sigurnom pohranom u bazi. Aplikacija i dalje vodi vlastite korisničke račune i uloge. Kompromis je ovisnost o vanjskom pružatelju identiteta. |
 | Podrška za više korisničkih uloga po računu | Samo jedna uloga po računu | Jedan korisnik može imati više uloga, a dostupne funkcionalnosti ovise o dodijeljenim ulogama. Time se omogućuje da isti korisnik, primjerice, bude i administrator i organizator. Kompromis je složenije upravljanje dodjelom uloga i povezanim funkcionalnostima korisničkog računa. |
 | Kontrola pristupa pomoću poslužiteljske provjere korisničkih ovlasti | — | Ovlasti se provjeravaju na poslužiteljskoj strani kako korisnici ne bi mogli pristupiti funkcionalnostima drugih uloga izravnim slanjem zahtjeva. Time se zaštita ne oslanja samo na skrivanje pojedinih elemenata sučelja. Kompromis je potreba za dosljednom provjerom ovlasti na svim zaštićenim rutama. |
-| Digitalni vodić za korištenje na mobitelu kao dio web aplikacije | Zasebna mobilna aplikacija | [ADR-03](#adr-03) |
+| Digitalni vodič za korištenje na mobitelu kao dio web aplikacije | Zasebna mobilna aplikacija | [ADR-03](#adr-03) |
 | Globalni generički dodatci koji se pridodjeljuju događaju | Dodatci specifični za izlet | Korištenjem globalnih dodataka kojima se pri dodjeljivanju događaju dodaju detalji omogućuje jednostavniju strukturu podatka te statistiku za dodatke. Ovakav pristup je malo više ograničavajući za organizatore jer ne mogu napraviti dodatak specifično za potrebe pojedinog izleta.
-| Slike se za aktivnosti se povlače sa Google Places API-ja | Upload slike za aktivnost | Ovako izbjegavamo upload datoteka na poslužitelj što može dovesti do sigurnosnih propusta i zahtijevati kompliciraniju konfiguraciju hostinga. Također ovo ubrzava proces izradnje aktivnosti, ali i smanjuje slobodu korisnika da koristi željenu sliku. |
+| Slike se za aktivnosti se povlače s Google Places API-ja | Upload slike za aktivnost | Ovako izbjegavamo upload datoteka na poslužitelj što može dovesti do sigurnosnih propusta i zahtijevati kompliciraniju konfiguraciju hostinga. Također ovo ubrzava proces izrade aktivnosti, ali i smanjuje slobodu korisnika da koristi željenu sliku. |
 
 ## 4.2 Gradivni blokovi i UML dijagram komponenata
 
@@ -120,7 +120,7 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 
 | Aspekt | Mehanizam | Pravilo | Mjesto primjene |
 | --- | --- | --- | --- |
-| Sigurnost | Pristup ograničen u skladu s ulogama | Za svaki zahtijev se provjeravaju uloge te se na poslužiteljskoj strani određuje ima li korisnik pravo pristupiti ruti. | [middleware](/src/middleware/authorization.ts)
+| Sigurnost | Pristup ograničen u skladu s ulogama | Za svaki zahtjev se provjeravaju uloge te se na poslužiteljskoj strani određuje ima li korisnik pravo pristupiti ruti. | [middleware](/src/middleware/authorization.ts)
 | Validacija podataka | Provjera valjanosti podataka | Provjera valjanosti podataka radi se na korisničkoj strani, zatim na poslužitelju te na kraju i u bazi podatka. | [shema baze](./baza/schema.sql), [model podataka](/src/model/)
 |Smanjenje međuovisnosti | Pristup bazi podataka | Pristup bazi podataka omogućen je isključivo kroz sučelje koje pruža model podataka | [model podataka](/src/model/)
 | Struktura baze podataka | Surogat id stupac | Za sve tablice uvodi se stupac 'id' zbog lakšeg upravljanja bazom podataka | [dijagram baze](./assets/diagrams/4-2-izleti-data-ERD.svg)
@@ -133,8 +133,8 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 
 | Rizik ili kompromis | Posljedica | Odgovor na rizik  |
 | --- | --- | --- |
-| Postavljanje aplikacije na vlastiti poslužitelj | Potencijalni sigurnosni propusti, nedostatak službene tehničke podrške | Praćenje sigurnosnih dobrih praksi. |
-| Profilna slika se učitava direktno sa Google servera | Google ponekad blokira zahtijev sa greškom `429 Too Many Requests` te se slika ne učitava ispravno | U budućnosti implementirati spremanje slike na poslužitelju kako se ne bi slali česti zahtijevi na Google API. |
+| Postavljanje aplikacije na vlastiti poslužitelj | Potencijalni sigurnosni propusti, nedostatak službene tehničke podrške. | Praćenje sigurnosnih dobrih praksi. |
+| Profilna slika se učitava direktno s Google servera | Google ponekad blokira zahtjev s greškom `429 Too Many Requests` te se slika ne učitava ispravno. | U budućnosti implementirati spremanje slike na poslužitelju kako se ne bi slali česti zahtjevi na Google API. |
 
 **Poslovni ili domenski rizici, ako su značajni**
 
@@ -142,6 +142,6 @@ ADR pišite samo za odluku čije će obrazloženje ostati važno i nakon promjen
 | --- | --- | --- |
 | Ovisnost o vanjskim pružateljima usluga | Nedostupnost Google OAutha, usluge za slanje e-pošte ili kartografskih usluga može otežati prijavu, potvrdu rezervacije ili korištenje digitalnog vodiča. | Predvidjeti razumljive poruke o pogreškama i omogućiti korištenje dijelova aplikacije koji ne ovise o nedostupnoj usluzi. |
 | Istovremeno rezerviranje posljednjih slobodnih mjesta | Više korisnika može istodobno pokušati rezervirati isto posljednje slobodno mjesto, što može dovesti do prekoračenja kapaciteta događaja. | Provjeru i zauzimanje kapaciteta provoditi kao transakciju. |
-| Nedostupnost odgovarajuće slike na Google Places API-ju | Može dovesti do aktivnosti bez slike ili aktivnosti sa neodgovarajućom slikom | Ako nisu pronađene slike ili slike nisu odgovarjuće pruža se opcija *placeholder* slike. |
+| Nedostupnost odgovarajuće slike na Google Places API-ju | Može dovesti do aktivnosti bez slike ili aktivnosti s neodgovarajućom slikom. | Ako nisu pronađene slike ili slike nisu odgovarajuće pruža se opcija *placeholder* slike. |
 
 ---
