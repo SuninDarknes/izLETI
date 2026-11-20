@@ -71,15 +71,15 @@
 
 Aplikacija nije postavljena na platformu u oblaku (PaaS), nego na **vlastiti Linux poslužitelj** (Debian 12) na kojem se svi dijelovi sustava izvode u **Docker kontejnerima** pomoću Docker Composea. Ispred poslužitelja nalaze se Cloudflare (DNS i proxy) i nginx obrnuti proxy (engl. *reverse proxy*) koji završava HTTPS vezu.
 
-- **Produkcija:** [https://izleti.xyz](https://izleti.xyz) — grana `production`
-- **Testno okruženje:** [https://testizleti.dfservers.com](https://testizleti.dfservers.com) — grana `main`, zasebna baza s ispitnim (dummy) podacima
-- **Administracija baze (pgAdmin):** [https://db.izleti.xyz](https://db.izleti.xyz) — samo za ovlaštene članove tima
+- **Produkcija:** [https://izleti.xyz](https://izleti.xyz) - grana `production`
+- **Testno okruženje:** [https://testizleti.dfservers.com](https://testizleti.dfservers.com) - grana `main`, zasebna baza s ispitnim (dummy) podacima
+- **Administracija baze (pgAdmin):** [https://db.izleti.xyz](https://db.izleti.xyz) - samo za ovlaštene članove tima
 
 Tijek zahtjeva: preglednik → Cloudflare (HTTPS) → nginx (HTTPS, certifikat Let's Encrypt / certbot) → Docker kontejner `app` (Node.js, port 8080) → Docker kontejner `postgres` (interna Docker mreža, port 5432).
 
 | **Postavljeni podsustav** | **Infrastruktura i izvor koda** | **Naredbe izgradnje i pokretanja** | **Konfiguracija i varijable okruženja** |
 | --- | --- | --- | --- |
-| **Klijentski dio** | Nema zasebnog postavljanja. HTML generira poslužitelj (EJS predlošci iz `src/views/`), a statičke datoteke (`src/public/`) poslužuje Express. | — (dio slike poslužiteljskog dijela) | Nema varijabli vidljivih pregledniku osim `GOOGLE_CLIENT_ID`, koji nije tajna vrijednost. |
+| **Klijentski dio** | Nema zasebnog postavljanja. HTML generira poslužitelj (EJS predlošci iz `src/views/`), a statičke datoteke (`src/public/`) poslužuje Express. | - (dio slike poslužiteljskog dijela) | Nema varijabli vidljivih pregledniku osim `GOOGLE_CLIENT_ID`, koji nije tajna vrijednost. |
 | **Poslužiteljski dio** | Docker kontejner `app` na vlastitom poslužitelju; grana `production`, mapa `src/`. Slika se gradi iz `node:22-alpine`. | Izgradnja: `docker compose build app` (unutar slike `npm ci`). Pokretanje: `docker compose up -d`, u kontejneru `npx tsx server.ts`. | `SESSION_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`. `NODE_ENV=production` postavljen je u slici. Port 8080 (zadana vrijednost, `PORT` se ne postavlja). |
 | **Baza podataka** | Docker kontejner `postgres:18-alpine` na istom poslužitelju; podaci u Docker volumenu `pg-data`. Nije javno dostupna (samo `127.0.0.1:5432` na poslužitelju i interna Docker mreža). | Shema [`docs/baza/schema.sql`](./baza/schema.sql) primjenjuje se **jednom**, na praznu bazu. Alat za migracije se ne koristi; kasnije promjene sheme primjenjuju se ručno SQL skriptom. | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_RO_PASSWORD` |
 | **pgAdmin** | Docker kontejner `dpage/pgadmin4:9.18`, isti poslužitelj, iza nginxa na `db.izleti.xyz`. | Pokreće se zajedno s ostatkom (`docker compose up -d`). | `PGADMIN_EMAIL`, `PGADMIN_PASSWORD` (samo za prvo pokretanje) |
@@ -94,7 +94,7 @@ Sve vrijednosti nalaze se u datoteci `.env` **na poslužitelju** (`/opt/progi-de
 | `GOOGLE_CLIENT_ID` | ID Google OAuth klijenta za prijavu. Nije tajna. | Google Cloud Console → *APIs & Services → Credentials*. Kao *Authorized JavaScript origin* mora biti upisano `https://izleti.xyz`. | `app` |
 | `GOOGLE_CLIENT_SECRET` | Tajni ključ istog OAuth klijenta (trenutačno ga kod ne koristi). | Google Cloud Console | `app` |
 | `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` | Naziv baze, korisnik i lozinka. Isti se podaci prosljeđuju aplikaciji kao `DB_NAME`, `DB_USER`, `DB_PASSWORD`. | Lozinka se generira nasumično. | `postgres`, `app` |
-| `DB_HOST`, `DB_PORT` | Adresa baze za aplikaciju. Fiksno `postgres` i `5432` (naziv servisa u Docker mreži), postavljeno u `docker-compose.yml`. | — | `app` |
+| `DB_HOST`, `DB_PORT` | Adresa baze za aplikaciju. Fiksno `postgres` i `5432` (naziv servisa u Docker mreži), postavljeno u `docker-compose.yml`. | - | `app` |
 | `POSTGRES_RO_PASSWORD` | Lozinka uloge `progi_ro` koja smije samo čitati bazu (pregled podataka kroz pgAdmin). | Generira se nasumično. | `postgres` |
 | `PGADMIN_EMAIL`, `PGADMIN_PASSWORD` | Početni administratorski račun pgAdmina; lozinka se nakon prve prijave mijenja u sučelju. | Odabire administrator. | `pgadmin` |
 | `APP_BIND` | Adresa i port na kojima je aplikacija dostupna nginxu (npr. `192.168.1.6:3100`). | Ovisi o mreži poslužitelja. | `app` |
@@ -254,7 +254,7 @@ Postupak je napisan za čisti Linux poslužitelj. Naredbe `docker` izvode se kao
    sudo docker compose exec -T postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"' \
      < /srv/progi/docs/baza/schema.sql
    ```
-   Shemu je moguće primijeniti i automatski: ako se prije prvog pokretanja kopira u `db-init/01-schema.sql`, Postgres je izvede pri stvaranju praznog volumena (tako je postavljeno testno okruženje, gdje se dodatno učitava `dummy_data.sql`). Produkcijska baza **ne** sadrži ispitne podatke. Šifrarnike (npr. uloge `Admin`, `User`, `Owner`, `Guide`, `Organizer` u tablici `roles`) potrebno je upisati ručno, jer bez njih prijava novog korisnika ne uspijeva.
+   Shemu je moguće primijeniti i automatski: ako se prije prvog pokretanja kopira u `db-init/01-schema.sql`, Postgres je izvede pri stvaranju praznog volumena (tako je postavljeno testno okruženje, gdje se dodatno učitava `dummy_data.sql`). Produkcijska baza **ne** sadrži ispitne podatke. Hardkodirane tablice (npr. uloge `Admin`, `User`, `Owner`, `Guide`, `Organizer` u tablici `roles`) potrebno je upisati ručno, jer bez njih prijava novog korisnika ne uspijeva.
 
 4. **Izgradnja i pokretanje poslužiteljskog dijela:**
    ```bash
@@ -315,5 +315,5 @@ Postupak je napisan za čisti Linux poslužitelj. Naredbe `docker` izvode se kao
 
 - Cijeli sustav izvodi se na jednom poslužitelju, bez redundancije. Ispad poslužitelja ili kućne mreže znači nedostupnost aplikacije.
 - Sesije se čuvaju u memoriji procesa (`MemoryStore`), pa se korisnici odjavljuju pri svakom ponovnom pokretanju ili postavljanju nove inačice.
-- Nema alata za migracije sheme. Promjene sheme i šifrarnika na produkcijskoj bazi primjenjuju se ručno.
+- Nema alata za migracije sheme. Promjene sheme i hardkodiranih tablica na produkcijskoj bazi primjenjuju se ručno.
 - Testovi se ne izvode automatski prije postavljanja.

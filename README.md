@@ -54,7 +54,7 @@ npm install
 3. Pokrenuti aplikaciju slijedećom naredbom (pozicionirati se u src folder):
 
 ```bash
-npx tsx --env-file=.env server.ts
+npm start
 ```
 
 **Adresa:** [http://localhost:8080/](http://localhost:8080/)

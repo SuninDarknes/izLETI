@@ -103,10 +103,10 @@ Za responzivnost i istovremeni rad još nisu određene brojčane vrijednosti (np
 
 | ID zahtjeva | Obrazac uporabe | Arhitekturna realizacija | Stanje | Ispitivanje ili provjera |
 | --- | --- | --- | --- | --- |
-| F-01 | UC-01 | `auth.routes.ts` | Implementirano | Ručno testirano sa više koriničkih računa 19.11.2026. |
-| F-02 | UC-01, UC-08 | `users.model.ts` | Implementirano | Ručno testirano 19.11.2026. |
-| F-03 | UC-08 | `/admin` | Implementirano | Ručno testirano 19.11.2026. |
-| F-04 | UC-05 | `activities.routes.ts`, `activities.model.ts` | Implementirano | [testovi](/tests/modeli.test.cjs), Ručno testirano 19.11.2026. |
+| F-01 | UC-01 | `auth.routes.ts` | Implementirano | [Ručno ispitano](./5.-Ispitivanje.md#524-sustavski-testovi-web-aplikacije) |
+| F-02 | UC-01, UC-08 | `users.model.ts` | Implementirano | [Ručno ispitano](./5.-Ispitivanje.md#524-sustavski-testovi-web-aplikacije) |
+| F-03 | UC-08 | `/admin` | Implementirano | [Ručno ispitano](./5.-Ispitivanje.md#524-sustavski-testovi-web-aplikacije) |
+| F-04 | UC-05 | `activities.routes.ts`, `activities.model.ts` | Implementirano | [testovi](/tests/modeli.test.cjs), [Ručno ispitano](./5.-Ispitivanje.md#524-sustavski-testovi-web-aplikacije) |
 | F-05 | UC-05.5 | `trips.routes.ts` | Nije implementirano | *na čekanju* |
 | F-06 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
 | F-07 | UC-06 | `events.routes.ts` | Nije implementirano | *na čekanju* |
