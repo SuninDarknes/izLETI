@@ -6,7 +6,7 @@ import { users } from "./model/users.model";
 import { requireLogin } from "./middleware/authorization";
 import authRouter from "./routes/auth.routes";
 import homeRouter from "./routes/home.routes";
-import activitiesRouter from "./routes/activites.routes";
+import activitiesRouter from "./routes/activities.routes.js";
 import eventsRouter from "./routes/events.routes";
 import reservationsRouter from "./routes/reservations.routes";
 import tripsRouter from "./routes/trips.routes";

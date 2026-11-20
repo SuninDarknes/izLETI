@@ -1,7 +1,7 @@
-# [Naziv aplikacije] — Projektna dokumentacija
+# izLETI — Projektna dokumentacija
 
 **Kolegij:** [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz), Fakultet elektrotehnike i računarstva Sveučilišta u Zagrebu  
-**Akademska godina:** [2026./2027.]  
+**Akademska godina:** 2026./2027. 
 **Tim:** L-A-11.2 izLETI  
 **Nastavnik:** Vlado Sruk  
 **Asistent / demonstrator:** Miljenko Krhen / Roko Markov
@@ -10,15 +10,15 @@
 
 **Cilj:** Aplikacija izLETI korisnicima omogućuje jednostavno pronalaženje i rezervaciju turističkih izleta, dok organizatorima olakšava upravljanje ponudom, terminima, vodićima, kapacitetima i rezervacijama.
 
-Organizatori izleta nude velik broj aktivnosti na razlicitim lokacijama i u razlicitim terminima. Korisnicima treba jednostavan pregled ponude, cijena i slobodnih mjesta, a organizatorima podrska pri upravljanju terminima, kapacitetima, vodičima i dodatnim uslugama.
+Organizatori izleta nude velik broj aktivnosti na razlicitim lokacijama i u razlicitim terminima. Korisnicima treba jednostavan pregled ponude, cijena i slobodnih mjesta, a organizatorima podrška pri upravljanju terminima, kapacitetima, vodičima i dodatnim uslugama.
 
-izLETI je aplikacija za pregled i rezervaciju turistickih izleta i aktivnosti. Korisnici mogu pronaći događaj koji ih zanima i rezervirati ga, a organizatori mogu pripremati izlete i upravljati rezervacijama. Tijekom samog izleta aplikacija na mobilnom uredaju sluzi kao jednostavan digitalni vodic koji prikazuje informacije o lokacijama u blizini korisnika.
+izLETI je aplikacija za pregled i rezervaciju turistickih izleta. Korisnici mogu pronaći događaj koji ih zanima i rezervirati ga, a organizatori mogu pripremati izlete i upravljati rezervacijama. Tijekom samog izleta aplikacija na mobilnom uredaju sluzi kao jednostavan digitalni vodic koji prikazuje informacije o lokacijama u blizini korisnika.
 
 Aktivnosti i izleti mogu se ponovno koristiti. Tako ista aktivnost moze biti dio vise izleta, a isti izlet moze se odrzati u vise razlicitih termina, što ubrzava i olakšava proces organizacije.
 
 U aplikaciji prate se i ocijene izleta i vodiča što omogućuje lakši odabir korisnicima i daje povratnu informaciju organizatorima. Vlasnik turističke agencije može pregledavati korisne statistike koje mu olakšavaju upravljanje agencijom.
 
-**Aplikacija i osnovno postavljanje:** [README repozitorija](../README.md#quick-start)  
+**Aplikacija i osnovno postavljanje:** [README – brzi početak](../README.md#quick-start)  
 **Javno dostupna aplikacija:** pogledajte [README – Postavljanje](../README.md#deployment)
 
 ## Članovi tima i uloge
@@ -50,11 +50,12 @@ Dokumentacija se kontinuirano ažurira kako se aplikacija razvija.
 ## Organizacija projekta i razvojni proces
 
 **Način rada:**
-- svaki tjedan u ponedeljak voditelj tima šalje popis poslova sa određenim rokom za svakog čljana tima u discord server (kanal #popis-poslova)
-- kada netko završi neki od zadanih zadataka, šalje kratak opis napravljenog u discord server (kanal #progres-updates)
-- sve promjene rade se na zasebnim granama koje se kroz pull requestove mergeaju u main granu
+- svaki tjedan u ponedeljak voditelj tima šalje popis poslova sa određenim rokom za svakog čljana tima u discord server (kanal `#popis-poslova`)
+- kada netko završi neki od zadanih zadataka, šalje kratak opis napravljenog u discord server (kanal `#progres-updates`)
+- sve promjene rade se na zasebnim granama koje se kroz pull requestove spajaju u main granu
 - ako je neka cijelina gotova i mergeana u main, zatvori se odgovarajući Issue na GitHub-u
 - svaki tjedan u četvrtak imamo radni sastanak sa svim članovima tima (kao i asistentom i demonstratorom) gdje raspravljamo o napretku te o tome što treba slijedeće napraviti
+
 **Praćenje trenutačnih zadataka i nedostataka:** [Issues](https://github.com/SuninDarknes/izLETI/issues)
 
 ## Pravila dokumentacije
@@ -74,14 +75,24 @@ Kratak sažetak: [README – Uporaba umjetne inteligencije](../README.md#ai-usag
 | Alat | Inačica ili model | Koristio/la | Glavna svrha |
 | --- | --- | --- | --- |
 | ChatGPT | GPT-6 | Jakov Biškup | Debuggiranje, provjera konzistentnosti i poboljšavanje dokumentacije, povjera i poboljšanje sheme baze podataka, generiranje PlantUML dijagrama |
-| Claude | Sonet 5.5 | Jakov Biškup | Generiranje dummy podataka za bazu
-| Claude | Opus 5.5 | Florijan Gotal | Generiranje prezentacije iz dokumentacije, pomoć pri postavljanju stranice
+| ChatGPT | GPT-6 | Jana Furdi | Pomoć pri repliciranju dizajna koristeći Bootstrap |
+| Claude | Sonet 5.5 | Jakov Biškup | Generiranje dummy podataka za bazu |
+| Claude | Opus 5.5 | Florijan Gotal | Generiranje prezentacije iz dokumentacije, pomoć pri postavljanju stranice |
+| GitHub Copilot | GPT-5 mini | Ivor Trstenjak | Pomoć pri povezivanju sa Google API-jem |
+| Claude | Opus 5.5 | Dražen Grgurić | Prijedlozi za backend rute i funkcije koje su potrebne, debuggiranje |
+| Claude | Opus 5.5 | Erik Mikšič | Provjera konzistentnosti sheme. Prijedlozi za bazu. Generiranje ER diagrama |
 
 ### Opseg doprinosa umjetne inteligencije
 
 | Stranica, datoteka ili artefakt | Vrsta pomoći | Što je alat proizveo | Što je tim zadao i promijenio | Lokacija |
 | --- | --- | --- | --- | --- |
-| [npr. 3. Obrasci uporabe, UC-002] | [Izrada nacrta / preoblikovanje / prijevod / izvor dijagrama / sažimanje] | [Kratak opis] | [Ulaz zadan alatu; dodane, ispravljene ili uklonjene činjenice] | [Stranica dokumentacije, `.puml` datoteka, PR] |
+| Dummy podatci za testiranje | Generiranje podataka iz sheme baze | Datoteku sa dummy podatcima | Tim je zadao shemu baze. Promijenjeni su retci u `Roles` i `EventStates` tablicama kako bi odgovarale specifikaciji projekta | [dummy_data.sql](./baza/dummy_data.sql) |
+| UML dijagram razreda | Generiranje UML dijagrama | .puml datoteku dijagrama | Tim je zadao potrebne tipove, razrede i enumeracije. Nisu bile potrebne promijene. | [dijagram_razreda.svg](./assets/diagrams/dijagram_razreda.svg) |
+| Model podataka na backendu | Pomoć pri programiranju | Preinake za neke upite bazi, poboljšanje strukture koda i bacanja iznimaka | Kod je pisan ručno te je AI korišten samo za pomoć pri debuggiranju i nadogradnji | [model](/src/model/)
+| Tjedni plan rada i Pregled aktivnosti grupe | Generiranje dokumenta iz podataka | Markdown datoteku sa tjednim planom rada i tablicu aktivnosti | Tim je priložio povijest dogovora iz Discord servera i povijest commit-ova te uskladio generirane dokumenate sa stvarnim planom rada i aktivnostima | [Pregled aktivnosti](./A-Pregled-aktivnosti-grupe.md) i [Plan rada](./Tjedni_plan_rada_iz_discorda.md) |
+| Prijedlozi za backend rute i funkcije | Ideje za funkcije i rute koje još nisu bile na popisu | Popis funkcija, prijedlozi u kojim rutama bi se koristile. | Tim je zadao već postojeći popis ruta i funkcija koji je bio smišljen te neke osnovne funkcionalnosti koje su poželjne | [Backend funkcije za pristup bazi](<./spec/Backend funkcije za pristup bazi.md>) |
+| Implementacijski ER dijagram | Generiranje ER diagrama |.puml datoteku dijagrama | Tim je zadao sve potrebne informacije za izradu dijagrama i nije bilo potrebe za naknadnim promjenama.| [ER dijagram](<./assets/diagrams/4-2-izleti-data-ERD.svg>) |
+| SQL datoteka | Pregled SQL datoteke |Popis predloženih preinaka | Tim je priložio SQL datoteku koju je model pregledao i predložio preinake. | [schema.sql](<./baza/schema.sql>) |
 
 Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativne umjetne inteligencije. [Po želji: kao dodatne retke navedite kod ili ispitivanja izrađena uz pomoć umjetne inteligencije.]
 
@@ -89,35 +100,14 @@ Stranice i artefakti koji nisu navedeni iznad izrađeni su bez pomoći generativ
 
 | Provjera | Kako je provedena | Dokaz |
 | --- | --- | --- |
-| Činjenična točnost | [Svaka tvrdnja o funkcionalnostima, ponašanju ili arhitekturi uspoređena je s pokrenutom aplikacijom i kodom] | [Imena pregledavatelja; poveznice na zahtjev za uključivanje promjena (PR) ili zadatak] |
-| Nema tvrdnji o neostvarenim funkcionalnostima | [Provjereno je da opisane funkcionalnosti, ispitivanja i rezultati stvarno postoje; planirani rad označen je kao planiran] | [Usporedba s odjeljkom 5.4 (Ispitivanje) i odjeljkom 7.1 (Zaključak)] |
-| Dosljednost s drugim stranicama | [Nazivi, ID-ovi i dijagrami provjereni su prema Analizi zahtjeva, Obrascima uporabe, Arhitekturi i oblikovanju te Ispitivanju] | [Kontrolni popis ili bilješka pregleda] |
-| Izvori dijagrama | [Generirani PlantUML je iscrtan, ispravljen i odgovara implementiranom sustavu] | [`.puml` datoteka i izrađena slika] |
-| Povjerljivi sadržaj | [Kako je tim osigurao da u upite ili dokumentaciju nisu unesene tajne, pristupni podaci ni osobni podaci] | [Primijenjeni postupak] |
+| Činjenična točnost | Svi generirani dijelovi dokumentacije su provjereni i po potrebi ispravljeni | pregledao: Jakov Biškup, [plan rada](./Tjedni_plan_rada_iz_discorda.md#Jakov-provjeriti-dokumentaciju) |
+| Izvori dijagrama | Iz generiranog `.puml` koda napravljeni su dijagrami koji su provjereni i usklađeni sa stvarnim sustavom | [dijagrami](./assets/diagrams/) |
+| Povjerljivi sadržaj | Svi povjerljivi podatci nalaze se u .env datoteci koja se nikad ne stavlja na repozitorij i ne šalje AI alatima. Kod i dokumentacija se detaljno pregledava prije nego što se push-a na repozitorij. | Na [GitHub repozitoriju](https://github.com/SuninDarknes/izLETI) nema objavljenih tajni |
 
 ### Pogreške pronađene u izlazu umjetne inteligencije
 
 | Problem | Kako je pronađen | Rješenje |
 | --- | --- | --- |
-| [Netočna, izmišljena ili iz predloška preuzeta tvrdnja] | [Pregled, ispitivanje ili usporedba s aplikacijom] | [Ispravak s poveznicom] |
-
-<!-- UPUTA: Zabilježite stvarne ispravke ili napišite „Nisu utvrđene”. Općenita tvrdnja poput „sav tekst je pregledan” nije dokaz; dokaz su prethodne tablice. Tim mora moći objasniti svaku rečenicu koju objavi. -->
-
-<details>
-<summary><strong>Primjer zapisa uporabe umjetne inteligencije</strong></summary>
-
-**Primjer — CrisisMap:**
-
-| Stranica ili artefakt | Vrsta pomoći | Što je alat proizveo | Što je tim zadao i promijenio | Lokacija |
-| --- | --- | --- | --- | --- |
-| 3. Obrasci uporabe, UC-002 | Izrada nacrta | Prvu inačicu glavnog i alternativnih tijekova | Tim je zadao stvarna polja obrasca i uklonio granu prijave u sustav koja u aplikaciji ne postoji | Primjer PR #31 |
-| Sekvencijski dijagram, podnošenje prijave | Izvor dijagrama | Nacrt PlantUML-a | Tim je uskladio nazive sudionika s komponentama i uklonio korak slanja obavijesti koji nije implementiran | `diagrams/report-submission.puml` (primjer) |
-
-| Problem | Kako je pronađen | Rješenje |
-| --- | --- | --- |
-| U tekstu je stajalo da se obavijesti dostavljaju unutar jedne minute | Usporedba s Ispitivanjem (5.4): dostava nikada nije ispitana | Tvrdnja je uklonjena; obavijesti su navedene pod Budućim radom |
-| Nacrt je kopirao primjer zahtjeva F-005 iz predloška kao projektni zahtjev | Usporedba s vlastitim popisom zahtjeva tima | Zamijenjeno stvarnim zahtjevom tima |
-
-**Analiza primjera:** Svaki redak navodi stranicu ili datoteku, ono što je alat generirao i ono što je tim promijenio. Pogreške su tipične za generiranu dokumentaciju: funkcionalnost koja ne postoji i tekst predloška prikazan kao činjenica o projektu. Tvrdnje poput „AI je korišten svugdje” ili „sav tekst je pregledan” nije moguće provjeriti. Ovo je nastavni scenarij, a ne opis objavljenog projekta.
-
-</details>
+| U dummy podatcima generirani retci u `Roles` i `EventStates` nisu odgovarali potrebama projekta | Prilikom implementacije i testiranja dolazi do grešaka jer očekivani retci ne postoje u bazi podataka. | Zamijenjeni su problematični retci |
+| Alat je generirao kod za komunikaciju s bazom umijesto da je koristio gotovo sučelje iz modela podataka | Pregledavanje generiranog koda | Kod je prerađen na način da koristi model |
+| Alat je generirao kod koji nije bio usklađen sa najnovijom verzijom baze podataka jer je radio sa zastarijelom shemom | Usporedba sa shemom baze | Davanje nove sheme baze alatu |
